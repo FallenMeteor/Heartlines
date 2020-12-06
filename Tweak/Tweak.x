@@ -67,9 +67,13 @@ SBUIProudLockIconView* faceIDLock;
 
 %hook UIMorphingLabel
 
-- (id)initWithFrame:(CGRect)frame {
+- (void)didMoveToWindow { // hide faceid lock label
 
-    return nil;
+    UIViewController* ancestor = [self _viewControllerForAncestor];
+    if ([ancestor isKindOfClass:%c(SBUIProudLockContainerViewController)])
+        [self removeFromSuperview];
+    else
+        %orig;
 
 }
 

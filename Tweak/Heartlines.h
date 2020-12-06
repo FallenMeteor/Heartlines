@@ -8,6 +8,7 @@
 #import "SparkColourPickerUtils.h"
 #import "HLSLocalization.h"
 #import <Cephei/HBPreferences.h>
+#import <AudioToolbox/AudioServices.h>
 
 HBPreferences* preferences;
 NSDictionary* preferencesColorDictionary;
@@ -18,6 +19,7 @@ extern CFArrayRef CPBitmapCreateImagesFromData(CFDataRef cpbitmap, void *, int, 
 BOOL firstTimeLoaded = NO;
 BOOL isLocked = NO;
 BOOL justPluggedIn = NO;
+BOOL usesLightMode = YES;
 UILabel* weatherReportLabel;
 UILabel* weatherConditionLabel;
 UILabel* timeLabel;
@@ -29,6 +31,9 @@ NSTimer* timer = nil;
 UIColor* backgroundWallpaperColor;
 UIColor* primaryWallpaperColor;
 UIColor* secondaryWallpaperColor;
+UIColor* darkBackgroundWallpaperColor;
+UIColor* darkPrimaryWallpaperColor;
+UIColor* darkSecondaryWallpaperColor;
 UIImage* currentArtwork;
 UIColor* backgroundArtworkColor;
 UIColor* primaryArtworkColor;
@@ -72,6 +77,7 @@ BOOL invisibleInkEffectSwitch = YES;
 @end
 
 @interface UIMorphingLabel : UIView
+- (id)_viewControllerForAncestor;
 @end
 
 @interface SBFLockScreenDateView : UIView
