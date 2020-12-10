@@ -684,6 +684,7 @@ SBUIProudLockIconView* faceIDLock;
 
 	%orig;
 
+    if (showWeatherSwitch) [[PDDokdo sharedInstance] refreshWeatherData];
 	[self updateHeartlines];
 
 	if (!timer) timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateHeartlines) userInfo:nil repeats:YES];
@@ -711,7 +712,6 @@ SBUIProudLockIconView* faceIDLock;
     [dateLabel setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
 
     if (showWeatherSwitch) {
-        [[PDDokdo sharedInstance] refreshWeatherData];
         if ([styleValue intValue] == 0) {
             if ([[HLSLocalization stringForKey:@"CURRENTLY_ITS"] isEqual:nil]) [weatherReportLabel setText:[NSString stringWithFormat:@"Currently it's %@", [[PDDokdo sharedInstance] currentTemperature]]];
             else if (![[HLSLocalization stringForKey:@"CURRENTLY_ITS"] isEqual:nil]) [weatherReportLabel setText:[NSString stringWithFormat:@"%@ %@", [HLSLocalization stringForKey:@"CURRENTLY_ITS"], [[PDDokdo sharedInstance] currentTemperature]]];
@@ -752,6 +752,7 @@ SBUIProudLockIconView* faceIDLock;
 
 	%orig;
 
+    if (showWeatherSwitch) [[PDDokdo sharedInstance] refreshWeatherData];
 	[self updateHeartlines];
 
 	if (!timer) timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateHeartlines) userInfo:nil repeats:YES];
@@ -770,7 +771,6 @@ SBUIProudLockIconView* faceIDLock;
     [dateLabel setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
 
     if (showWeatherSwitch) {
-        [[PDDokdo sharedInstance] refreshWeatherData];
         if ([styleValue intValue] == 0) {
             if ([[HLSLocalization stringForKey:@"CURRENTLY_ITS"] isEqual:nil]) [weatherReportLabel setText:[NSString stringWithFormat:@"Currently it's %@", [[PDDokdo sharedInstance] currentTemperature]]];
             else if (![[HLSLocalization stringForKey:@"CURRENTLY_ITS"] isEqual:nil]) [weatherReportLabel setText:[NSString stringWithFormat:@"%@ %@", [HLSLocalization stringForKey:@"CURRENTLY_ITS"], [[PDDokdo sharedInstance] currentTemperature]]];
