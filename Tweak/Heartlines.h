@@ -35,6 +35,7 @@ UIColor* darkBackgroundWallpaperColor;
 UIColor* darkPrimaryWallpaperColor;
 UIColor* darkSecondaryWallpaperColor;
 UIImage* currentArtwork;
+NSData* lastArtworkData;
 UIColor* backgroundArtworkColor;
 UIColor* primaryArtworkColor;
 UIColor* secondaryArtworkColor;
@@ -57,7 +58,7 @@ NSString* dateFormatValue = @"EEEE d MMMM";
 NSString* weatherUpNextEventColorValue = @"1";
 NSString* timeDateUpNextColorValue = @"3";
 BOOL artworkBasedColorsSwitch = YES;
-NSString* weatherUpNextEventArtworkColorValue = @"1";
+NSString* weatherUpNextEventArtworkColorValue = @"2";
 NSString* timeDateUpNextArtworkColorValue = @"0";
 
 // weather

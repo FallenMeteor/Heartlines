@@ -39,6 +39,10 @@
 			<string>PSGroupCell</string>
 			<key>label</key>
 			<string>Formatting</string>
+			<key>footerText</key>
+			<string>For 12h Clock Use hh:mm</string>
+			<key>isStaticText</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>cell</key>

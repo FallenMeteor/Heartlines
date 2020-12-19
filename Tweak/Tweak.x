@@ -685,6 +685,7 @@ SBUIProudLockIconView* faceIDLock;
 	%orig;
 
     if (showWeatherSwitch) [[PDDokdo sharedInstance] refreshWeatherData];
+    if (showUpNextSwitch && [styleValue intValue] != 2) [[NSNotificationCenter defaultCenter] postNotificationName:@"heartlinesUpdateUpNext" object:nil];
 	[self updateHeartlines];
 
 	if (!timer) timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateHeartlines) userInfo:nil repeats:YES];
@@ -699,6 +700,7 @@ SBUIProudLockIconView* faceIDLock;
 	timer = nil;
 
 }
+
 
 %new
 - (void)updateHeartlines { // update heartlines
@@ -726,8 +728,6 @@ SBUIProudLockIconView* faceIDLock;
             [weatherConditionLabel setText:[NSString stringWithFormat:@"%@", [[PDDokdo sharedInstance] currentConditions]]];
         }
     }
-
-    if (showUpNextSwitch && [styleValue intValue] != 2) [[NSNotificationCenter defaultCenter] postNotificationName:@"heartlinesUpdateUpNext" object:nil];
     
 }
 
@@ -753,6 +753,7 @@ SBUIProudLockIconView* faceIDLock;
 	%orig;
 
     if (showWeatherSwitch) [[PDDokdo sharedInstance] refreshWeatherData];
+    if (showUpNextSwitch && [styleValue intValue] != 2) [[NSNotificationCenter defaultCenter] postNotificationName:@"heartlinesUpdateUpNext" object:nil];
 	[self updateHeartlines];
 
 	if (!timer) timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateHeartlines) userInfo:nil repeats:YES];
@@ -785,8 +786,6 @@ SBUIProudLockIconView* faceIDLock;
             [weatherConditionLabel setText:[NSString stringWithFormat:@"%@", [[PDDokdo sharedInstance] currentConditions]]];
         }
     }
-
-    if (showUpNextSwitch && [styleValue intValue] != 2) [[NSNotificationCenter defaultCenter] postNotificationName:@"heartlinesUpdateUpNext" object:nil];
     
 }
 
@@ -1015,46 +1014,50 @@ SBUIProudLockIconView* faceIDLock;
             if (dict) {
                 if (dict[(__bridge NSString *)kMRMediaRemoteNowPlayingInfoArtworkData]) {
                     // get artwork colors
-                    backgroundArtworkColor = [libKitten backgroundColor:currentArtwork];
-                    primaryArtworkColor = [libKitten primaryColor:currentArtwork];
-                    secondaryArtworkColor = [libKitten secondaryColor:currentArtwork];
+                    if (![lastArtworkData isEqual:[dict objectForKey:(__bridge NSString*)kMRMediaRemoteNowPlayingInfoArtworkData]]) {
+                        backgroundArtworkColor = [libKitten backgroundColor:currentArtwork];
+                        primaryArtworkColor = [libKitten primaryColor:currentArtwork];
+                        secondaryArtworkColor = [libKitten secondaryColor:currentArtwork];
 
-                    // set weather & up next event label artwork color
-                    if ([weatherUpNextEventArtworkColorValue intValue] != 3) {
-                        if ([weatherUpNextEventArtworkColorValue intValue] == 0) {
-                            [weatherReportLabel setTextColor:backgroundArtworkColor];
-                            [weatherConditionLabel setTextColor:backgroundArtworkColor];
-                            [upNextEventLabel setTextColor:backgroundArtworkColor];
-                        } else if ([weatherUpNextEventArtworkColorValue intValue] == 1) {
-                            [weatherReportLabel setTextColor:primaryArtworkColor];
-                            [weatherConditionLabel setTextColor:primaryArtworkColor];
-                            [upNextEventLabel setTextColor:primaryArtworkColor];
-                        } else if ([weatherUpNextEventArtworkColorValue intValue] == 2) {
-                            [weatherReportLabel setTextColor:secondaryArtworkColor];
-                            [weatherConditionLabel setTextColor:secondaryArtworkColor];
-                            [upNextEventLabel setTextColor:secondaryArtworkColor];
+                        // set weather & up next event label artwork color
+                        if ([weatherUpNextEventArtworkColorValue intValue] != 3) {
+                            if ([weatherUpNextEventArtworkColorValue intValue] == 0) {
+                                [weatherReportLabel setTextColor:backgroundArtworkColor];
+                                [weatherConditionLabel setTextColor:backgroundArtworkColor];
+                                [upNextEventLabel setTextColor:backgroundArtworkColor];
+                            } else if ([weatherUpNextEventArtworkColorValue intValue] == 1) {
+                                [weatherReportLabel setTextColor:primaryArtworkColor];
+                                [weatherConditionLabel setTextColor:primaryArtworkColor];
+                                [upNextEventLabel setTextColor:primaryArtworkColor];
+                            } else if ([weatherUpNextEventArtworkColorValue intValue] == 2) {
+                                [weatherReportLabel setTextColor:secondaryArtworkColor];
+                                [weatherConditionLabel setTextColor:secondaryArtworkColor];
+                                [upNextEventLabel setTextColor:secondaryArtworkColor];
+                            }
+                        }
+
+                        // set time, date & up next label artwork color
+                        if ([timeDateUpNextArtworkColorValue intValue] != 3) {
+                            if ([timeDateUpNextArtworkColorValue intValue] == 0) {
+                                [faceIDLock setContentColor:backgroundArtworkColor];
+                                [timeLabel setTextColor:backgroundArtworkColor];
+                                [dateLabel setTextColor:backgroundArtworkColor];
+                                [upNextLabel setTextColor:backgroundArtworkColor];
+                            } else if ([timeDateUpNextArtworkColorValue intValue] == 1) {
+                                [faceIDLock setContentColor:primaryArtworkColor];
+                                [timeLabel setTextColor:primaryArtworkColor];
+                                [dateLabel setTextColor:primaryArtworkColor];
+                                [upNextLabel setTextColor:primaryArtworkColor];
+                            } else if ([timeDateUpNextArtworkColorValue intValue] == 2) {
+                                [faceIDLock setContentColor:secondaryArtworkColor];
+                                [timeLabel setTextColor:secondaryArtworkColor];
+                                [dateLabel setTextColor:secondaryArtworkColor];
+                                [upNextLabel setTextColor:secondaryArtworkColor];
+                            }
                         }
                     }
 
-                    // set time, date & up next label artwork color
-                    if ([timeDateUpNextArtworkColorValue intValue] != 3) {
-                        if ([timeDateUpNextArtworkColorValue intValue] == 0) {
-                            [faceIDLock setContentColor:backgroundArtworkColor];
-                            [timeLabel setTextColor:backgroundArtworkColor];
-                            [dateLabel setTextColor:backgroundArtworkColor];
-                            [upNextLabel setTextColor:backgroundArtworkColor];
-                        } else if ([timeDateUpNextArtworkColorValue intValue] == 1) {
-                            [faceIDLock setContentColor:primaryArtworkColor];
-                            [timeLabel setTextColor:primaryArtworkColor];
-                            [dateLabel setTextColor:primaryArtworkColor];
-                            [upNextLabel setTextColor:primaryArtworkColor];
-                        } else if ([timeDateUpNextArtworkColorValue intValue] == 2) {
-                            [faceIDLock setContentColor:secondaryArtworkColor];
-                            [timeLabel setTextColor:secondaryArtworkColor];
-                            [dateLabel setTextColor:secondaryArtworkColor];
-                            [upNextLabel setTextColor:secondaryArtworkColor];
-                        }
-                    }
+                    lastArtworkData = [dict objectForKey:(__bridge NSString*)kMRMediaRemoteNowPlayingInfoArtworkData];
                 }
             }
         } else { // reset colors when nothing is playing
@@ -1145,7 +1148,7 @@ SBUIProudLockIconView* faceIDLock;
     [preferences registerObject:&weatherUpNextEventColorValue default:@"1" forKey:@"weatherUpNextEventColor"];
     [preferences registerObject:&timeDateUpNextColorValue default:@"3" forKey:@"timeDateUpNextColor"];
     [preferences registerBool:&artworkBasedColorsSwitch default:YES forKey:@"artworkBasedColors"];
-    [preferences registerObject:&weatherUpNextEventArtworkColorValue default:@"1" forKey:@"weatherUpNextEventArtworkColor"];
+    [preferences registerObject:&weatherUpNextEventArtworkColorValue default:@"2" forKey:@"weatherUpNextEventArtworkColor"];
     [preferences registerObject:&timeDateUpNextArtworkColorValue default:@"0" forKey:@"timeDateUpNextArtworkColor"];
 
     // weather
