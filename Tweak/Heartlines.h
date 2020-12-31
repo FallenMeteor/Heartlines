@@ -53,6 +53,18 @@ BOOL smallerFaceIDLockSwitch = YES;
 BOOL useCustomFontSwitch = NO;
 NSString* timeFormatValue = @"HH:mm";
 NSString* dateFormatValue = @"EEEE d MMMM";
+BOOL useCustomUpNextFontSizeSwitch = NO;
+NSString* customUpNextFontSizeValue = @"19.0";
+BOOL useCustomUpNextEventFontSizeSwitch = NO;
+NSString* customUpNextEventFontSizeValue = @"15.0";
+BOOL useCustomTimeFontSizeSwitch = NO;
+NSString* customTimeFontSizeValue = @"61.0";
+BOOL useCustomDateFontSizeSwitch = NO;
+NSString* customDateFontSizeValue = @"17.0";
+BOOL useCustomWeatherReportFontSizeSwitch = NO;
+NSString* customWeatherReportFontSizeValue = @"14.0";
+BOOL useCustomWeatherConditionFontSizeSwitch = NO;
+NSString* customWeatherConditionFontSizeValue = @"14.0";
 
 // colors
 NSString* weatherUpNextEventColorValue = @"1";

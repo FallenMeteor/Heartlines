@@ -137,8 +137,19 @@ SBUIProudLockIconView* faceIDLock;
         if (!upNextLabel && showUpNextSwitch) {
             upNextLabel = [[UILabel alloc] init];
             
-            if (!useCustomFontSwitch) [upNextLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:19]];
-            else [upNextLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:19]];
+            if (!useCustomFontSwitch){
+                if (!useCustomUpNextFontSizeSwitch) {
+                    [upNextLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:19]];
+                } else {
+                    [upNextLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customUpNextFontSizeValue intValue]]];
+                }
+            } else {
+                if (!useCustomUpNextFontSizeSwitch) {
+                    [upNextLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:19]];
+                } else {
+                    [upNextLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customUpNextFontSizeValue intValue]]];
+                }
+            }
             
             if ([[HLSLocalization stringForKey:@"UP_NEXT"] isEqual:nil]) [upNextLabel setText:@"Up next"];
             else if (![[HLSLocalization stringForKey:@"UP_NEXT"] isEqual:nil]) [upNextLabel setText:[NSString stringWithFormat:@"%@", [HLSLocalization stringForKey:@"UP_NEXT"]]];
@@ -164,9 +175,20 @@ SBUIProudLockIconView* faceIDLock;
         // up next event label
         if (!upNextEventLabel && showUpNextSwitch) {
             upNextEventLabel = [[UILabel alloc] init];
-            
-            if (!useCustomFontSwitch) [upNextEventLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:15]];
-            else [upNextEventLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:15]];
+
+            if (!useCustomFontSwitch){
+                if (!useCustomUpNextEventFontSizeSwitch) {
+                    [upNextEventLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:15]];
+                } else {
+                    [upNextEventLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customUpNextEventFontSizeValue intValue]]];
+                }
+            } else {
+                if (!useCustomUpNextEventFontSizeSwitch) {
+                    [upNextEventLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:15]];
+                } else {
+                    [upNextEventLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customUpNextEventFontSizeValue intValue]]];
+                }
+            }
             
             if ([[HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"] isEqual:nil]) [upNextEventLabel setText:@"No upcoming events"];
             else if (![[HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"] isEqual:nil]) [upNextEventLabel setText:[NSString stringWithFormat:@"%@", [HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"]]];
@@ -211,9 +233,20 @@ SBUIProudLockIconView* faceIDLock;
         // time label
         if (!timeLabel) {
             timeLabel = [[UILabel alloc] init];
-            
-            if (!useCustomFontSwitch) [timeLabel setFont:[UIFont fontWithName:@"SFProText-Regular" size:61]];
-            else [timeLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:61]];
+
+            if (!useCustomFontSwitch){
+                if (!useCustomTimeFontSizeSwitch) {
+                    [timeLabel setFont:[UIFont fontWithName:@"SFProText-Regular" size:61]];
+                } else {
+                    [timeLabel setFont:[UIFont fontWithName:@"SFProText-Regular" size:[customTimeFontSizeValue intValue]]];
+                }
+            } else {
+                if (!useCustomTimeFontSizeSwitch) {
+                    [timeLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:61]];
+                } else {
+                    [timeLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customTimeFontSizeValue intValue]]];
+                }
+            }
             
             NSDateFormatter* timeFormat = [[NSDateFormatter alloc] init];
             [timeFormat setDateFormat:timeFormatValue];
@@ -241,9 +274,20 @@ SBUIProudLockIconView* faceIDLock;
         // date label
         if (!dateLabel) {
             dateLabel = [[UILabel alloc] init];
-            
-            if (!useCustomFontSwitch) [dateLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:17]];
-            else [dateLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:17]];
+
+            if (!useCustomFontSwitch){
+                if (!useCustomDateFontSizeSwitch) {
+                    [dateLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:17]];
+                } else {
+                    [dateLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customDateFontSizeValue intValue]]];
+                }
+            } else {
+                if (!useCustomDateFontSizeSwitch) {
+                    [dateLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:17]];
+                } else {
+                    [dateLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customDateFontSizeValue intValue]]];
+                }
+            }
             
             NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
             [dateFormat setDateFormat:dateFormatValue];
@@ -270,9 +314,20 @@ SBUIProudLockIconView* faceIDLock;
         // weather report label
         if (showWeatherSwitch && !weatherReportLabel) {
             weatherReportLabel = [[UILabel alloc] init];
-            
-            if (!useCustomFontSwitch) [weatherReportLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:14]];
-            else [weatherReportLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:14]];
+
+            if (!useCustomFontSwitch){
+                if (!useCustomWeatherReportFontSizeSwitch) {
+                    [weatherReportLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:14]];
+                } else {
+                    [weatherReportLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customWeatherReportFontSizeValue intValue]]];
+                }
+            } else {
+                if (!useCustomWeatherReportFontSizeSwitch) {
+                    [weatherReportLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:14]];
+                } else {
+                    [weatherReportLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customWeatherReportFontSizeValue intValue]]];
+                }
+            }
             
             [[PDDokdo sharedInstance] refreshWeatherData];
             if ([[HLSLocalization stringForKey:@"CURRENTLY_ITS"] isEqual:nil]) [weatherReportLabel setText:[NSString stringWithFormat:@"Currently it's %@", [[PDDokdo sharedInstance] currentTemperature]]];
@@ -299,9 +354,20 @@ SBUIProudLockIconView* faceIDLock;
         // weather condition label
         if (showWeatherSwitch && !weatherConditionLabel) {
             weatherConditionLabel = [[UILabel alloc] init];
-            
-            if (!useCustomFontSwitch) [weatherConditionLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:14]];
-            else [weatherConditionLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:14]];
+
+            if (!useCustomFontSwitch){
+                if (!useCustomWeatherConditionFontSizeSwitch) {
+                    [weatherConditionLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:14]];
+                } else {
+                    [weatherConditionLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customWeatherConditionFontSizeValue intValue]]];
+                }
+            } else {
+                if (!useCustomWeatherConditionFontSizeSwitch) {
+                    [weatherConditionLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:14]];
+                } else {
+                    [weatherConditionLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customWeatherConditionFontSizeValue intValue]]];
+                }
+            }
             
             [weatherConditionLabel setText:[NSString stringWithFormat:@"%@", [[PDDokdo sharedInstance] currentConditions]]];
             
@@ -327,8 +393,19 @@ SBUIProudLockIconView* faceIDLock;
         if (showWeatherSwitch && !weatherConditionLabel) {
             weatherConditionLabel = [[UILabel alloc] init];
             
-            if (!useCustomFontSwitch) [weatherConditionLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:15]];
-            else [weatherConditionLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:15]];
+            if (!useCustomFontSwitch){
+                if (!useCustomWeatherConditionFontSizeSwitch) {
+                    [weatherConditionLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:14]];
+                } else {
+                    [weatherConditionLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customWeatherConditionFontSizeValue intValue]]];
+                }
+            } else {
+                if (!useCustomWeatherConditionFontSizeSwitch) {
+                    [weatherConditionLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:14]];
+                } else {
+                    [weatherConditionLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customWeatherConditionFontSizeValue intValue]]];
+                }
+            }
             
             [[PDDokdo sharedInstance] refreshWeatherData];
             [weatherConditionLabel setText:[NSString stringWithFormat:@"%@, %@",[[PDDokdo sharedInstance] currentConditions], [[PDDokdo sharedInstance] currentTemperature]]];
@@ -355,8 +432,19 @@ SBUIProudLockIconView* faceIDLock;
         if (!dateLabel) {
             dateLabel = [[UILabel alloc] init];
             
-            if (!useCustomFontSwitch) [dateLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:17]];
-            else [dateLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:17]];
+            if (!useCustomFontSwitch){
+                if (!useCustomDateFontSizeSwitch) {
+                    [dateLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:17]];
+                } else {
+                    [dateLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customDateFontSizeValue intValue]]];
+                }
+            } else {
+                if (!useCustomDateFontSizeSwitch) {
+                    [dateLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:17]];
+                } else {
+                    [dateLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customDateFontSizeValue intValue]]];
+                }
+            }
             
             NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
             [dateFormat setDateFormat:dateFormatValue];
@@ -385,8 +473,19 @@ SBUIProudLockIconView* faceIDLock;
         if (!timeLabel) {
             timeLabel = [[UILabel alloc] init];
             
-            if (!useCustomFontSwitch) [timeLabel setFont:[UIFont fontWithName:@"SFProText-Regular" size:61]];
-            else [timeLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:61]];
+            if (!useCustomFontSwitch){
+                if (!useCustomTimeFontSizeSwitch) {
+                    [timeLabel setFont:[UIFont fontWithName:@"SFProText-Regular" size:61]];
+                } else {
+                    [timeLabel setFont:[UIFont fontWithName:@"SFProText-Regular" size:[customTimeFontSizeValue intValue]]];
+                }
+            } else {
+                if (!useCustomTimeFontSizeSwitch) {
+                    [timeLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:61]];
+                } else {
+                    [timeLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customTimeFontSizeValue intValue]]];
+                }
+            }
             
             NSDateFormatter* timeFormat = [[NSDateFormatter alloc] init];
             [timeFormat setDateFormat:timeFormatValue];
@@ -414,8 +513,19 @@ SBUIProudLockIconView* faceIDLock;
         if (!upNextLabel && showUpNextSwitch) {
             upNextLabel = [[UILabel alloc] init];
             
-            if (!useCustomFontSwitch) [upNextLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:19]];
-            else [upNextLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:19]];
+            if (!useCustomFontSwitch){
+                if (!useCustomUpNextFontSizeSwitch) {
+                    [upNextLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:19]];
+                } else {
+                    [upNextLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customUpNextFontSizeValue intValue]]];
+                }
+            } else {
+                if (!useCustomUpNextFontSizeSwitch) {
+                    [upNextLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:19]];
+                } else {
+                    [upNextLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customUpNextFontSizeValue intValue]]];
+                }
+            }
             
             if ([[HLSLocalization stringForKey:@"UP_NEXT"] isEqual:nil]) [upNextLabel setText:@"Up next"];
             else if (![[HLSLocalization stringForKey:@"UP_NEXT"] isEqual:nil]) [upNextLabel setText:[NSString stringWithFormat:@"%@", [HLSLocalization stringForKey:@"UP_NEXT"]]];
@@ -442,8 +552,19 @@ SBUIProudLockIconView* faceIDLock;
         if (!upNextEventLabel && showUpNextSwitch) {
             upNextEventLabel = [[UILabel alloc] init];
             
-            if (!useCustomFontSwitch) [upNextEventLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:15]];
-            else [upNextEventLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:15]];
+            if (!useCustomFontSwitch){
+                if (!useCustomUpNextEventFontSizeSwitch) {
+                    [upNextEventLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:15]];
+                } else {
+                    [upNextEventLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customUpNextEventFontSizeValue intValue]]];
+                }
+            } else {
+                if (!useCustomUpNextEventFontSizeSwitch) {
+                    [upNextEventLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:15]];
+                } else {
+                    [upNextEventLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customUpNextEventFontSizeValue intValue]]];
+                }
+            }
             
             if ([[HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"] isEqual:nil]) [upNextEventLabel setText:@"No upcoming events"];
             else if (![[HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"] isEqual:nil]) [upNextEventLabel setText:[NSString stringWithFormat:@"%@", [HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"]]];
@@ -485,8 +606,19 @@ SBUIProudLockIconView* faceIDLock;
         if (!timeLabel) {
             timeLabel = [[UILabel alloc] init];
             
-            if (!useCustomFontSwitch) [timeLabel setFont:[UIFont fontWithName:@"SFProText-Regular" size:61]];
-            else [timeLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:61]];
+            if (!useCustomFontSwitch){
+                if (!useCustomTimeFontSizeSwitch) {
+                    [timeLabel setFont:[UIFont fontWithName:@"SFProText-Regular" size:61]];
+                } else {
+                    [timeLabel setFont:[UIFont fontWithName:@"SFProText-Regular" size:[customTimeFontSizeValue intValue]]];
+                }
+            } else {
+                if (!useCustomTimeFontSizeSwitch) {
+                    [timeLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:61]];
+                } else {
+                    [timeLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customTimeFontSizeValue intValue]]];
+                }
+            }
             
             NSDateFormatter* timeFormat = [[NSDateFormatter alloc] init];
             [timeFormat setDateFormat:timeFormatValue];
@@ -509,8 +641,19 @@ SBUIProudLockIconView* faceIDLock;
         if (!dateLabel) {
             dateLabel = [[UILabel alloc] init];
             
-            if (!useCustomFontSwitch) [dateLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:17]];
-            else [dateLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:17]];
+            if (!useCustomFontSwitch){
+                if (!useCustomDateFontSizeSwitch) {
+                    [dateLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:17]];
+                } else {
+                    [dateLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customDateFontSizeValue intValue]]];
+                }
+            } else {
+                if (!useCustomDateFontSizeSwitch) {
+                    [dateLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:17]];
+                } else {
+                    [dateLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customDateFontSizeValue intValue]]];
+                }
+            }
             
             NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
             [dateFormat setDateFormat:dateFormatValue];
@@ -533,8 +676,19 @@ SBUIProudLockIconView* faceIDLock;
         if (showWeatherSwitch && !weatherReportLabel) {
             weatherReportLabel = [[UILabel alloc] init];
             
-            if (!useCustomFontSwitch) [weatherReportLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:14]];
-            else [weatherReportLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:14]];
+            if (!useCustomFontSwitch){
+                if (!useCustomWeatherReportFontSizeSwitch) {
+                    [weatherReportLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:14]];
+                } else {
+                    [weatherReportLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customWeatherReportFontSizeValue intValue]]];
+                }
+            } else {
+                if (!useCustomWeatherReportFontSizeSwitch) {
+                    [weatherReportLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:14]];
+                } else {
+                    [weatherReportLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customWeatherReportFontSizeValue intValue]]];
+                }
+            }
             
             [[PDDokdo sharedInstance] refreshWeatherData];
             if ([[HLSLocalization stringForKey:@"ITS"] isEqual:nil]) [weatherReportLabel setText:[NSString stringWithFormat:@"It's %@", [[PDDokdo sharedInstance] currentTemperature]]];
@@ -557,8 +711,19 @@ SBUIProudLockIconView* faceIDLock;
         if (showWeatherSwitch && !weatherConditionLabel) {
             weatherConditionLabel = [[UILabel alloc] init];
             
-            if (!useCustomFontSwitch) [weatherConditionLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:14]];
-            else [weatherConditionLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:14]];
+            if (!useCustomFontSwitch){
+                if (!useCustomWeatherConditionFontSizeSwitch) {
+                    [weatherConditionLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:14]];
+                } else {
+                    [weatherConditionLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customWeatherConditionFontSizeValue intValue]]];
+                }
+            } else {
+                if (!useCustomWeatherConditionFontSizeSwitch) {
+                    [weatherConditionLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:14]];
+                } else {
+                    [weatherConditionLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customWeatherConditionFontSizeValue intValue]]];
+                }
+            }
             
             [weatherConditionLabel setText:[NSString stringWithFormat:@"%@", [[PDDokdo sharedInstance] currentConditions]]];
             [weatherConditionLabel setTextAlignment:NSTextAlignmentRight];
@@ -1143,6 +1308,18 @@ SBUIProudLockIconView* faceIDLock;
     [preferences registerBool:&useCustomFontSwitch default:NO forKey:@"useCustomFont"];
     [preferences registerObject:&timeFormatValue default:@"HH:mm" forKey:@"timeFormat"];
     [preferences registerObject:&dateFormatValue default:@"EEEE d MMMM" forKey:@"dateFormat"];
+    [preferences registerBool:&useCustomUpNextFontSizeSwitch default:NO forKey:@"useCustomUpNextFontSize"];
+    [preferences registerObject:&customUpNextFontSizeValue default:@"19.0" forKey:@"customUpNextFontSize"];
+    [preferences registerBool:&useCustomUpNextEventFontSizeSwitch default:NO forKey:@"useCustomUpNextEventFontSize"];
+    [preferences registerObject:&customUpNextEventFontSizeValue default:@"15.0" forKey:@"customUpNextEventFontSize"];
+    [preferences registerBool:&useCustomTimeFontSizeSwitch default:NO forKey:@"useCustomTimeFontSize"];
+    [preferences registerObject:&customTimeFontSizeValue default:@"61.0" forKey:@"customTimeFontSize"];
+    [preferences registerBool:&useCustomDateFontSizeSwitch default:NO forKey:@"useCustomDateFontSize"];
+    [preferences registerObject:&customDateFontSizeValue default:@"17.0" forKey:@"customDateFontSize"];
+    [preferences registerBool:&useCustomWeatherReportFontSizeSwitch default:NO forKey:@"useCustomWeatherReportFontSize"];
+    [preferences registerObject:&customWeatherReportFontSizeValue default:@"14.0" forKey:@"customWeatherReportFontSize"];
+    [preferences registerBool:&useCustomWeatherConditionFontSizeSwitch default:NO forKey:@"useCustomWeatherConditionFontSize"];
+    [preferences registerObject:&customWeatherConditionFontSizeValue default:@"14.0" forKey:@"customWeatherConditionFontSize"];
 
     // colors
     [preferences registerObject:&weatherUpNextEventColorValue default:@"1" forKey:@"weatherUpNextEventColor"];
