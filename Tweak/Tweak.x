@@ -165,9 +165,9 @@ SBUIProudLockIconView* faceIDLock;
             
             if (![upNextLabel isDescendantOfView:self]) [self addSubview:upNextLabel];
             
-            if ([positionValue intValue] == 0) [upNextLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:12].active = YES;
+            if ([positionValue intValue] == 0) [upNextLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:8].active = YES;
             else if ([positionValue intValue] == 1) [upNextLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
-            else if ([positionValue intValue] == 2) [upNextLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-12].active = YES;
+            else if ([positionValue intValue] == 2) [upNextLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-8].active = YES;
             
             [upNextLabel.centerYAnchor constraintEqualToAnchor:self.topAnchor constant:16].active = YES;
         }
@@ -204,9 +204,9 @@ SBUIProudLockIconView* faceIDLock;
             
             if (![upNextEventLabel isDescendantOfView:self]) [self addSubview:upNextEventLabel];
             
-            if ([positionValue intValue] == 0) [upNextEventLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:12].active = YES;
+            if ([positionValue intValue] == 0) [upNextEventLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:8].active = YES;
             else if ([positionValue intValue] == 1) [upNextEventLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
-            else if ([positionValue intValue] == 2) [upNextEventLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-12].active = YES;
+            else if ([positionValue intValue] == 2) [upNextEventLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-8].active = YES;
             
             [upNextEventLabel.centerYAnchor constraintEqualToAnchor:upNextLabel.bottomAnchor constant:12].active = YES;
         }
@@ -263,9 +263,9 @@ SBUIProudLockIconView* faceIDLock;
             
             if (![timeLabel isDescendantOfView:self]) [self addSubview:timeLabel];
             
-            if ([positionValue intValue] == 0) [timeLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:8].active = YES;
+            if ([positionValue intValue] == 0) [timeLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:4].active = YES;
             else if ([positionValue intValue] == 1) [timeLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
-            else if ([positionValue intValue] == 2) [timeLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-8].active = YES;
+            else if ([positionValue intValue] == 2) [timeLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-4].active = YES;
             
             if (showUpNextSwitch) [timeLabel.centerYAnchor constraintEqualToAnchor:upNextEventLabel.bottomAnchor constant:40].active = YES;
             else if (!showUpNextSwitch) [timeLabel.centerYAnchor constraintEqualToAnchor:self.topAnchor constant:40].active = YES;
@@ -289,9 +289,11 @@ SBUIProudLockIconView* faceIDLock;
                 }
             }
             
-            NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
-            [dateFormat setDateFormat:dateFormatValue];
-            if (!isTimerRunning) [dateLabel setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
+            if (!isTimerRunning) {
+                NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
+                [dateFormat setDateFormat:dateFormatValue];
+                [dateLabel setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
+            }
             
             if ([positionValue intValue] == 0) [dateLabel setTextAlignment:NSTextAlignmentLeft];
             else if ([positionValue intValue] == 1) [dateLabel setTextAlignment:NSTextAlignmentCenter];
@@ -304,9 +306,9 @@ SBUIProudLockIconView* faceIDLock;
             
             if (![dateLabel isDescendantOfView:self]) [self addSubview:dateLabel];
             
-            if ([positionValue intValue] == 0) [dateLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:12].active = YES;
+            if ([positionValue intValue] == 0) [dateLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:8].active = YES;
             else if ([positionValue intValue] == 1) [dateLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
-            else if ([positionValue intValue] == 2) [dateLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-12].active = YES;
+            else if ([positionValue intValue] == 2) [dateLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-8].active = YES;
             
             [dateLabel.centerYAnchor constraintEqualToAnchor:timeLabel.bottomAnchor constant:8].active = YES;
         }
@@ -344,9 +346,9 @@ SBUIProudLockIconView* faceIDLock;
             
             if (![weatherReportLabel isDescendantOfView:self]) [self addSubview:weatherReportLabel];
             
-            if ([positionValue intValue] == 0) [weatherReportLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:12].active = YES;
+            if ([positionValue intValue] == 0) [weatherReportLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:8].active = YES;
             else if ([positionValue intValue] == 1) [weatherReportLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
-            else if ([positionValue intValue] == 2) [weatherReportLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-12].active = YES;
+            else if ([positionValue intValue] == 2) [weatherReportLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-8].active = YES;
             
             [weatherReportLabel.centerYAnchor constraintEqualToAnchor:dateLabel.bottomAnchor constant:16].active = YES;
         }
@@ -382,9 +384,9 @@ SBUIProudLockIconView* faceIDLock;
             
             if (![weatherConditionLabel isDescendantOfView:self]) [self addSubview:weatherConditionLabel];
             
-            if ([positionValue intValue] == 0) [weatherConditionLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:12].active = YES;
+            if ([positionValue intValue] == 0) [weatherConditionLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:8].active = YES;
             else if ([positionValue intValue] == 1) [weatherConditionLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
-            else if ([positionValue intValue] == 2) [weatherConditionLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-12].active = YES;
+            else if ([positionValue intValue] == 2) [weatherConditionLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-8].active = YES;
             
             [weatherConditionLabel.centerYAnchor constraintEqualToAnchor:weatherReportLabel.bottomAnchor constant:8].active = YES;
         }
@@ -421,9 +423,9 @@ SBUIProudLockIconView* faceIDLock;
             
             if (![weatherConditionLabel isDescendantOfView:self]) [self addSubview:weatherConditionLabel];
             
-            if ([positionValue intValue] == 0) [weatherConditionLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:12].active = YES;
+            if ([positionValue intValue] == 0) [weatherConditionLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:8].active = YES;
             else if ([positionValue intValue] == 1) [weatherConditionLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
-            else if ([positionValue intValue] == 2) [weatherConditionLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-12].active = YES;
+            else if ([positionValue intValue] == 2) [weatherConditionLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-8].active = YES;
             
             [weatherConditionLabel.centerYAnchor constraintEqualToAnchor:self.topAnchor constant:16].active = YES;
         }
@@ -446,9 +448,11 @@ SBUIProudLockIconView* faceIDLock;
                 }
             }
             
-            NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
-            [dateFormat setDateFormat:dateFormatValue];
-            if (!isTimerRunning) [dateLabel setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
+            if (!isTimerRunning) {
+                NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
+                [dateFormat setDateFormat:dateFormatValue];
+                [dateLabel setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
+            }
             
             if ([positionValue intValue] == 0) [dateLabel setTextAlignment:NSTextAlignmentLeft];
             else if ([positionValue intValue] == 1) [dateLabel setTextAlignment:NSTextAlignmentCenter];
@@ -461,9 +465,9 @@ SBUIProudLockIconView* faceIDLock;
             
             if (![dateLabel isDescendantOfView:self]) [self addSubview:dateLabel];
             
-            if ([positionValue intValue] == 0) [dateLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:12].active = YES;
+            if ([positionValue intValue] == 0) [dateLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:8].active = YES;
             else if ([positionValue intValue] == 1) [dateLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
-            else if ([positionValue intValue] == 2) [dateLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-12].active = YES;
+            else if ([positionValue intValue] == 2) [dateLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-8].active = YES;
             
             if (showWeatherSwitch) [dateLabel.centerYAnchor constraintEqualToAnchor:weatherConditionLabel.bottomAnchor constant:10].active = YES;
             else if (!showWeatherSwitch) [dateLabel.centerYAnchor constraintEqualToAnchor:self.topAnchor constant:16].active = YES;
@@ -502,9 +506,9 @@ SBUIProudLockIconView* faceIDLock;
             
             if (![timeLabel isDescendantOfView:self]) [self addSubview:timeLabel];
             
-            if ([positionValue intValue] == 0) [timeLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:8].active = YES;
+            if ([positionValue intValue] == 0) [timeLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:4].active = YES;
             else if ([positionValue intValue] == 1) [timeLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
-            else if ([positionValue intValue] == 2) [timeLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-8].active = YES;
+            else if ([positionValue intValue] == 2) [timeLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-4].active = YES;
             
             [timeLabel.centerYAnchor constraintEqualToAnchor:dateLabel.bottomAnchor constant:32].active = YES;
         }
@@ -541,9 +545,9 @@ SBUIProudLockIconView* faceIDLock;
             
             if (![upNextLabel isDescendantOfView:self]) [self addSubview:upNextLabel];
             
-            if ([positionValue intValue] == 0) [upNextLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:12].active = YES;
+            if ([positionValue intValue] == 0) [upNextLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:8].active = YES;
             else if ([positionValue intValue] == 1) [upNextLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
-            else if ([positionValue intValue] == 2) [upNextLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-12].active = YES;
+            else if ([positionValue intValue] == 2) [upNextLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-8].active = YES;
             
             [upNextLabel.centerYAnchor constraintEqualToAnchor:timeLabel.bottomAnchor constant:8].active = YES;
         }
@@ -580,9 +584,9 @@ SBUIProudLockIconView* faceIDLock;
             
             if (![upNextEventLabel isDescendantOfView:self]) [self addSubview:upNextEventLabel];
             
-            if ([positionValue intValue] == 0) [upNextEventLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:12].active = YES;
+            if ([positionValue intValue] == 0) [upNextEventLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:8].active = YES;
             else if ([positionValue intValue] == 1) [upNextEventLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
-            else if ([positionValue intValue] == 2) [upNextEventLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-12].active = YES;
+            else if ([positionValue intValue] == 2) [upNextEventLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-8].active = YES;
             
             [upNextEventLabel.centerYAnchor constraintEqualToAnchor:upNextLabel.bottomAnchor constant:14].active = YES;
         }
@@ -633,7 +637,7 @@ SBUIProudLockIconView* faceIDLock;
             
             if (![timeLabel isDescendantOfView:self]) [self addSubview:timeLabel];
             
-            [timeLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:8].active = YES;
+            [timeLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:4].active = YES;
             [timeLabel.centerYAnchor constraintEqualToAnchor:self.topAnchor constant:50].active = YES;
         }
 
@@ -655,9 +659,11 @@ SBUIProudLockIconView* faceIDLock;
                 }
             }
             
-            NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
-            [dateFormat setDateFormat:dateFormatValue];
-            if (!isTimerRunning) [dateLabel setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
+            if (!isTimerRunning) {
+                NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
+                [dateFormat setDateFormat:dateFormatValue];
+                [dateLabel setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
+            }
             
             [dateLabel setTextAlignment:NSTextAlignmentLeft];
             
@@ -668,7 +674,7 @@ SBUIProudLockIconView* faceIDLock;
             
             if (![dateLabel isDescendantOfView:self]) [self addSubview:dateLabel];
             
-            [dateLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:12].active = YES;
+            [dateLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:8].active = YES;
             [dateLabel.centerYAnchor constraintEqualToAnchor:timeLabel.bottomAnchor constant:8].active = YES;
         }
 
@@ -870,13 +876,17 @@ SBUIProudLockIconView* faceIDLock;
 %new
 - (void)updateHeartlines { // update heartlines
 
-	NSDateFormatter* timeFormat = [[NSDateFormatter alloc] init];
-    [timeFormat setDateFormat:timeFormatValue];
-    if (!justPluggedIn) [timeLabel setText:[timeFormat stringFromDate:[NSDate date]]];
+    if (!justPluggedIn) {
+        NSDateFormatter* timeFormat = [[NSDateFormatter alloc] init];
+        [timeFormat setDateFormat:timeFormatValue];
+        [timeLabel setText:[timeFormat stringFromDate:[NSDate date]]];
+    }
 
-	NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:dateFormatValue];
-    if (!isTimerRunning) [dateLabel setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
+	if (!isTimerRunning) {
+        NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:dateFormatValue];
+        [dateLabel setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
+    }
 
     if (showWeatherSwitch) {
         if ([styleValue intValue] == 0) {
@@ -929,13 +939,17 @@ SBUIProudLockIconView* faceIDLock;
 %new
 - (void)updateHeartlines { // update heartlines
 
-	NSDateFormatter* timeFormat = [[NSDateFormatter alloc] init];
-    [timeFormat setDateFormat:timeFormatValue];
-    if (!justPluggedIn) [timeLabel setText:[timeFormat stringFromDate:[NSDate date]]];
+	if (!justPluggedIn) {
+        NSDateFormatter* timeFormat = [[NSDateFormatter alloc] init];
+        [timeFormat setDateFormat:timeFormatValue];
+        [timeLabel setText:[timeFormat stringFromDate:[NSDate date]]];
+    }
 
-	NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:dateFormatValue];
-    if (!isTimerRunning) [dateLabel setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
+	if (!isTimerRunning) {
+        NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:dateFormatValue];
+        [dateLabel setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
+    }
 
     if (showWeatherSwitch) {
         if ([styleValue intValue] == 0) {
@@ -959,7 +973,7 @@ SBUIProudLockIconView* faceIDLock;
 
 %hook SBFLockScreenDateSubtitleView
 
-- (void)setString:(NSString *)arg1 { // apply timer to the date label
+- (void)setString:(NSString *)arg1 { // apply running timer to the date label
 
     %orig;
 
