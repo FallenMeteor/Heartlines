@@ -8,7 +8,6 @@
 #import "SparkColourPickerUtils.h"
 #import "HLSLocalization.h"
 #import <Cephei/HBPreferences.h>
-#import <AudioToolbox/AudioServices.h>
 
 HBPreferences* preferences;
 NSDictionary* preferencesColorDictionary;
@@ -19,7 +18,7 @@ extern CFArrayRef CPBitmapCreateImagesFromData(CFDataRef cpbitmap, void *, int, 
 BOOL firstTimeLoaded = NO;
 BOOL isLocked = NO;
 BOOL justPluggedIn = NO;
-BOOL usesLightMode = YES;
+BOOL isTimerRunning = NO;
 UILabel* weatherReportLabel;
 UILabel* weatherConditionLabel;
 UILabel* timeLabel;
@@ -103,6 +102,11 @@ BOOL invisibleInkEffectSwitch = YES;
 
 @interface SBBacklightController : NSObject
 - (void)updateHeartlines;
+@end
+
+@interface SBLockScreenManager : NSObject
++ (id)sharedInstance;
+- (BOOL)isLockScreenVisible;
 @end
 
 @interface SBUIController : NSObject

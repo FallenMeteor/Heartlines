@@ -291,7 +291,7 @@ SBUIProudLockIconView* faceIDLock;
             
             NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
             [dateFormat setDateFormat:dateFormatValue];
-            [dateLabel setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
+            if (!isTimerRunning) [dateLabel setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
             
             if ([positionValue intValue] == 0) [dateLabel setTextAlignment:NSTextAlignmentLeft];
             else if ([positionValue intValue] == 1) [dateLabel setTextAlignment:NSTextAlignmentCenter];
@@ -448,7 +448,7 @@ SBUIProudLockIconView* faceIDLock;
             
             NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
             [dateFormat setDateFormat:dateFormatValue];
-            [dateLabel setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
+            if (!isTimerRunning) [dateLabel setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
             
             if ([positionValue intValue] == 0) [dateLabel setTextAlignment:NSTextAlignmentLeft];
             else if ([positionValue intValue] == 1) [dateLabel setTextAlignment:NSTextAlignmentCenter];
@@ -657,7 +657,7 @@ SBUIProudLockIconView* faceIDLock;
             
             NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
             [dateFormat setDateFormat:dateFormatValue];
-            [dateLabel setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
+            if (!isTimerRunning) [dateLabel setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
             
             [dateLabel setTextAlignment:NSTextAlignmentLeft];
             
@@ -876,7 +876,7 @@ SBUIProudLockIconView* faceIDLock;
 
 	NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:dateFormatValue];
-    [dateLabel setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
+    if (!isTimerRunning) [dateLabel setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
 
     if (showWeatherSwitch) {
         if ([styleValue intValue] == 0) {
@@ -917,6 +917,7 @@ SBUIProudLockIconView* faceIDLock;
 
 	%orig;
 
+    if (![[%c(SBLockScreenManager) sharedInstance] isLockScreenVisible]) return;
     if (showWeatherSwitch) [[PDDokdo sharedInstance] refreshWeatherData];
     if (showUpNextSwitch && [styleValue intValue] != 2) [[NSNotificationCenter defaultCenter] postNotificationName:@"heartlinesUpdateUpNext" object:nil];
 	[self updateHeartlines];
@@ -934,7 +935,7 @@ SBUIProudLockIconView* faceIDLock;
 
 	NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:dateFormatValue];
-    [dateLabel setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
+    if (!isTimerRunning) [dateLabel setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
 
     if (showWeatherSwitch) {
         if ([styleValue intValue] == 0) {
@@ -952,6 +953,23 @@ SBUIProudLockIconView* faceIDLock;
         }
     }
     
+}
+
+%end
+
+%hook SBFLockScreenDateSubtitleView
+
+- (void)setString:(NSString *)arg1 { // apply timer to the date label
+
+    %orig;
+
+    if ([arg1 containsString:@":"]) {
+        isTimerRunning = YES;
+        [dateLabel setText:arg1];
+    } else {
+        isTimerRunning = NO;
+    }
+
 }
 
 %end
