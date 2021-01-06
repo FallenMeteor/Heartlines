@@ -26,7 +26,7 @@ UIImage* currentArtwork;
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,10,10)];
         self.titleLabel.font = [UIFont boldSystemFontOfSize:17];
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        self.titleLabel.text = @"1.2.1";
+        self.titleLabel.text = @"1.2.2";
         self.titleLabel.textColor = [UIColor whiteColor];
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         [self.navigationItem.titleView addSubview:self.titleLabel];
@@ -177,20 +177,6 @@ UIImage* currentArtwork;
     }
 
 }
-
-// - (void)setPreferenceValue:(id)value specifier:(PSSpecifier*)specifier{
-
-// 	[super setPreferenceValue:value specifier:specifier];
-	
-//     if ([specifier.properties[@"key"] isEqualToString:@"style"] && [value isEqual:0]) {
-
-//     } else if ([specifier.properties[@"key"] isEqualToString:@"style"] && [value isEqual:1]) {
-
-//     } else if ([specifier.properties[@"key"] isEqualToString:@"style"] && [value isEqual:2]) {
-
-//     }
-
-// }
 
 - (void)toggleState {
 
