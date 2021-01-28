@@ -1,5 +1,4 @@
 #import <UIKit/UIKit.h>
-#import <Foundation/Foundation.h>
 #import <CoreText/CoreText.h>
 #import <EventKit/EventKit.h>
 #import <MediaRemote/MediaRemote.h>
@@ -7,6 +6,7 @@
 #import "libpddokdo.h"
 #import "SparkColourPickerUtils.h"
 #import "HLSLocalization.h"
+#import <dlfcn.h>
 #import <Cephei/HBPreferences.h>
 
 HBPreferences* preferences;
