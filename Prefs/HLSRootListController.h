@@ -5,7 +5,6 @@
 #import <CepheiPrefs/HBAppearanceSettings.h>
 #import <Cephei/HBPreferences.h>
 #import <Cephei/HBRespringController.h>
-#import <spawn.h>
 #import "libappearancecell.h"
 
 @interface HLSAppearanceSettings : HBAppearanceSettings
@@ -25,4 +24,9 @@
 - (void)resetPreferences;
 - (void)respring;
 - (void)respringUtil;
+@end
+
+@interface NSTask : NSObject
+@property(copy)NSString* launchPath;
+- (void)launch;
 @end

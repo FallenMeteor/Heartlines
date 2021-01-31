@@ -1,4 +1,3 @@
-#import <UIKit/UIKit.h>
 #import <CoreText/CoreText.h>
 #import <EventKit/EventKit.h>
 #import <MediaRemote/MediaRemote.h>
