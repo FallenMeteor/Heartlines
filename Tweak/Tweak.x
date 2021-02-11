@@ -50,13 +50,13 @@ SBUIProudLockIconView* faceIDLock;
 - (void)setContentColor:(UIColor *)arg1 { // set faceid lock color
 
     if (artworkBasedColorsSwitch && ([[%c(SBMediaController) sharedInstance] isPlaying] || [[%c(SBMediaController) sharedInstance] isPaused])) return %orig;
-    if ([timeDateUpNextColorValue intValue] == 0)
+    if ([faceIDLockColorValue intValue] == 0)
         %orig(backgroundWallpaperColor);
-    else if ([timeDateUpNextColorValue intValue] == 1)
+    else if ([faceIDLockColorValue intValue] == 1)
         %orig(primaryWallpaperColor);
-    else if ([timeDateUpNextColorValue intValue] == 2)
+    else if ([faceIDLockColorValue intValue] == 2)
         %orig(secondaryWallpaperColor);
-    else if ([timeDateUpNextColorValue intValue] == 3)
+    else if ([faceIDLockColorValue intValue] == 3)
         %orig([SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customTimeDateUpNextColor"] withFallback:@"#FFFFFF"]);
     else
         %orig;
@@ -135,7 +135,7 @@ SBUIProudLockIconView* faceIDLock;
     if ([styleValue intValue] == 0) {
         // up next label
         if (!upNextLabel && showUpNextSwitch) {
-            upNextLabel = [[UILabel alloc] init];
+            upNextLabel = [UILabel new];
             
             if (!useCustomFontSwitch){
                 if (!useCustomUpNextFontSizeSwitch) {
@@ -174,7 +174,7 @@ SBUIProudLockIconView* faceIDLock;
 
         // up next event label
         if (!upNextEventLabel && showUpNextSwitch) {
-            upNextEventLabel = [[UILabel alloc] init];
+            upNextEventLabel = [UILabel new];
 
             if (!useCustomFontSwitch){
                 if (!useCustomUpNextEventFontSizeSwitch) {
@@ -213,7 +213,7 @@ SBUIProudLockIconView* faceIDLock;
 
         // invisible ink
         if (!invisibleInk && invisibleInkEffectSwitch && hideUntilAuthenticatedSwitch && showUpNextSwitch) {
-            invisibleInk = [[NSClassFromString(@"CKInvisibleInkImageEffectView") alloc] init];
+            invisibleInk = [NSClassFromString(@"CKInvisibleInkImageEffectView") new];
             [invisibleInk setHidden:YES];
 
 
@@ -232,7 +232,7 @@ SBUIProudLockIconView* faceIDLock;
 
         // time label
         if (!timeLabel) {
-            timeLabel = [[UILabel alloc] init];
+            timeLabel = [UILabel new];
 
             if (!useCustomFontSwitch){
                 if (!useCustomTimeFontSizeSwitch) {
@@ -248,7 +248,7 @@ SBUIProudLockIconView* faceIDLock;
                 }
             }
             
-            NSDateFormatter* timeFormat = [[NSDateFormatter alloc] init];
+            NSDateFormatter* timeFormat = [NSDateFormatter new];
             [timeFormat setDateFormat:timeFormatValue];
             [timeLabel setText:[timeFormat stringFromDate:[NSDate date]]];
             
@@ -273,7 +273,7 @@ SBUIProudLockIconView* faceIDLock;
 
         // date label
         if (!dateLabel) {
-            dateLabel = [[UILabel alloc] init];
+            dateLabel = [UILabel new];
 
             if (!useCustomFontSwitch){
                 if (!useCustomDateFontSizeSwitch) {
@@ -290,7 +290,7 @@ SBUIProudLockIconView* faceIDLock;
             }
             
             if (!isTimerRunning) {
-                NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
+                NSDateFormatter* dateFormat = [NSDateFormatter new];
                 [dateFormat setDateFormat:dateFormatValue];
                 [dateLabel setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
             }
@@ -315,7 +315,7 @@ SBUIProudLockIconView* faceIDLock;
 
         // weather report label
         if (showWeatherSwitch && !weatherReportLabel) {
-            weatherReportLabel = [[UILabel alloc] init];
+            weatherReportLabel = [UILabel new];
 
             if (!useCustomFontSwitch){
                 if (!useCustomWeatherReportFontSizeSwitch) {
@@ -355,7 +355,7 @@ SBUIProudLockIconView* faceIDLock;
 
         // weather condition label
         if (showWeatherSwitch && !weatherConditionLabel) {
-            weatherConditionLabel = [[UILabel alloc] init];
+            weatherConditionLabel = [UILabel new];
 
             if (!useCustomFontSwitch){
                 if (!useCustomWeatherConditionFontSizeSwitch) {
@@ -393,7 +393,7 @@ SBUIProudLockIconView* faceIDLock;
     } else if ([styleValue intValue] == 1) {
         // weather condition label
         if (showWeatherSwitch && !weatherConditionLabel) {
-            weatherConditionLabel = [[UILabel alloc] init];
+            weatherConditionLabel = [UILabel new];
             
             if (!useCustomFontSwitch){
                 if (!useCustomWeatherConditionFontSizeSwitch) {
@@ -432,7 +432,7 @@ SBUIProudLockIconView* faceIDLock;
 
         // date label
         if (!dateLabel) {
-            dateLabel = [[UILabel alloc] init];
+            dateLabel = [UILabel new];
             
             if (!useCustomFontSwitch){
                 if (!useCustomDateFontSizeSwitch) {
@@ -449,7 +449,7 @@ SBUIProudLockIconView* faceIDLock;
             }
             
             if (!isTimerRunning) {
-                NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
+                NSDateFormatter* dateFormat = [NSDateFormatter new];
                 [dateFormat setDateFormat:dateFormatValue];
                 [dateLabel setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
             }
@@ -475,7 +475,7 @@ SBUIProudLockIconView* faceIDLock;
 
         // time label
         if (!timeLabel) {
-            timeLabel = [[UILabel alloc] init];
+            timeLabel = [UILabel new];
             
             if (!useCustomFontSwitch){
                 if (!useCustomTimeFontSizeSwitch) {
@@ -491,7 +491,7 @@ SBUIProudLockIconView* faceIDLock;
                 }
             }
             
-            NSDateFormatter* timeFormat = [[NSDateFormatter alloc] init];
+            NSDateFormatter* timeFormat = [NSDateFormatter new];
             [timeFormat setDateFormat:timeFormatValue];
             [timeLabel setText:[timeFormat stringFromDate:[NSDate date]]];
             
@@ -515,7 +515,7 @@ SBUIProudLockIconView* faceIDLock;
 
         // up next label
         if (!upNextLabel && showUpNextSwitch) {
-            upNextLabel = [[UILabel alloc] init];
+            upNextLabel = [UILabel new];
             
             if (!useCustomFontSwitch){
                 if (!useCustomUpNextFontSizeSwitch) {
@@ -554,7 +554,7 @@ SBUIProudLockIconView* faceIDLock;
 
         // up next event label
         if (!upNextEventLabel && showUpNextSwitch) {
-            upNextEventLabel = [[UILabel alloc] init];
+            upNextEventLabel = [UILabel new];
             
             if (!useCustomFontSwitch){
                 if (!useCustomUpNextEventFontSizeSwitch) {
@@ -593,7 +593,7 @@ SBUIProudLockIconView* faceIDLock;
 
         // invisible ink
         if (!invisibleInk && invisibleInkEffectSwitch && hideUntilAuthenticatedSwitch && showUpNextSwitch) {
-            invisibleInk = [[NSClassFromString(@"CKInvisibleInkImageEffectView") alloc] init];
+            invisibleInk = [NSClassFromString(@"CKInvisibleInkImageEffectView") new];
             [invisibleInk setHidden:YES];
 
             [invisibleInk setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -608,7 +608,7 @@ SBUIProudLockIconView* faceIDLock;
     } else if ([styleValue intValue] == 2) {
         // time label
         if (!timeLabel) {
-            timeLabel = [[UILabel alloc] init];
+            timeLabel = [UILabel new];
             
             if (!useCustomFontSwitch){
                 if (!useCustomTimeFontSizeSwitch) {
@@ -624,7 +624,7 @@ SBUIProudLockIconView* faceIDLock;
                 }
             }
             
-            NSDateFormatter* timeFormat = [[NSDateFormatter alloc] init];
+            NSDateFormatter* timeFormat = [NSDateFormatter new];
             [timeFormat setDateFormat:timeFormatValue];
             [timeLabel setText:[timeFormat stringFromDate:[NSDate date]]];
             
@@ -643,7 +643,7 @@ SBUIProudLockIconView* faceIDLock;
 
         // date label
         if (!dateLabel) {
-            dateLabel = [[UILabel alloc] init];
+            dateLabel = [UILabel new];
             
             if (!useCustomFontSwitch){
                 if (!useCustomDateFontSizeSwitch) {
@@ -660,7 +660,7 @@ SBUIProudLockIconView* faceIDLock;
             }
             
             if (!isTimerRunning) {
-                NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
+                NSDateFormatter* dateFormat = [NSDateFormatter new];
                 [dateFormat setDateFormat:dateFormatValue];
                 [dateLabel setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
             }
@@ -680,7 +680,7 @@ SBUIProudLockIconView* faceIDLock;
 
         // weather report label
         if (showWeatherSwitch && !weatherReportLabel) {
-            weatherReportLabel = [[UILabel alloc] init];
+            weatherReportLabel = [UILabel new];
             
             if (!useCustomFontSwitch){
                 if (!useCustomWeatherReportFontSizeSwitch) {
@@ -715,7 +715,7 @@ SBUIProudLockIconView* faceIDLock;
 
         // weather condition label
         if (showWeatherSwitch && !weatherConditionLabel) {
-            weatherConditionLabel = [[UILabel alloc] init];
+            weatherConditionLabel = [UILabel new];
             
             if (!useCustomFontSwitch){
                 if (!useCustomWeatherConditionFontSizeSwitch) {
@@ -757,46 +757,72 @@ SBUIProudLockIconView* faceIDLock;
     primaryWallpaperColor = [libKitten primaryColor:wallpaper];
     secondaryWallpaperColor = [libKitten secondaryColor:wallpaper];
 
-    // set weather & up next event label color
-    if ([weatherUpNextEventColorValue intValue] == 0) {
-        [weatherReportLabel setTextColor:backgroundWallpaperColor];
-        [weatherConditionLabel setTextColor:backgroundWallpaperColor];
-        [upNextEventLabel setTextColor:backgroundWallpaperColor];
-    } else if ([weatherUpNextEventColorValue intValue] == 1) {
-        [weatherReportLabel setTextColor:primaryWallpaperColor];
-        [weatherConditionLabel setTextColor:primaryWallpaperColor];
-        [upNextEventLabel setTextColor:primaryWallpaperColor];
-    } else if ([weatherUpNextEventColorValue intValue] == 2) {
-        [weatherReportLabel setTextColor:secondaryWallpaperColor];
-        [weatherConditionLabel setTextColor:secondaryWallpaperColor];
-        [upNextEventLabel setTextColor:secondaryWallpaperColor];
-    } else if ([weatherUpNextEventColorValue intValue] == 3) {
-        [weatherReportLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customWeatherUpNextEventColor"] withFallback:@"#FFFFFF"]];
-        [weatherConditionLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customWeatherUpNextEventColor"] withFallback:@"#FFFFFF"]];
-        [upNextEventLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customWeatherUpNextEventColor"] withFallback:@"#FFFFFF"]];
+    // set colors
+    if ([faceIDLockColorValue intValue] == 0)
+        [faceIDLock setContentColor:backgroundWallpaperColor];
+    else if ([faceIDLockColorValue intValue] == 1)
+        [faceIDLock setContentColor:primaryWallpaperColor];
+    else if ([faceIDLockColorValue intValue] == 2)
+        [faceIDLock setContentColor:secondaryWallpaperColor];
+    else if ([faceIDLockColorValue intValue] == 3)
+        [faceIDLock setContentColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customFaceIDLockColor"] withFallback:@"#FFFFFF"]];
+
+    if (showUpNextSwitch) {
+        if ([upNextColorValue intValue] == 0)
+            [upNextLabel setTextColor:backgroundWallpaperColor];
+        else if ([upNextColorValue intValue] == 1)
+            [upNextLabel setTextColor:primaryWallpaperColor];
+        else if ([upNextColorValue intValue] == 2)
+            [upNextLabel setTextColor:secondaryWallpaperColor];
+        else if ([upNextColorValue intValue] == 3)
+            [upNextLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customUpNextColor"] withFallback:@"#FFFFFF"]];
+
+        if ([upNextEventColorValue intValue] == 0)
+            [upNextEventLabel setTextColor:backgroundWallpaperColor];
+        else if ([upNextEventColorValue intValue] == 1)
+            [upNextEventLabel setTextColor:primaryWallpaperColor];
+        else if ([upNextEventColorValue intValue] == 2)
+            [upNextEventLabel setTextColor:secondaryWallpaperColor];
+        else if ([upNextEventColorValue intValue] == 3)
+            [upNextEventLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customUpNextEventColor"] withFallback:@"#FFFFFF"]];
     }
 
-    // set faceid lock, time, date & up next label color
-    if ([timeDateUpNextColorValue intValue] == 0) {
-        [faceIDLock setContentColor:backgroundWallpaperColor];
+    if ([timeColorValue intValue] == 0)
         [timeLabel setTextColor:backgroundWallpaperColor];
-        [dateLabel setTextColor:backgroundWallpaperColor];
-        [upNextLabel setTextColor:backgroundWallpaperColor];
-    } else if ([timeDateUpNextColorValue intValue] == 1) {
-        [faceIDLock setContentColor:primaryWallpaperColor];
+    else if ([timeColorValue intValue] == 1)
         [timeLabel setTextColor:primaryWallpaperColor];
-        [dateLabel setTextColor:primaryWallpaperColor];
-        [upNextLabel setTextColor:primaryWallpaperColor];
-    } else if ([timeDateUpNextColorValue intValue] == 2) {
-        [faceIDLock setContentColor:secondaryWallpaperColor];
+    else if ([timeColorValue intValue] == 2)
         [timeLabel setTextColor:secondaryWallpaperColor];
+    else if ([timeColorValue intValue] == 3)
+        [timeLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customTimeColor"] withFallback:@"#FFFFFF"]];
+
+    if ([dateColorValue intValue] == 0)
+        [dateLabel setTextColor:backgroundWallpaperColor];
+    else if ([dateColorValue intValue] == 1)
+        [dateLabel setTextColor:primaryWallpaperColor];
+    else if ([dateColorValue intValue] == 2)
         [dateLabel setTextColor:secondaryWallpaperColor];
-        [upNextLabel setTextColor:secondaryWallpaperColor];
-    } else if ([timeDateUpNextColorValue intValue] == 3) {
-        [faceIDLock setContentColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customTimeDateUpNextColor"] withFallback:@"#FFFFFF"]];
-        [timeLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customTimeDateUpNextColor"] withFallback:@"#FFFFFF"]];
-        [dateLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customTimeDateUpNextColor"] withFallback:@"#FFFFFF"]];
-        [upNextLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customTimeDateUpNextColor"] withFallback:@"#FFFFFF"]];
+    else if ([dateColorValue intValue] == 3)
+        [dateLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customDateColor"] withFallback:@"#FFFFFF"]];
+
+    if (showWeatherSwitch) {
+        if ([weatherReportColorValue intValue] == 0)
+            [weatherReportLabel setTextColor:backgroundWallpaperColor];
+        else if ([weatherReportColorValue intValue] == 1)
+            [weatherReportLabel setTextColor:primaryWallpaperColor];
+        else if ([weatherReportColorValue intValue] == 2)
+            [weatherReportLabel setTextColor:secondaryWallpaperColor];
+        else if ([weatherReportColorValue intValue] == 3)
+            [weatherReportLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customWeatherReportColor"] withFallback:@"#FFFFFF"]];
+
+        if ([weatherConditionColorValue intValue] == 0)
+            [weatherConditionLabel setTextColor:backgroundWallpaperColor];
+        else if ([weatherConditionColorValue intValue] == 1)
+            [weatherConditionLabel setTextColor:primaryWallpaperColor];
+        else if ([weatherConditionColorValue intValue] == 2)
+            [weatherConditionLabel setTextColor:secondaryWallpaperColor];
+        else if ([weatherConditionColorValue intValue] == 3)
+            [weatherConditionLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customWeatherConditionColor"] withFallback:@"#FFFFFF"]];
     }
 
 }
@@ -805,14 +831,14 @@ SBUIProudLockIconView* faceIDLock;
 - (void)updateHeartlinesUpNext:(NSNotification *)notification { // update up next
 
     if (![notification.name isEqual:@"heartlinesUpdateUpNext"]) return;
-    EKEventStore* store = [[EKEventStore alloc] init];
+    EKEventStore* store = [EKEventStore new];
     NSCalendar* calendar = [NSCalendar currentCalendar];
 
-    NSDateComponents* todayComponents = [[NSDateComponents alloc] init];
+    NSDateComponents* todayComponents = [NSDateComponents new];
     todayComponents.day = -1;
     NSDate* today = [calendar dateByAddingComponents:todayComponents toDate:[NSDate date] options:0];
 
-    NSDateComponents* daysFromNowComponents = [[NSDateComponents alloc] init];
+    NSDateComponents* daysFromNowComponents = [NSDateComponents new];
     daysFromNowComponents.day = [dayRangeValue intValue];
     NSDate* daysFromNow = [calendar dateByAddingComponents:daysFromNowComponents toDate:[NSDate date] options:0];
 
@@ -877,13 +903,13 @@ SBUIProudLockIconView* faceIDLock;
 - (void)updateHeartlines { // update heartlines
 
     if (!justPluggedIn) {
-        NSDateFormatter* timeFormat = [[NSDateFormatter alloc] init];
+        NSDateFormatter* timeFormat = [NSDateFormatter new];
         [timeFormat setDateFormat:timeFormatValue];
         [timeLabel setText:[timeFormat stringFromDate:[NSDate date]]];
     }
 
 	if (!isTimerRunning) {
-        NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
+        NSDateFormatter* dateFormat = [NSDateFormatter new];
         [dateFormat setDateFormat:dateFormatValue];
         [dateLabel setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
     }
@@ -940,13 +966,13 @@ SBUIProudLockIconView* faceIDLock;
 - (void)updateHeartlines { // update heartlines
 
 	if (!justPluggedIn) {
-        NSDateFormatter* timeFormat = [[NSDateFormatter alloc] init];
+        NSDateFormatter* timeFormat = [NSDateFormatter new];
         [timeFormat setDateFormat:timeFormatValue];
         [timeLabel setText:[timeFormat stringFromDate:[NSDate date]]];
     }
 
 	if (!isTimerRunning) {
-        NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
+        NSDateFormatter* dateFormat = [NSDateFormatter new];
         [dateFormat setDateFormat:dateFormatValue];
         [dateLabel setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
     }
@@ -1129,7 +1155,7 @@ SBUIProudLockIconView* faceIDLock;
 		} completion:^(BOOL finished) {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
                 [UIView transitionWithView:timeLabel duration:0.1 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-                    NSDateFormatter* timeFormat = [[NSDateFormatter alloc] init];
+                    NSDateFormatter* timeFormat = [NSDateFormatter new];
                     [timeFormat setDateFormat:timeFormatValue];
                     [timeLabel setText:[timeFormat stringFromDate:[NSDate date]]];
                 } completion:nil];
@@ -1206,98 +1232,141 @@ SBUIProudLockIconView* faceIDLock;
         if (information) {
             NSDictionary* dict = (__bridge NSDictionary *)information;
 
-            currentArtwork = [UIImage imageWithData:[dict objectForKey:(__bridge NSString*)kMRMediaRemoteNowPlayingInfoArtworkData]]; // get artwork
+            currentArtwork = [UIImage imageWithData:[dict objectForKey:(__bridge NSString*)kMRMediaRemoteNowPlayingInfoArtworkData]];
 
             if (dict) {
                 if (dict[(__bridge NSString *)kMRMediaRemoteNowPlayingInfoArtworkData]) {
-                    // get artwork colors
                     if (![lastArtworkData isEqual:[dict objectForKey:(__bridge NSString*)kMRMediaRemoteNowPlayingInfoArtworkData]]) {
+                        // get artwork colors
                         backgroundArtworkColor = [libKitten backgroundColor:currentArtwork];
                         primaryArtworkColor = [libKitten primaryColor:currentArtwork];
                         secondaryArtworkColor = [libKitten secondaryColor:currentArtwork];
 
-                        // set weather & up next event label artwork color
-                        if ([weatherUpNextEventArtworkColorValue intValue] != 3) {
-                            if ([weatherUpNextEventArtworkColorValue intValue] == 0) {
-                                [weatherReportLabel setTextColor:backgroundArtworkColor];
-                                [weatherConditionLabel setTextColor:backgroundArtworkColor];
+                        // set artwork colors
+                        if ([faceIDLockArtworkColorValue intValue] == 0)
+                            [faceIDLock setContentColor:backgroundArtworkColor];
+                        else if ([faceIDLockArtworkColorValue intValue] == 1)
+                            [faceIDLock setContentColor:primaryArtworkColor];
+                        else if ([faceIDLockArtworkColorValue intValue] == 2)
+                            [faceIDLock setContentColor:secondaryArtworkColor];
+
+                        if (showUpNextSwitch) {
+                            if ([upNextArtworkColorValue intValue] == 0)
+                                [upNextLabel setTextColor:backgroundArtworkColor];
+                            else if ([upNextArtworkColorValue intValue] == 1)
+                                [upNextLabel setTextColor:primaryArtworkColor];
+                            else if ([upNextArtworkColorValue intValue] == 2)
+                                [upNextLabel setTextColor:secondaryArtworkColor];
+
+                            if ([upNextEventArtworkColorValue intValue] == 0)
                                 [upNextEventLabel setTextColor:backgroundArtworkColor];
-                            } else if ([weatherUpNextEventArtworkColorValue intValue] == 1) {
-                                [weatherReportLabel setTextColor:primaryArtworkColor];
-                                [weatherConditionLabel setTextColor:primaryArtworkColor];
+                            else if ([upNextEventArtworkColorValue intValue] == 1)
                                 [upNextEventLabel setTextColor:primaryArtworkColor];
-                            } else if ([weatherUpNextEventArtworkColorValue intValue] == 2) {
-                                [weatherReportLabel setTextColor:secondaryArtworkColor];
-                                [weatherConditionLabel setTextColor:secondaryArtworkColor];
+                            else if ([upNextEventArtworkColorValue intValue] == 2)
                                 [upNextEventLabel setTextColor:secondaryArtworkColor];
-                            }
                         }
 
-                        // set time, date & up next label artwork color
-                        if ([timeDateUpNextArtworkColorValue intValue] != 3) {
-                            if ([timeDateUpNextArtworkColorValue intValue] == 0) {
-                                [faceIDLock setContentColor:backgroundArtworkColor];
-                                [timeLabel setTextColor:backgroundArtworkColor];
-                                [dateLabel setTextColor:backgroundArtworkColor];
-                                [upNextLabel setTextColor:backgroundArtworkColor];
-                            } else if ([timeDateUpNextArtworkColorValue intValue] == 1) {
-                                [faceIDLock setContentColor:primaryArtworkColor];
-                                [timeLabel setTextColor:primaryArtworkColor];
-                                [dateLabel setTextColor:primaryArtworkColor];
-                                [upNextLabel setTextColor:primaryArtworkColor];
-                            } else if ([timeDateUpNextArtworkColorValue intValue] == 2) {
-                                [faceIDLock setContentColor:secondaryArtworkColor];
-                                [timeLabel setTextColor:secondaryArtworkColor];
-                                [dateLabel setTextColor:secondaryArtworkColor];
-                                [upNextLabel setTextColor:secondaryArtworkColor];
-                            }
+                        if ([timeArtworkColorValue intValue] == 0)
+                            [timeLabel setTextColor:backgroundArtworkColor];
+                        else if ([timeArtworkColorValue intValue] == 1)
+                            [timeLabel setTextColor:primaryArtworkColor];
+                        else if ([timeArtworkColorValue intValue] == 2)
+                            [timeLabel setTextColor:secondaryArtworkColor];
+
+                        if ([dateArtworkColorValue intValue] == 0)
+                            [dateLabel setTextColor:backgroundArtworkColor];
+                        else if ([dateArtworkColorValue intValue] == 1)
+                            [dateLabel setTextColor:primaryArtworkColor];
+                        else if ([dateArtworkColorValue intValue] == 2)
+                            [dateLabel setTextColor:secondaryArtworkColor];
+
+                        if (showWeatherSwitch) {
+                            if ([weatherReportArtworkColorValue intValue] == 0)
+                                [weatherReportLabel setTextColor:backgroundArtworkColor];
+                            else if ([weatherReportArtworkColorValue intValue] == 1)
+                                [weatherReportLabel setTextColor:primaryArtworkColor];
+                            else if ([weatherReportArtworkColorValue intValue] == 2)
+                                [weatherReportLabel setTextColor:secondaryArtworkColor];
+
+                            if ([weatherConditionArtworkColorValue intValue] == 0)
+                                [weatherConditionLabel setTextColor:backgroundArtworkColor];
+                            else if ([weatherConditionArtworkColorValue intValue] == 1)
+                                [weatherConditionLabel setTextColor:primaryArtworkColor];
+                            else if ([weatherConditionArtworkColorValue intValue] == 2)
+                                [weatherConditionLabel setTextColor:secondaryArtworkColor];
                         }
+
                     }
 
                     lastArtworkData = [dict objectForKey:(__bridge NSString*)kMRMediaRemoteNowPlayingInfoArtworkData];
                 }
             }
         } else { // reset colors when nothing is playing
-            // set weather & up next event label color
-            if ([weatherUpNextEventColorValue intValue] == 0) {
-                [weatherReportLabel setTextColor:backgroundWallpaperColor];
-                [weatherConditionLabel setTextColor:backgroundWallpaperColor];
-                [upNextEventLabel setTextColor:backgroundWallpaperColor];
-            } else if ([weatherUpNextEventColorValue intValue] == 1) {
-                [weatherReportLabel setTextColor:primaryWallpaperColor];
-                [weatherConditionLabel setTextColor:primaryWallpaperColor];
-                [upNextEventLabel setTextColor:primaryWallpaperColor];
-            } else if ([weatherUpNextEventColorValue intValue] == 2) {
-                [weatherReportLabel setTextColor:secondaryWallpaperColor];
-                [weatherConditionLabel setTextColor:secondaryWallpaperColor];
-                [upNextEventLabel setTextColor:secondaryWallpaperColor];
-            } else if ([weatherUpNextEventColorValue intValue] == 3) {
-                [weatherReportLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customWeatherUpNextEventColor"] withFallback:@"#FFFFFF"]];
-                [weatherConditionLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customWeatherUpNextEventColor"] withFallback:@"#FFFFFF"]];
-                [upNextEventLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customWeatherUpNextEventColor"] withFallback:@"#FFFFFF"]];
+            if ([faceIDLockColorValue intValue] == 0)
+                [faceIDLock setContentColor:backgroundWallpaperColor];
+            else if ([faceIDLockColorValue intValue] == 1)
+                [faceIDLock setContentColor:primaryWallpaperColor];
+            else if ([faceIDLockColorValue intValue] == 2)
+                [faceIDLock setContentColor:secondaryWallpaperColor];
+            else if ([faceIDLockColorValue intValue] == 3)
+                [faceIDLock setContentColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customFaceIDLockColor"] withFallback:@"#FFFFFF"]];
+
+            if (showUpNextSwitch) {
+                if ([upNextColorValue intValue] == 0)
+                    [upNextLabel setTextColor:backgroundWallpaperColor];
+                else if ([upNextColorValue intValue] == 1)
+                    [upNextLabel setTextColor:primaryWallpaperColor];
+                else if ([upNextColorValue intValue] == 2)
+                    [upNextLabel setTextColor:secondaryWallpaperColor];
+                else if ([upNextColorValue intValue] == 3)
+                    [upNextLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customUpNextColor"] withFallback:@"#FFFFFF"]];
+
+                if ([upNextEventColorValue intValue] == 0)
+                    [upNextEventLabel setTextColor:backgroundWallpaperColor];
+                else if ([upNextEventColorValue intValue] == 1)
+                    [upNextEventLabel setTextColor:primaryWallpaperColor];
+                else if ([upNextEventColorValue intValue] == 2)
+                    [upNextEventLabel setTextColor:secondaryWallpaperColor];
+                else if ([upNextEventColorValue intValue] == 3)
+                    [upNextEventLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customUpNextEventColor"] withFallback:@"#FFFFFF"]];
             }
 
-            // set faceid lock, time, date & up next label color
-            if ([timeDateUpNextColorValue intValue] == 0) {
-                [faceIDLock setContentColor:backgroundWallpaperColor];
+            if ([timeColorValue intValue] == 0)
                 [timeLabel setTextColor:backgroundWallpaperColor];
-                [dateLabel setTextColor:backgroundWallpaperColor];
-                [upNextLabel setTextColor:backgroundWallpaperColor];
-            } else if ([timeDateUpNextColorValue intValue] == 1) {
-                [faceIDLock setContentColor:primaryWallpaperColor];
+            else if ([timeColorValue intValue] == 1)
                 [timeLabel setTextColor:primaryWallpaperColor];
-                [dateLabel setTextColor:primaryWallpaperColor];
-                [upNextLabel setTextColor:primaryWallpaperColor];
-            } else if ([timeDateUpNextColorValue intValue] == 2) {
-                [faceIDLock setContentColor:secondaryWallpaperColor];
+            else if ([timeColorValue intValue] == 2)
                 [timeLabel setTextColor:secondaryWallpaperColor];
+            else if ([timeColorValue intValue] == 3)
+                [timeLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customTimeColor"] withFallback:@"#FFFFFF"]];
+
+            if ([dateColorValue intValue] == 0)
+                [dateLabel setTextColor:backgroundWallpaperColor];
+            else if ([dateColorValue intValue] == 1)
+                [dateLabel setTextColor:primaryWallpaperColor];
+            else if ([dateColorValue intValue] == 2)
                 [dateLabel setTextColor:secondaryWallpaperColor];
-                [upNextLabel setTextColor:secondaryWallpaperColor];
-            } else if ([timeDateUpNextColorValue intValue] == 3) {
-                [faceIDLock setContentColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customTimeDateUpNextColor"] withFallback:@"#FFFFFF"]];
-                [timeLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customTimeDateUpNextColor"] withFallback:@"#FFFFFF"]];
-                [dateLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customTimeDateUpNextColor"] withFallback:@"#FFFFFF"]];
-                [upNextLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"timeDateUpNextColor"] withFallback:@"#FFFFFF"]];
+            else if ([dateColorValue intValue] == 3)
+                [dateLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customDateColor"] withFallback:@"#FFFFFF"]];
+
+            if (showWeatherSwitch) {
+                if ([weatherReportColorValue intValue] == 0)
+                    [weatherReportLabel setTextColor:backgroundWallpaperColor];
+                else if ([weatherReportColorValue intValue] == 1)
+                    [weatherReportLabel setTextColor:primaryWallpaperColor];
+                else if ([weatherReportColorValue intValue] == 2)
+                    [weatherReportLabel setTextColor:secondaryWallpaperColor];
+                else if ([weatherReportColorValue intValue] == 3)
+                    [weatherReportLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customWeatherReportColor"] withFallback:@"#FFFFFF"]];
+
+                if ([weatherConditionColorValue intValue] == 0)
+                    [weatherConditionLabel setTextColor:backgroundWallpaperColor];
+                else if ([weatherConditionColorValue intValue] == 1)
+                    [weatherConditionLabel setTextColor:primaryWallpaperColor];
+                else if ([weatherConditionColorValue intValue] == 2)
+                    [weatherConditionLabel setTextColor:secondaryWallpaperColor];
+                else if ([weatherConditionColorValue intValue] == 3)
+                    [weatherConditionLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customWeatherConditionColor"] withFallback:@"#FFFFFF"]];
             }
         }
   	});
@@ -1354,11 +1423,21 @@ SBUIProudLockIconView* faceIDLock;
     [preferences registerObject:&customWeatherConditionFontSizeValue default:@"14.0" forKey:@"customWeatherConditionFontSize"];
 
     // colors
-    [preferences registerObject:&weatherUpNextEventColorValue default:@"1" forKey:@"weatherUpNextEventColor"];
-    [preferences registerObject:&timeDateUpNextColorValue default:@"3" forKey:@"timeDateUpNextColor"];
+    [preferences registerObject:&faceIDLockColorValue default:@"3" forKey:@"faceIDLockColor"];
+    [preferences registerObject:&upNextColorValue default:@"3" forKey:@"upNextColor"];
+    [preferences registerObject:&upNextEventColorValue default:@"1" forKey:@"upNextEventColor"];
+    [preferences registerObject:&timeColorValue default:@"3" forKey:@"timeColor"];
+    [preferences registerObject:&dateColorValue default:@"3" forKey:@"dateColor"];
+    [preferences registerObject:&weatherReportColorValue default:@"1" forKey:@"weatherReportColor"];
+    [preferences registerObject:&weatherConditionColorValue default:@"1" forKey:@"weatherConditionColor"];
     [preferences registerBool:&artworkBasedColorsSwitch default:YES forKey:@"artworkBasedColors"];
-    [preferences registerObject:&weatherUpNextEventArtworkColorValue default:@"2" forKey:@"weatherUpNextEventArtworkColor"];
-    [preferences registerObject:&timeDateUpNextArtworkColorValue default:@"0" forKey:@"timeDateUpNextArtworkColor"];
+    [preferences registerObject:&faceIDLockArtworkColorValue default:@"0" forKey:@"faceIDLockArtworkColor"];
+    [preferences registerObject:&upNextArtworkColorValue default:@"0" forKey:@"upNextArtworkColor"];
+    [preferences registerObject:&upNextEventArtworkColorValue default:@"2" forKey:@"upNextEventArtworkColor"];
+    [preferences registerObject:&timeArtworkColorValue default:@"0" forKey:@"timeArtworkColor"];
+    [preferences registerObject:&dateArtworkColorValue default:@"0" forKey:@"dateArtworkColor"];
+    [preferences registerObject:&weatherReportArtworkColorValue default:@"2" forKey:@"weatherReportArtworkColor"];
+    [preferences registerObject:&weatherConditionArtworkColorValue default:@"2" forKey:@"weatherConditionArtworkColor"];
 
     // weather
     [preferences registerBool:&showWeatherSwitch default:YES forKey:@"showWeather"];

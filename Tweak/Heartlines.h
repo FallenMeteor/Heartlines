@@ -65,11 +65,21 @@ BOOL useCustomWeatherConditionFontSizeSwitch = NO;
 NSString* customWeatherConditionFontSizeValue = @"14.0";
 
 // colors
-NSString* weatherUpNextEventColorValue = @"1";
-NSString* timeDateUpNextColorValue = @"3";
+NSString* faceIDLockColorValue = @"3";
+NSString* upNextColorValue = @"3";
+NSString* upNextEventColorValue = @"1";
+NSString* timeColorValue = @"3";
+NSString* dateColorValue = @"3";
+NSString* weatherReportColorValue = @"1";
+NSString* weatherConditionColorValue = @"1";
 BOOL artworkBasedColorsSwitch = YES;
-NSString* weatherUpNextEventArtworkColorValue = @"2";
-NSString* timeDateUpNextArtworkColorValue = @"0";
+NSString* faceIDLockArtworkColorValue = @"0";
+NSString* upNextArtworkColorValue = @"0";
+NSString* upNextEventArtworkColorValue = @"2";
+NSString* timeArtworkColorValue = @"0";
+NSString* dateArtworkColorValue = @"0";
+NSString* weatherReportArtworkColorValue = @"2";
+NSString* weatherConditionArtworkColorValue = @"2";
 
 // weather
 BOOL showWeatherSwitch = YES;

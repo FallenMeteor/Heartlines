@@ -9,65 +9,7 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>Weather, Next Up Event</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSLinkListCell</string>
-			<key>default</key>
-			<integer>1</integer>
-			<key>detail</key>
-			<string>PSListItemsController</string>
-			<key>defaults</key>
-			<string>love.litten.heartlinespreferences</string>
-			<key>label</key>
-			<string>Color</string>
-			<key>key</key>
-			<string>weatherUpNextEventColor</string>
-			<key>validValues</key>
-			<array>
-				<integer>0</integer>
-				<integer>1</integer>
-				<integer>2</integer>
-				<integer>3</integer>
-			</array>
-			<key>validTitles</key>
-			<array>
-				<string>Wallpaper Based 1</string>
-				<string>Wallpaper Based 2</string>
-				<string>Wallpaper Based 3</string>
-				<string>Custom</string>
-			</array>
-			<key>PostNotification</key>
-			<string>love.litten.heartlinespreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSLinkCell</string>
-			<key>cellClass</key>
-			<string>SparkColourPickerCell</string>
-			<key>libsparkcolourpicker</key>
-			<dict>
-				<key>defaults</key>
-				<string>love.litten.heartlines.colorspreferences</string>
-				<key>fallback</key>
-				<string>#FFFFFF</string>
-				<key>alpha</key>
-				<false/>
-			</dict>
-			<key>label</key>
-			<string>Custom Color</string>
-			<key>key</key>
-			<string>customWeatherUpNextEventColor</string>
-			<key>PostNotification</key>
-			<string>love.litten.heartlines.colorspreferences/ReloadPrefs</string>
-		</dict>
-
-		<dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
-			<key>label</key>
-			<string>FaceID Lock, Time, Date, Next Up</string>
+			<string>FaceID Lock</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -81,7 +23,7 @@
 			<key>label</key>
 			<string>Color</string>
 			<key>key</key>
-			<string>timeDateUpNextColor</string>
+			<string>faceIDLockColor</string>
 			<key>validValues</key>
 			<array>
 				<integer>0</integer>
@@ -116,7 +58,355 @@
 			<key>label</key>
 			<string>Custom Color</string>
 			<key>key</key>
-			<string>customTimeDateUpNextColor</string>
+			<string>customFaceIDLockColor</string>
+			<key>PostNotification</key>
+			<string>love.litten.heartlines.colorspreferences/ReloadPrefs</string>
+		</dict>
+		
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Up Next</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>default</key>
+			<integer>3</integer>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>defaults</key>
+			<string>love.litten.heartlinespreferences</string>
+			<key>label</key>
+			<string>Color</string>
+			<key>key</key>
+			<string>upNextColor</string>
+			<key>validValues</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+			</array>
+			<key>validTitles</key>
+			<array>
+				<string>Wallpaper Based 1</string>
+				<string>Wallpaper Based 2</string>
+				<string>Wallpaper Based 3</string>
+				<string>Custom</string>
+			</array>
+			<key>PostNotification</key>
+			<string>love.litten.heartlinespreferences/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>cellClass</key>
+			<string>SparkColourPickerCell</string>
+			<key>libsparkcolourpicker</key>
+			<dict>
+				<key>defaults</key>
+				<string>love.litten.heartlines.colorspreferences</string>
+				<key>fallback</key>
+				<string>#FFFFFF</string>
+				<key>alpha</key>
+				<false/>
+			</dict>
+			<key>label</key>
+			<string>Custom Color</string>
+			<key>key</key>
+			<string>customUpNextColor</string>
+			<key>PostNotification</key>
+			<string>love.litten.heartlines.colorspreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Up Next Event</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>default</key>
+			<integer>1</integer>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>defaults</key>
+			<string>love.litten.heartlinespreferences</string>
+			<key>label</key>
+			<string>Color</string>
+			<key>key</key>
+			<string>upNextEventColor</string>
+			<key>validValues</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+			</array>
+			<key>validTitles</key>
+			<array>
+				<string>Wallpaper Based 1</string>
+				<string>Wallpaper Based 2</string>
+				<string>Wallpaper Based 3</string>
+				<string>Custom</string>
+			</array>
+			<key>PostNotification</key>
+			<string>love.litten.heartlinespreferences/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>cellClass</key>
+			<string>SparkColourPickerCell</string>
+			<key>libsparkcolourpicker</key>
+			<dict>
+				<key>defaults</key>
+				<string>love.litten.heartlines.colorspreferences</string>
+				<key>fallback</key>
+				<string>#FFFFFF</string>
+				<key>alpha</key>
+				<false/>
+			</dict>
+			<key>label</key>
+			<string>Custom Color</string>
+			<key>key</key>
+			<string>customUpNextEventColor</string>
+			<key>PostNotification</key>
+			<string>love.litten.heartlines.colorspreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Time</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>default</key>
+			<integer>3</integer>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>defaults</key>
+			<string>love.litten.heartlinespreferences</string>
+			<key>label</key>
+			<string>Color</string>
+			<key>key</key>
+			<string>timeColor</string>
+			<key>validValues</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+			</array>
+			<key>validTitles</key>
+			<array>
+				<string>Wallpaper Based 1</string>
+				<string>Wallpaper Based 2</string>
+				<string>Wallpaper Based 3</string>
+				<string>Custom</string>
+			</array>
+			<key>PostNotification</key>
+			<string>love.litten.heartlinespreferences/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>cellClass</key>
+			<string>SparkColourPickerCell</string>
+			<key>libsparkcolourpicker</key>
+			<dict>
+				<key>defaults</key>
+				<string>love.litten.heartlines.colorspreferences</string>
+				<key>fallback</key>
+				<string>#FFFFFF</string>
+				<key>alpha</key>
+				<false/>
+			</dict>
+			<key>label</key>
+			<string>Custom Color</string>
+			<key>key</key>
+			<string>customTimeColor</string>
+			<key>PostNotification</key>
+			<string>love.litten.heartlines.colorspreferences/ReloadPrefs</string>
+		</dict>
+		
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Date</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>default</key>
+			<integer>3</integer>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>defaults</key>
+			<string>love.litten.heartlinespreferences</string>
+			<key>label</key>
+			<string>Color</string>
+			<key>key</key>
+			<string>dateColor</string>
+			<key>validValues</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+			</array>
+			<key>validTitles</key>
+			<array>
+				<string>Wallpaper Based 1</string>
+				<string>Wallpaper Based 2</string>
+				<string>Wallpaper Based 3</string>
+				<string>Custom</string>
+			</array>
+			<key>PostNotification</key>
+			<string>love.litten.heartlinespreferences/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>cellClass</key>
+			<string>SparkColourPickerCell</string>
+			<key>libsparkcolourpicker</key>
+			<dict>
+				<key>defaults</key>
+				<string>love.litten.heartlines.colorspreferences</string>
+				<key>fallback</key>
+				<string>#FFFFFF</string>
+				<key>alpha</key>
+				<false/>
+			</dict>
+			<key>label</key>
+			<string>Custom Color</string>
+			<key>key</key>
+			<string>customDateColor</string>
+			<key>PostNotification</key>
+			<string>love.litten.heartlines.colorspreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Weather Report</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>default</key>
+			<integer>1</integer>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>defaults</key>
+			<string>love.litten.heartlinespreferences</string>
+			<key>label</key>
+			<string>Color</string>
+			<key>key</key>
+			<string>weatherReportColor</string>
+			<key>validValues</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+			</array>
+			<key>validTitles</key>
+			<array>
+				<string>Wallpaper Based 1</string>
+				<string>Wallpaper Based 2</string>
+				<string>Wallpaper Based 3</string>
+				<string>Custom</string>
+			</array>
+			<key>PostNotification</key>
+			<string>love.litten.heartlinespreferences/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>cellClass</key>
+			<string>SparkColourPickerCell</string>
+			<key>libsparkcolourpicker</key>
+			<dict>
+				<key>defaults</key>
+				<string>love.litten.heartlines.colorspreferences</string>
+				<key>fallback</key>
+				<string>#FFFFFF</string>
+				<key>alpha</key>
+				<false/>
+			</dict>
+			<key>label</key>
+			<string>Custom Color</string>
+			<key>key</key>
+			<string>customWeatherReportColor</string>
+			<key>PostNotification</key>
+			<string>love.litten.heartlines.colorspreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Weather Condition</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>default</key>
+			<integer>1</integer>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>defaults</key>
+			<string>love.litten.heartlinespreferences</string>
+			<key>label</key>
+			<string>Color</string>
+			<key>key</key>
+			<string>weatherConditionColor</string>
+			<key>validValues</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+			</array>
+			<key>validTitles</key>
+			<array>
+				<string>Wallpaper Based 1</string>
+				<string>Wallpaper Based 2</string>
+				<string>Wallpaper Based 3</string>
+				<string>Custom</string>
+			</array>
+			<key>PostNotification</key>
+			<string>love.litten.heartlinespreferences/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>cellClass</key>
+			<string>SparkColourPickerCell</string>
+			<key>libsparkcolourpicker</key>
+			<dict>
+				<key>defaults</key>
+				<string>love.litten.heartlines.colorspreferences</string>
+				<key>fallback</key>
+				<string>#FFFFFF</string>
+				<key>alpha</key>
+				<false/>
+			</dict>
+			<key>label</key>
+			<string>Custom Color</string>
+			<key>key</key>
+			<string>customWeatherConditionColor</string>
 			<key>PostNotification</key>
 			<string>love.litten.heartlines.colorspreferences/ReloadPrefs</string>
 		</dict>
@@ -145,15 +435,15 @@
 			<key>cell</key>
 			<string>PSLinkListCell</string>
 			<key>default</key>
-			<integer>2</integer>
+			<integer>0</integer>
 			<key>detail</key>
 			<string>PSListItemsController</string>
 			<key>defaults</key>
 			<string>love.litten.heartlinespreferences</string>
 			<key>label</key>
-			<string>Weather, Next Up Event Color</string>
+			<string>FaceID Lock</string>
 			<key>key</key>
-			<string>weatherUpNextEventArtworkColor</string>
+			<string>faceIDLockArtworkColor</string>
 			<key>validValues</key>
 			<array>
 				<integer>0</integer>
@@ -181,9 +471,159 @@
 			<key>defaults</key>
 			<string>love.litten.heartlinespreferences</string>
 			<key>label</key>
-			<string>FaceID Lock, Time, Date, Next Up Color</string>
+			<string>Up Next</string>
 			<key>key</key>
-			<string>timeDateUpNextArtworkColor</string>
+			<string>upNextArtworkColor</string>
+			<key>validValues</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+			</array>
+			<key>validTitles</key>
+			<array>
+				<string>Artwork Based 1</string>
+				<string>Artwork Based 2</string>
+				<string>Artwork Based 3</string>
+				<string>None</string>
+			</array>
+			<key>PostNotification</key>
+			<string>love.litten.heartlinespreferences/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>default</key>
+			<integer>2</integer>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>defaults</key>
+			<string>love.litten.heartlinespreferences</string>
+			<key>label</key>
+			<string>Up Next Event</string>
+			<key>key</key>
+			<string>upNextEventArtworkColor</string>
+			<key>validValues</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+			</array>
+			<key>validTitles</key>
+			<array>
+				<string>Artwork Based 1</string>
+				<string>Artwork Based 2</string>
+				<string>Artwork Based 3</string>
+				<string>None</string>
+			</array>
+			<key>PostNotification</key>
+			<string>love.litten.heartlinespreferences/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>default</key>
+			<integer>0</integer>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>defaults</key>
+			<string>love.litten.heartlinespreferences</string>
+			<key>label</key>
+			<string>Time</string>
+			<key>key</key>
+			<string>timeArtworkColor</string>
+			<key>validValues</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+			</array>
+			<key>validTitles</key>
+			<array>
+				<string>Artwork Based 1</string>
+				<string>Artwork Based 2</string>
+				<string>Artwork Based 3</string>
+				<string>None</string>
+			</array>
+			<key>PostNotification</key>
+			<string>love.litten.heartlinespreferences/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>default</key>
+			<integer>0</integer>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>defaults</key>
+			<string>love.litten.heartlinespreferences</string>
+			<key>label</key>
+			<string>Date</string>
+			<key>key</key>
+			<string>dateArtworkColor</string>
+			<key>validValues</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+			</array>
+			<key>validTitles</key>
+			<array>
+				<string>Artwork Based 1</string>
+				<string>Artwork Based 2</string>
+				<string>Artwork Based 3</string>
+				<string>None</string>
+			</array>
+			<key>PostNotification</key>
+			<string>love.litten.heartlinespreferences/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>default</key>
+			<integer>2</integer>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>defaults</key>
+			<string>love.litten.heartlinespreferences</string>
+			<key>label</key>
+			<string>Weather Report</string>
+			<key>key</key>
+			<string>weatherReportArtworkColor</string>
+			<key>validValues</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+			</array>
+			<key>validTitles</key>
+			<array>
+				<string>Artwork Based 1</string>
+				<string>Artwork Based 2</string>
+				<string>Artwork Based 3</string>
+				<string>None</string>
+			</array>
+			<key>PostNotification</key>
+			<string>love.litten.heartlinespreferences/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>default</key>
+			<integer>2</integer>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>defaults</key>
+			<string>love.litten.heartlinespreferences</string>
+			<key>label</key>
+			<string>Weather Condition</string>
+			<key>key</key>
+			<string>weatherConditionArtworkColor</string>
 			<key>validValues</key>
 			<array>
 				<integer>0</integer>
