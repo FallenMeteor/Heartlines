@@ -56,7 +56,7 @@ SBFLockScreenDateView* timeDateView = nil;
     else if ([faceIDLockColorValue intValue] == 2)
         %orig(secondaryWallpaperColor);
     else if ([faceIDLockColorValue intValue] == 3)
-        %orig([SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customTimeDateUpNextColor"] withFallback:@"#FFFFFF"]);
+        %orig([SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customFaceIDLockColor"] withFallback:@"#FFFFFF"]);
     else
         %orig;
 
