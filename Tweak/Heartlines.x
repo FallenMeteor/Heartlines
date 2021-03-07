@@ -91,22 +91,11 @@ SBFLockScreenDateView* timeDateView = nil;
 
 %hook SBFLockScreenDateView
 
-%property(nonatomic, retain)UILabel* weatherReportLabel;
-%property(nonatomic, retain)UILabel* weatherConditionLabel;
-%property(nonatomic, retain)UILabel* timeLabel;
-%property(nonatomic, retain)UILabel* dateLabel;
-%property(nonatomic, retain)UILabel* upNextLabel;
-%property(nonatomic, retain)UILabel* upNextEventLabel;
-%property(nonatomic, retain)UIView* invisibleInk;
-
-- (id)initWithFrame:(CGRect)frame { // get an instance and add notification observer
-
-    id orig = %orig;
-    timeDateView = self;
+- (id)initWithFrame:(CGRect)frame { // add notification observer
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateHeartlinesUpNext:) name:@"heartlinesUpdateUpNext" object:nil];
 
-    return orig;
+    return %orig;
     
 }
 
@@ -146,613 +135,613 @@ SBFLockScreenDateView* timeDateView = nil;
     if ([styleValue intValue] == 0) {
         // up next label
         if (showUpNextSwitch) {
-            self.upNextLabel = [UILabel new];
+            upNextLabel = [UILabel new];
             
             if (!useCustomFontSwitch){
                 if (!useCustomUpNextFontSizeSwitch) {
-                    [[self upNextLabel] setFont:[UIFont fontWithName:@"SFProText-Semibold" size:19]];
+                    [upNextLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:19]];
                 } else {
-                    [[self upNextLabel] setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customUpNextFontSizeValue intValue]]];
+                    [upNextLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customUpNextFontSizeValue intValue]]];
                 }
             } else {
                 if (!useCustomUpNextFontSizeSwitch) {
-                    [[self upNextLabel] setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:19]];
+                    [upNextLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:19]];
                 } else {
-                    [[self upNextLabel] setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customUpNextFontSizeValue intValue]]];
+                    [upNextLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customUpNextFontSizeValue intValue]]];
                 }
             }
                 
-            if ([[HLSLocalization stringForKey:@"UP_NEXT"] isEqual:nil]) [[self upNextLabel] setText:@"Up next"];
-            else if (![[HLSLocalization stringForKey:@"UP_NEXT"] isEqual:nil]) [[self upNextLabel] setText:[NSString stringWithFormat:@"%@", [HLSLocalization stringForKey:@"UP_NEXT"]]];
+            if ([[HLSLocalization stringForKey:@"UP_NEXT"] isEqual:nil]) [upNextLabel setText:@"Up next"];
+            else if (![[HLSLocalization stringForKey:@"UP_NEXT"] isEqual:nil]) [upNextLabel setText:[NSString stringWithFormat:@"%@", [HLSLocalization stringForKey:@"UP_NEXT"]]];
                 
-            if ([positionValue intValue] == 0) [[self upNextLabel] setTextAlignment:NSTextAlignmentLeft];
-            else if ([positionValue intValue] == 1) [[self upNextLabel] setTextAlignment:NSTextAlignmentCenter];
-            else if ([positionValue intValue] == 2) [[self upNextLabel] setTextAlignment:NSTextAlignmentRight];
+            if ([positionValue intValue] == 0) [upNextLabel setTextAlignment:NSTextAlignmentLeft];
+            else if ([positionValue intValue] == 1) [upNextLabel setTextAlignment:NSTextAlignmentCenter];
+            else if ([positionValue intValue] == 2) [upNextLabel setTextAlignment:NSTextAlignmentRight];
 
 
-            [[self upNextLabel] setTranslatesAutoresizingMaskIntoConstraints:NO];
-            [[self upNextLabel].widthAnchor constraintEqualToConstant:self.bounds.size.width].active = YES;
-            [[self upNextLabel].heightAnchor constraintEqualToConstant:21].active = YES;
+            [upNextLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+            [upNextLabel.widthAnchor constraintEqualToConstant:self.bounds.size.width].active = YES;
+            [upNextLabel.heightAnchor constraintEqualToConstant:21].active = YES;
                 
-            if (![[self upNextLabel] isDescendantOfView:self]) [self addSubview:[self upNextLabel]];
+            if (![upNextLabel isDescendantOfView:self]) [self addSubview:upNextLabel];
                 
-            if ([positionValue intValue] == 0) [[self upNextLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:8].active = YES;
-            else if ([positionValue intValue] == 1) [[self upNextLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
-            else if ([positionValue intValue] == 2) [[self upNextLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-8].active = YES;
+            if ([positionValue intValue] == 0) [upNextLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:8].active = YES;
+            else if ([positionValue intValue] == 1) [upNextLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
+            else if ([positionValue intValue] == 2) [upNextLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-8].active = YES;
                 
-            [[self upNextLabel].centerYAnchor constraintEqualToAnchor:self.topAnchor constant:16].active = YES;
+            [upNextLabel.centerYAnchor constraintEqualToAnchor:self.topAnchor constant:16].active = YES;
         }
 
 
         // up next event label
         if (showUpNextSwitch) {
-            self.upNextEventLabel = [UILabel new];
+            upNextEventLabel = [UILabel new];
 
             if (!useCustomFontSwitch){
                 if (!useCustomUpNextEventFontSizeSwitch) {
-                    [[self upNextEventLabel] setFont:[UIFont fontWithName:@"SFProText-Semibold" size:15]];
+                    [upNextEventLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:15]];
                 } else {
-                    [[self upNextEventLabel] setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customUpNextEventFontSizeValue intValue]]];
+                    [upNextEventLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customUpNextEventFontSizeValue intValue]]];
                 }
             } else {
                 if (!useCustomUpNextEventFontSizeSwitch) {
-                    [[self upNextEventLabel] setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:15]];
+                    [upNextEventLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:15]];
                 } else {
-                    [[self upNextEventLabel] setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customUpNextEventFontSizeValue intValue]]];
+                    [upNextEventLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customUpNextEventFontSizeValue intValue]]];
                 }
             }
                 
-            if ([[HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"] isEqual:nil]) [[self upNextEventLabel] setText:@"No upcoming events"];
-            else if (![[HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"] isEqual:nil]) [[self upNextEventLabel] setText:[NSString stringWithFormat:@"%@", [HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"]]];
+            if ([[HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"] isEqual:nil]) [upNextEventLabel setText:@"No upcoming events"];
+            else if (![[HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"] isEqual:nil]) [upNextEventLabel setText:[NSString stringWithFormat:@"%@", [HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"]]];
                 
-            if ([positionValue intValue] == 0) [[self upNextEventLabel] setTextAlignment:NSTextAlignmentLeft];
-            else if ([positionValue intValue] == 1) [[self upNextEventLabel] setTextAlignment:NSTextAlignmentCenter];
-            else if ([positionValue intValue] == 2) [[self upNextEventLabel] setTextAlignment:NSTextAlignmentRight];
+            if ([positionValue intValue] == 0) [upNextEventLabel setTextAlignment:NSTextAlignmentLeft];
+            else if ([positionValue intValue] == 1) [upNextEventLabel setTextAlignment:NSTextAlignmentCenter];
+            else if ([positionValue intValue] == 2) [upNextEventLabel setTextAlignment:NSTextAlignmentRight];
                 
 
-            [[self upNextEventLabel] setTranslatesAutoresizingMaskIntoConstraints:NO];
-            [[self upNextEventLabel].widthAnchor constraintEqualToConstant:self.bounds.size.width].active = YES;
-            [[self upNextEventLabel].heightAnchor constraintEqualToConstant:16].active = YES;
+            [upNextEventLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+            [upNextEventLabel.widthAnchor constraintEqualToConstant:self.bounds.size.width].active = YES;
+            [upNextEventLabel.heightAnchor constraintEqualToConstant:16].active = YES;
                 
-            if (![[self upNextEventLabel] isDescendantOfView:self]) [self addSubview:[self upNextEventLabel]];
+            if (![upNextEventLabel isDescendantOfView:self]) [self addSubview:upNextEventLabel];
                 
-            if ([positionValue intValue] == 0) [[self upNextEventLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:8].active = YES;
-            else if ([positionValue intValue] == 1) [[self upNextEventLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
-            else if ([positionValue intValue] == 2) [[self upNextEventLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-8].active = YES;
+            if ([positionValue intValue] == 0) [upNextEventLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:8].active = YES;
+            else if ([positionValue intValue] == 1) [upNextEventLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
+            else if ([positionValue intValue] == 2) [upNextEventLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-8].active = YES;
                 
-            [[self upNextEventLabel].centerYAnchor constraintEqualToAnchor:[self upNextLabel].bottomAnchor constant:12].active = YES;
+            [upNextEventLabel.centerYAnchor constraintEqualToAnchor:upNextLabel.bottomAnchor constant:12].active = YES;
         }
 
 
         // invisible ink
         if (showUpNextSwitch && hideUntilAuthenticatedSwitch && invisibleInkEffectSwitch) {
-            self.invisibleInk = [NSClassFromString(@"CKInvisibleInkImageEffectView") new];
-            [[self invisibleInk] setHidden:YES];
+            invisibleInk = [NSClassFromString(@"CKInvisibleInkImageEffectView") new];
+            [invisibleInk setHidden:YES];
 
 
-            [[self invisibleInk] setTranslatesAutoresizingMaskIntoConstraints:NO];
-            [[self invisibleInk].widthAnchor constraintEqualToConstant:160].active = YES;
-            [[self invisibleInk].heightAnchor constraintEqualToConstant:21].active = YES;
+            [invisibleInk setTranslatesAutoresizingMaskIntoConstraints:NO];
+            [invisibleInk.widthAnchor constraintEqualToConstant:160].active = YES;
+            [invisibleInk.heightAnchor constraintEqualToConstant:21].active = YES;
             
-            if (![[self invisibleInk] isDescendantOfView:self]) [self addSubview:[self invisibleInk]];
+            if (![invisibleInk isDescendantOfView:self]) [self addSubview:invisibleInk];
             
-            if ([positionValue intValue] == 0) [[self invisibleInk].centerXAnchor constraintEqualToAnchor:self.leftAnchor constant:87.5].active = YES;
-            else if ([positionValue intValue] == 1) [[self invisibleInk].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
-            else if ([positionValue intValue] == 2) [[self invisibleInk].centerXAnchor constraintEqualToAnchor:self.rightAnchor constant:-75].active = YES;
+            if ([positionValue intValue] == 0) [invisibleInk.centerXAnchor constraintEqualToAnchor:self.leftAnchor constant:87.5].active = YES;
+            else if ([positionValue intValue] == 1) [invisibleInk.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
+            else if ([positionValue intValue] == 2) [invisibleInk.centerXAnchor constraintEqualToAnchor:self.rightAnchor constant:-75].active = YES;
             
-            [[self invisibleInk].centerYAnchor constraintEqualToAnchor:[self upNextLabel].bottomAnchor constant:16].active = YES;
+            [invisibleInk.centerYAnchor constraintEqualToAnchor:upNextLabel.bottomAnchor constant:16].active = YES;
         }
 
 
         // time label
-        self.timeLabel = [UILabel new];
+        timeLabel = [UILabel new];
 
         if (!useCustomFontSwitch){
             if (!useCustomTimeFontSizeSwitch) {
-                [[self timeLabel] setFont:[UIFont fontWithName:@"SFProText-Regular" size:61]];
+                [timeLabel setFont:[UIFont fontWithName:@"SFProText-Regular" size:61]];
             } else {
-                [[self timeLabel] setFont:[UIFont fontWithName:@"SFProText-Regular" size:[customTimeFontSizeValue intValue]]];
+                [timeLabel setFont:[UIFont fontWithName:@"SFProText-Regular" size:[customTimeFontSizeValue intValue]]];
             }
         } else {
             if (!useCustomTimeFontSizeSwitch) {
-                [[self timeLabel] setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:61]];
+                [timeLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:61]];
             } else {
-                [[self timeLabel] setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customTimeFontSizeValue intValue]]];
+                [timeLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customTimeFontSizeValue intValue]]];
             }
         }
             
         NSDateFormatter* timeFormat = [NSDateFormatter new];
         [timeFormat setDateFormat:timeFormatValue];
-        [[self timeLabel] setText:[timeFormat stringFromDate:[NSDate date]]];
+        [timeLabel setText:[timeFormat stringFromDate:[NSDate date]]];
             
-        if ([positionValue intValue] == 0) [[self timeLabel] setTextAlignment:NSTextAlignmentLeft];
-        else if ([positionValue intValue] == 1) [[self timeLabel] setTextAlignment:NSTextAlignmentCenter];
-        else if ([positionValue intValue] == 2) [[self timeLabel] setTextAlignment:NSTextAlignmentRight];
+        if ([positionValue intValue] == 0) [timeLabel setTextAlignment:NSTextAlignmentLeft];
+        else if ([positionValue intValue] == 1) [timeLabel setTextAlignment:NSTextAlignmentCenter];
+        else if ([positionValue intValue] == 2) [timeLabel setTextAlignment:NSTextAlignmentRight];
             
 
-        [[self timeLabel] setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [[self timeLabel].widthAnchor constraintEqualToConstant:self.bounds.size.width].active = YES;
-        [[self timeLabel].heightAnchor constraintEqualToConstant:73].active = YES;
+        [timeLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [timeLabel.widthAnchor constraintEqualToConstant:self.bounds.size.width].active = YES;
+        [timeLabel.heightAnchor constraintEqualToConstant:73].active = YES;
             
-        if (![[self timeLabel] isDescendantOfView:self]) [self addSubview:[self timeLabel]];
+        if (![timeLabel isDescendantOfView:self]) [self addSubview:timeLabel];
             
-        if ([positionValue intValue] == 0) [[self timeLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:4].active = YES;
-        else if ([positionValue intValue] == 1) [[self timeLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
-        else if ([positionValue intValue] == 2) [[self timeLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-4].active = YES;
+        if ([positionValue intValue] == 0) [timeLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:4].active = YES;
+        else if ([positionValue intValue] == 1) [timeLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
+        else if ([positionValue intValue] == 2) [timeLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-4].active = YES;
             
-        if (showUpNextSwitch) [[self timeLabel].centerYAnchor constraintEqualToAnchor:[self upNextEventLabel].bottomAnchor constant:40].active = YES;
-        else if (!showUpNextSwitch) [[self timeLabel].centerYAnchor constraintEqualToAnchor:self.topAnchor constant:40].active = YES;
+        if (showUpNextSwitch) [timeLabel.centerYAnchor constraintEqualToAnchor:upNextEventLabel.bottomAnchor constant:40].active = YES;
+        else if (!showUpNextSwitch) [timeLabel.centerYAnchor constraintEqualToAnchor:self.topAnchor constant:40].active = YES;
 
 
         // date label
-        self.dateLabel = [UILabel new];
+        dateLabel = [UILabel new];
 
         if (!useCustomFontSwitch){
             if (!useCustomDateFontSizeSwitch) {
-                [[self dateLabel] setFont:[UIFont fontWithName:@"SFProText-Semibold" size:17]];
+                [dateLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:17]];
             } else {
-                [[self dateLabel] setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customDateFontSizeValue intValue]]];
+                [dateLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customDateFontSizeValue intValue]]];
             }
         } else {
             if (!useCustomDateFontSizeSwitch) {
-                [[self dateLabel] setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:17]];
+                [dateLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:17]];
             } else {
-                [[self dateLabel] setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customDateFontSizeValue intValue]]];
+                [dateLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customDateFontSizeValue intValue]]];
             }
         }
             
         if (!isTimerRunning) {
             NSDateFormatter* dateFormat = [NSDateFormatter new];
             [dateFormat setDateFormat:dateFormatValue];
-            [[self dateLabel] setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
+            [dateLabel setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
         }
             
-        if ([positionValue intValue] == 0) [[self dateLabel] setTextAlignment:NSTextAlignmentLeft];
-        else if ([positionValue intValue] == 1) [[self dateLabel] setTextAlignment:NSTextAlignmentCenter];
-        else if ([positionValue intValue] == 2) [[self dateLabel] setTextAlignment:NSTextAlignmentRight];
+        if ([positionValue intValue] == 0) [dateLabel setTextAlignment:NSTextAlignmentLeft];
+        else if ([positionValue intValue] == 1) [dateLabel setTextAlignment:NSTextAlignmentCenter];
+        else if ([positionValue intValue] == 2) [dateLabel setTextAlignment:NSTextAlignmentRight];
             
 
-        [[self dateLabel] setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [[self dateLabel].widthAnchor constraintEqualToConstant:self.bounds.size.width].active = YES;
-        [[self dateLabel].heightAnchor constraintEqualToConstant:21].active = YES;
+        [dateLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [dateLabel.widthAnchor constraintEqualToConstant:self.bounds.size.width].active = YES;
+        [dateLabel.heightAnchor constraintEqualToConstant:21].active = YES;
             
-        if (![[self dateLabel] isDescendantOfView:self]) [self addSubview:[self dateLabel]];
+        if (![dateLabel isDescendantOfView:self]) [self addSubview:dateLabel];
             
-        if ([positionValue intValue] == 0) [[self dateLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:8].active = YES;
-        else if ([positionValue intValue] == 1) [[self dateLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
-        else if ([positionValue intValue] == 2) [[self dateLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-8].active = YES;
+        if ([positionValue intValue] == 0) [dateLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:8].active = YES;
+        else if ([positionValue intValue] == 1) [dateLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
+        else if ([positionValue intValue] == 2) [dateLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-8].active = YES;
             
-        [[self dateLabel].centerYAnchor constraintEqualToAnchor:[self timeLabel].bottomAnchor constant:8].active = YES;
+        [dateLabel.centerYAnchor constraintEqualToAnchor:timeLabel.bottomAnchor constant:8].active = YES;
 
 
         // weather report label
         if (showWeatherSwitch) {
-            self.weatherReportLabel = [UILabel new];
+            weatherReportLabel = [UILabel new];
 
             if (!useCustomFontSwitch){
                 if (!useCustomWeatherReportFontSizeSwitch) {
-                    [[self weatherReportLabel] setFont:[UIFont fontWithName:@"SFProText-Semibold" size:14]];
+                    [weatherReportLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:14]];
                 } else {
-                    [[self weatherReportLabel] setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customWeatherReportFontSizeValue intValue]]];
+                    [weatherReportLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customWeatherReportFontSizeValue intValue]]];
                 }
             } else {
                 if (!useCustomWeatherReportFontSizeSwitch) {
-                    [[self weatherReportLabel] setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:14]];
+                    [weatherReportLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:14]];
                 } else {
-                    [[self weatherReportLabel] setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customWeatherReportFontSizeValue intValue]]];
+                    [weatherReportLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customWeatherReportFontSizeValue intValue]]];
                 }
             }
                 
             [[PDDokdo sharedInstance] refreshWeatherData];
-            if ([[HLSLocalization stringForKey:@"CURRENTLY_ITS"] isEqual:nil]) [[self weatherReportLabel] setText:[NSString stringWithFormat:@"Currently it's %@", [[PDDokdo sharedInstance] currentTemperature]]];
-            else if (![[HLSLocalization stringForKey:@"CURRENTLY_ITS"] isEqual:nil]) [[self weatherReportLabel] setText:[NSString stringWithFormat:@"%@ %@", [HLSLocalization stringForKey:@"CURRENTLY_ITS"], [[PDDokdo sharedInstance] currentTemperature]]];
+            if ([[HLSLocalization stringForKey:@"CURRENTLY_ITS"] isEqual:nil]) [weatherReportLabel setText:[NSString stringWithFormat:@"Currently it's %@", [[PDDokdo sharedInstance] currentTemperature]]];
+            else if (![[HLSLocalization stringForKey:@"CURRENTLY_ITS"] isEqual:nil]) [weatherReportLabel setText:[NSString stringWithFormat:@"%@ %@", [HLSLocalization stringForKey:@"CURRENTLY_ITS"], [[PDDokdo sharedInstance] currentTemperature]]];
                 
-            if ([positionValue intValue] == 0) [[self weatherReportLabel] setTextAlignment:NSTextAlignmentLeft];
-            else if ([positionValue intValue] == 1) [[self weatherReportLabel] setTextAlignment:NSTextAlignmentCenter];
-            else if ([positionValue intValue] == 2) [[self weatherReportLabel] setTextAlignment:NSTextAlignmentRight];
+            if ([positionValue intValue] == 0) [weatherReportLabel setTextAlignment:NSTextAlignmentLeft];
+            else if ([positionValue intValue] == 1) [weatherReportLabel setTextAlignment:NSTextAlignmentCenter];
+            else if ([positionValue intValue] == 2) [weatherReportLabel setTextAlignment:NSTextAlignmentRight];
 
 
-            [[self weatherReportLabel] setTranslatesAutoresizingMaskIntoConstraints:NO];
-            [[self weatherReportLabel].widthAnchor constraintEqualToConstant:self.bounds.size.width].active = YES;
-            [[self weatherReportLabel].heightAnchor constraintEqualToConstant:21].active = YES;
+            [weatherReportLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+            [weatherReportLabel.widthAnchor constraintEqualToConstant:self.bounds.size.width].active = YES;
+            [weatherReportLabel.heightAnchor constraintEqualToConstant:21].active = YES;
                 
-            if (![[self weatherReportLabel] isDescendantOfView:self]) [self addSubview:[self weatherReportLabel]];
+            if (![weatherReportLabel isDescendantOfView:self]) [self addSubview:weatherReportLabel];
                 
-            if ([positionValue intValue] == 0) [[self weatherReportLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:8].active = YES;
-            else if ([positionValue intValue] == 1) [[self weatherReportLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
-            else if ([positionValue intValue] == 2) [[self weatherReportLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-8].active = YES;
+            if ([positionValue intValue] == 0) [weatherReportLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:8].active = YES;
+            else if ([positionValue intValue] == 1) [weatherReportLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
+            else if ([positionValue intValue] == 2) [weatherReportLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-8].active = YES;
                 
-            [[self weatherReportLabel].centerYAnchor constraintEqualToAnchor:[self dateLabel].bottomAnchor constant:16].active = YES;
+            [weatherReportLabel.centerYAnchor constraintEqualToAnchor:dateLabel.bottomAnchor constant:16].active = YES;
         }
 
 
         // weather condition label
         if (showWeatherSwitch) {
-            self.weatherConditionLabel = [UILabel new];
+            weatherConditionLabel = [UILabel new];
 
             if (!useCustomFontSwitch){
                 if (!useCustomWeatherConditionFontSizeSwitch) {
-                    [[self weatherConditionLabel] setFont:[UIFont fontWithName:@"SFProText-Semibold" size:14]];
+                    [weatherConditionLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:14]];
                 } else {
-                    [[self weatherConditionLabel] setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customWeatherConditionFontSizeValue intValue]]];
+                    [weatherConditionLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customWeatherConditionFontSizeValue intValue]]];
                 }
             } else {
                 if (!useCustomWeatherConditionFontSizeSwitch) {
-                    [[self weatherConditionLabel] setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:14]];
+                    [weatherConditionLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:14]];
                 } else {
-                    [[self weatherConditionLabel] setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customWeatherConditionFontSizeValue intValue]]];
+                    [weatherConditionLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customWeatherConditionFontSizeValue intValue]]];
                 }
             }
             
-            [[self weatherConditionLabel] setText:[NSString stringWithFormat:@"%@", [[PDDokdo sharedInstance] currentConditions]]];
+            [weatherConditionLabel setText:[NSString stringWithFormat:@"%@", [[PDDokdo sharedInstance] currentConditions]]];
             
-            if ([positionValue intValue] == 0) [[self weatherConditionLabel] setTextAlignment:NSTextAlignmentLeft];
-            else if ([positionValue intValue] == 1) [[self weatherConditionLabel] setTextAlignment:NSTextAlignmentCenter];
-            else if ([positionValue intValue] == 2) [[self weatherConditionLabel] setTextAlignment:NSTextAlignmentRight];
+            if ([positionValue intValue] == 0) [weatherConditionLabel setTextAlignment:NSTextAlignmentLeft];
+            else if ([positionValue intValue] == 1) [weatherConditionLabel setTextAlignment:NSTextAlignmentCenter];
+            else if ([positionValue intValue] == 2) [weatherConditionLabel setTextAlignment:NSTextAlignmentRight];
             
 
-            [[self weatherConditionLabel] setTranslatesAutoresizingMaskIntoConstraints:NO];
-            [[self weatherConditionLabel].widthAnchor constraintEqualToConstant:self.bounds.size.width].active = YES;
-            [[self weatherConditionLabel].heightAnchor constraintEqualToConstant:21].active = YES;
+            [weatherConditionLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+            [weatherConditionLabel.widthAnchor constraintEqualToConstant:self.bounds.size.width].active = YES;
+            [weatherConditionLabel.heightAnchor constraintEqualToConstant:21].active = YES;
             
-            if (![[self weatherConditionLabel] isDescendantOfView:self]) [self addSubview:[self weatherConditionLabel]];
+            if (![weatherConditionLabel isDescendantOfView:self]) [self addSubview:weatherConditionLabel];
             
-            if ([positionValue intValue] == 0) [[self weatherConditionLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:8].active = YES;
-            else if ([positionValue intValue] == 1) [[self weatherConditionLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
-            else if ([positionValue intValue] == 2) [[self weatherConditionLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-8].active = YES;
+            if ([positionValue intValue] == 0) [weatherConditionLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:8].active = YES;
+            else if ([positionValue intValue] == 1) [weatherConditionLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
+            else if ([positionValue intValue] == 2) [weatherConditionLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-8].active = YES;
             
-            [[self weatherConditionLabel].centerYAnchor constraintEqualToAnchor:[self weatherReportLabel].bottomAnchor constant:8].active = YES;
+            [weatherConditionLabel.centerYAnchor constraintEqualToAnchor:weatherReportLabel.bottomAnchor constant:8].active = YES;
         }
     } else if ([styleValue intValue] == 1) {
         // weather condition label
         if (showWeatherSwitch) {
-            self.weatherConditionLabel = [UILabel new];
+            weatherConditionLabel = [UILabel new];
             
             if (!useCustomFontSwitch){
                 if (!useCustomWeatherConditionFontSizeSwitch) {
-                    [[self weatherConditionLabel] setFont:[UIFont fontWithName:@"SFProText-Semibold" size:14]];
+                    [weatherConditionLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:14]];
                 } else {
-                    [[self weatherConditionLabel] setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customWeatherConditionFontSizeValue intValue]]];
+                    [weatherConditionLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customWeatherConditionFontSizeValue intValue]]];
                 }
             } else {
                 if (!useCustomWeatherConditionFontSizeSwitch) {
-                    [[self weatherConditionLabel] setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:14]];
+                    [weatherConditionLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:14]];
                 } else {
-                    [[self weatherConditionLabel] setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customWeatherConditionFontSizeValue intValue]]];
+                    [weatherConditionLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customWeatherConditionFontSizeValue intValue]]];
                 }
             }
             
             [[PDDokdo sharedInstance] refreshWeatherData];
-            [[self weatherConditionLabel] setText:[NSString stringWithFormat:@"%@, %@",[[PDDokdo sharedInstance] currentConditions], [[PDDokdo sharedInstance] currentTemperature]]];
+            [weatherConditionLabel setText:[NSString stringWithFormat:@"%@, %@",[[PDDokdo sharedInstance] currentConditions], [[PDDokdo sharedInstance] currentTemperature]]];
 
-            if ([positionValue intValue] == 0) [[self weatherConditionLabel] setTextAlignment:NSTextAlignmentLeft];
-            else if ([positionValue intValue] == 1) [[self weatherConditionLabel] setTextAlignment:NSTextAlignmentCenter];
-            else if ([positionValue intValue] == 2) [[self weatherConditionLabel] setTextAlignment:NSTextAlignmentRight];
+            if ([positionValue intValue] == 0) [weatherConditionLabel setTextAlignment:NSTextAlignmentLeft];
+            else if ([positionValue intValue] == 1) [weatherConditionLabel setTextAlignment:NSTextAlignmentCenter];
+            else if ([positionValue intValue] == 2) [weatherConditionLabel setTextAlignment:NSTextAlignmentRight];
             
             
-            [[self weatherConditionLabel] setTranslatesAutoresizingMaskIntoConstraints:NO];
-            [[self weatherConditionLabel].widthAnchor constraintEqualToConstant:self.bounds.size.width].active = YES;
-            [[self weatherConditionLabel].heightAnchor constraintEqualToConstant:21].active = YES;
+            [weatherConditionLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+            [weatherConditionLabel.widthAnchor constraintEqualToConstant:self.bounds.size.width].active = YES;
+            [weatherConditionLabel.heightAnchor constraintEqualToConstant:21].active = YES;
             
-            if (![[self weatherConditionLabel] isDescendantOfView:self]) [self addSubview:[self weatherConditionLabel]];
+            if (![weatherConditionLabel isDescendantOfView:self]) [self addSubview:weatherConditionLabel];
             
-            if ([positionValue intValue] == 0) [[self weatherConditionLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:8].active = YES;
-            else if ([positionValue intValue] == 1) [[self weatherConditionLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
-            else if ([positionValue intValue] == 2) [[self weatherConditionLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-8].active = YES;
+            if ([positionValue intValue] == 0) [weatherConditionLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:8].active = YES;
+            else if ([positionValue intValue] == 1) [weatherConditionLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
+            else if ([positionValue intValue] == 2) [weatherConditionLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-8].active = YES;
             
-            [[self weatherConditionLabel].centerYAnchor constraintEqualToAnchor:self.topAnchor constant:16].active = YES;
+            [weatherConditionLabel.centerYAnchor constraintEqualToAnchor:self.topAnchor constant:16].active = YES;
         }
 
 
         // date label
-        self.dateLabel = [UILabel new];
+        dateLabel = [UILabel new];
             
         if (!useCustomFontSwitch){
             if (!useCustomDateFontSizeSwitch) {
-                [[self dateLabel] setFont:[UIFont fontWithName:@"SFProText-Semibold" size:17]];
+                [dateLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:17]];
             } else {
-                [[self dateLabel] setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customDateFontSizeValue intValue]]];
+                [dateLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customDateFontSizeValue intValue]]];
             }
         } else {
             if (!useCustomDateFontSizeSwitch) {
-                [[self dateLabel] setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:17]];
+                [dateLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:17]];
             } else {
-                [[self dateLabel] setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customDateFontSizeValue intValue]]];
+                [dateLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customDateFontSizeValue intValue]]];
             }
         }
             
         if (!isTimerRunning) {
             NSDateFormatter* dateFormat = [NSDateFormatter new];
             [dateFormat setDateFormat:dateFormatValue];
-            [[self dateLabel] setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
+            [dateLabel setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
         }
             
-        if ([positionValue intValue] == 0) [[self dateLabel] setTextAlignment:NSTextAlignmentLeft];
-        else if ([positionValue intValue] == 1) [[self dateLabel] setTextAlignment:NSTextAlignmentCenter];
-        else if ([positionValue intValue] == 2) [[self dateLabel] setTextAlignment:NSTextAlignmentRight];
+        if ([positionValue intValue] == 0) [dateLabel setTextAlignment:NSTextAlignmentLeft];
+        else if ([positionValue intValue] == 1) [dateLabel setTextAlignment:NSTextAlignmentCenter];
+        else if ([positionValue intValue] == 2) [dateLabel setTextAlignment:NSTextAlignmentRight];
             
 
-        [[self dateLabel] setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [[self dateLabel].widthAnchor constraintEqualToConstant:self.bounds.size.width].active = YES;
-        [[self dateLabel].heightAnchor constraintEqualToConstant:21].active = YES;
+        [dateLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [dateLabel.widthAnchor constraintEqualToConstant:self.bounds.size.width].active = YES;
+        [dateLabel.heightAnchor constraintEqualToConstant:21].active = YES;
             
-        if (![[self dateLabel] isDescendantOfView:self]) [self addSubview:[self dateLabel]];
+        if (![dateLabel isDescendantOfView:self]) [self addSubview:dateLabel];
             
-        if ([positionValue intValue] == 0) [[self dateLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:8].active = YES;
-        else if ([positionValue intValue] == 1) [[self dateLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
-        else if ([positionValue intValue] == 2) [[self dateLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-8].active = YES;
+        if ([positionValue intValue] == 0) [dateLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:8].active = YES;
+        else if ([positionValue intValue] == 1) [dateLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
+        else if ([positionValue intValue] == 2) [dateLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-8].active = YES;
             
-        if (showWeatherSwitch) [[self dateLabel].centerYAnchor constraintEqualToAnchor:[self weatherConditionLabel].bottomAnchor constant:10].active = YES;
-        else if (!showWeatherSwitch) [[self dateLabel].centerYAnchor constraintEqualToAnchor:self.topAnchor constant:16].active = YES;
+        if (showWeatherSwitch) [dateLabel.centerYAnchor constraintEqualToAnchor:weatherConditionLabel.bottomAnchor constant:10].active = YES;
+        else if (!showWeatherSwitch) [dateLabel.centerYAnchor constraintEqualToAnchor:self.topAnchor constant:16].active = YES;
 
 
         // time label
-        self.timeLabel = [UILabel new];
+        timeLabel = [UILabel new];
             
         if (!useCustomFontSwitch){
             if (!useCustomTimeFontSizeSwitch) {
-                [[self timeLabel] setFont:[UIFont fontWithName:@"SFProText-Regular" size:61]];
+                [timeLabel setFont:[UIFont fontWithName:@"SFProText-Regular" size:61]];
             } else {
-                [[self timeLabel] setFont:[UIFont fontWithName:@"SFProText-Regular" size:[customTimeFontSizeValue intValue]]];
+                [timeLabel setFont:[UIFont fontWithName:@"SFProText-Regular" size:[customTimeFontSizeValue intValue]]];
             }
         } else {
             if (!useCustomTimeFontSizeSwitch) {
-                [[self timeLabel] setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:61]];
+                [timeLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:61]];
             } else {
-                [[self timeLabel] setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customTimeFontSizeValue intValue]]];
+                [timeLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customTimeFontSizeValue intValue]]];
             }
         }
             
         NSDateFormatter* timeFormat = [NSDateFormatter new];
         [timeFormat setDateFormat:timeFormatValue];
-        [[self timeLabel] setText:[timeFormat stringFromDate:[NSDate date]]];
+        [timeLabel setText:[timeFormat stringFromDate:[NSDate date]]];
             
-        if ([positionValue intValue] == 0) [[self timeLabel] setTextAlignment:NSTextAlignmentLeft];
-        else if ([positionValue intValue] == 1) [[self timeLabel] setTextAlignment:NSTextAlignmentCenter];
-        else if ([positionValue intValue] == 2) [[self timeLabel] setTextAlignment:NSTextAlignmentRight];
+        if ([positionValue intValue] == 0) [timeLabel setTextAlignment:NSTextAlignmentLeft];
+        else if ([positionValue intValue] == 1) [timeLabel setTextAlignment:NSTextAlignmentCenter];
+        else if ([positionValue intValue] == 2) [timeLabel setTextAlignment:NSTextAlignmentRight];
             
 
-        [[self timeLabel] setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [[self timeLabel].widthAnchor constraintEqualToConstant:self.bounds.size.width].active = YES;
-        [[self timeLabel].heightAnchor constraintEqualToConstant:73].active = YES;
+        [timeLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [timeLabel.widthAnchor constraintEqualToConstant:self.bounds.size.width].active = YES;
+        [timeLabel.heightAnchor constraintEqualToConstant:73].active = YES;
             
-        if (![[self timeLabel] isDescendantOfView:self]) [self addSubview:[self timeLabel]];
+        if (![timeLabel isDescendantOfView:self]) [self addSubview:timeLabel];
             
-        if ([positionValue intValue] == 0) [[self timeLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:4].active = YES;
-        else if ([positionValue intValue] == 1) [[self timeLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
-        else if ([positionValue intValue] == 2) [[self timeLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-4].active = YES;
+        if ([positionValue intValue] == 0) [timeLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:4].active = YES;
+        else if ([positionValue intValue] == 1) [timeLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
+        else if ([positionValue intValue] == 2) [timeLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-4].active = YES;
             
-        [[self timeLabel].centerYAnchor constraintEqualToAnchor:[self dateLabel].bottomAnchor constant:32].active = YES;
+        [timeLabel.centerYAnchor constraintEqualToAnchor:dateLabel.bottomAnchor constant:32].active = YES;
 
 
         // up next label
         if (showUpNextSwitch) {
-            self.upNextLabel = [UILabel new];
+            upNextLabel = [UILabel new];
             
             if (!useCustomFontSwitch){
                 if (!useCustomUpNextFontSizeSwitch) {
-                    [[self upNextLabel] setFont:[UIFont fontWithName:@"SFProText-Semibold" size:19]];
+                    [upNextLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:19]];
                 } else {
-                    [[self upNextLabel] setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customUpNextFontSizeValue intValue]]];
+                    [upNextLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customUpNextFontSizeValue intValue]]];
                 }
             } else {
                 if (!useCustomUpNextFontSizeSwitch) {
-                    [[self upNextLabel] setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:19]];
+                    [upNextLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:19]];
                 } else {
-                    [[self upNextLabel] setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customUpNextFontSizeValue intValue]]];
+                    [upNextLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customUpNextFontSizeValue intValue]]];
                 }
             }
             
-            if ([[HLSLocalization stringForKey:@"UP_NEXT"] isEqual:nil]) [[self upNextLabel] setText:@"Up next"];
-            else if (![[HLSLocalization stringForKey:@"UP_NEXT"] isEqual:nil]) [[self upNextLabel] setText:[NSString stringWithFormat:@"%@", [HLSLocalization stringForKey:@"UP_NEXT"]]];
+            if ([[HLSLocalization stringForKey:@"UP_NEXT"] isEqual:nil]) [upNextLabel setText:@"Up next"];
+            else if (![[HLSLocalization stringForKey:@"UP_NEXT"] isEqual:nil]) [upNextLabel setText:[NSString stringWithFormat:@"%@", [HLSLocalization stringForKey:@"UP_NEXT"]]];
             
-            if ([positionValue intValue] == 0) [[self upNextLabel] setTextAlignment:NSTextAlignmentLeft];
-            else if ([positionValue intValue] == 1) [[self upNextLabel] setTextAlignment:NSTextAlignmentCenter];
-            else if ([positionValue intValue] == 2) [[self upNextLabel] setTextAlignment:NSTextAlignmentRight];
+            if ([positionValue intValue] == 0) [upNextLabel setTextAlignment:NSTextAlignmentLeft];
+            else if ([positionValue intValue] == 1) [upNextLabel setTextAlignment:NSTextAlignmentCenter];
+            else if ([positionValue intValue] == 2) [upNextLabel setTextAlignment:NSTextAlignmentRight];
 
 
-            [[self upNextLabel] setTranslatesAutoresizingMaskIntoConstraints:NO];
-            [[self upNextLabel].widthAnchor constraintEqualToConstant:self.bounds.size.width].active = YES;
-            [[self upNextLabel].heightAnchor constraintEqualToConstant:21].active = YES;
+            [upNextLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+            [upNextLabel.widthAnchor constraintEqualToConstant:self.bounds.size.width].active = YES;
+            [upNextLabel.heightAnchor constraintEqualToConstant:21].active = YES;
             
-            if (![[self upNextLabel] isDescendantOfView:self]) [self addSubview:[self upNextLabel]];
+            if (![upNextLabel isDescendantOfView:self]) [self addSubview:upNextLabel];
             
-            if ([positionValue intValue] == 0) [[self upNextLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:8].active = YES;
-            else if ([positionValue intValue] == 1) [[self upNextLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
-            else if ([positionValue intValue] == 2) [[self upNextLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-8].active = YES;
+            if ([positionValue intValue] == 0) [upNextLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:8].active = YES;
+            else if ([positionValue intValue] == 1) [upNextLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
+            else if ([positionValue intValue] == 2) [upNextLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-8].active = YES;
             
-            [[self upNextLabel].centerYAnchor constraintEqualToAnchor:[self timeLabel].bottomAnchor constant:8].active = YES;
+            [upNextLabel.centerYAnchor constraintEqualToAnchor:timeLabel.bottomAnchor constant:8].active = YES;
         }
 
         // up next event label
         if (showUpNextSwitch) {
-            self.upNextEventLabel = [UILabel new];
+            upNextEventLabel = [UILabel new];
             
             if (!useCustomFontSwitch){
                 if (!useCustomUpNextEventFontSizeSwitch) {
-                    [[self upNextEventLabel] setFont:[UIFont fontWithName:@"SFProText-Semibold" size:15]];
+                    [upNextEventLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:15]];
                 } else {
-                    [[self upNextEventLabel] setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customUpNextEventFontSizeValue intValue]]];
+                    [upNextEventLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customUpNextEventFontSizeValue intValue]]];
                 }
             } else {
                 if (!useCustomUpNextEventFontSizeSwitch) {
-                    [[self upNextEventLabel] setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:15]];
+                    [upNextEventLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:15]];
                 } else {
-                    [[self upNextEventLabel] setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customUpNextEventFontSizeValue intValue]]];
+                    [upNextEventLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customUpNextEventFontSizeValue intValue]]];
                 }
             }
             
-            if ([[HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"] isEqual:nil]) [[self upNextEventLabel] setText:@"No upcoming events"];
-            else if (![[HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"] isEqual:nil]) [[self upNextEventLabel] setText:[NSString stringWithFormat:@"%@", [HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"]]];
+            if ([[HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"] isEqual:nil]) [upNextEventLabel setText:@"No upcoming events"];
+            else if (![[HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"] isEqual:nil]) [upNextEventLabel setText:[NSString stringWithFormat:@"%@", [HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"]]];
             
-            if ([positionValue intValue] == 0) [[self upNextEventLabel] setTextAlignment:NSTextAlignmentLeft];
-            else if ([positionValue intValue] == 1) [[self upNextEventLabel] setTextAlignment:NSTextAlignmentCenter];
-            else if ([positionValue intValue] == 2) [[self upNextEventLabel] setTextAlignment:NSTextAlignmentRight];
+            if ([positionValue intValue] == 0) [upNextEventLabel setTextAlignment:NSTextAlignmentLeft];
+            else if ([positionValue intValue] == 1) [upNextEventLabel setTextAlignment:NSTextAlignmentCenter];
+            else if ([positionValue intValue] == 2) [upNextEventLabel setTextAlignment:NSTextAlignmentRight];
             
 
-            [[self upNextEventLabel] setTranslatesAutoresizingMaskIntoConstraints:NO];
-            [[self upNextEventLabel].widthAnchor constraintEqualToConstant:self.bounds.size.width].active = YES;
-            [[self upNextEventLabel].heightAnchor constraintEqualToConstant:16].active = YES;
+            [upNextEventLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+            [upNextEventLabel.widthAnchor constraintEqualToConstant:self.bounds.size.width].active = YES;
+            [upNextEventLabel.heightAnchor constraintEqualToConstant:16].active = YES;
             
-            if (![[self upNextEventLabel] isDescendantOfView:self]) [self addSubview:[self upNextEventLabel]];
+            if (![upNextEventLabel isDescendantOfView:self]) [self addSubview:upNextEventLabel];
             
-            if ([positionValue intValue] == 0) [[self upNextEventLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:8].active = YES;
-            else if ([positionValue intValue] == 1) [[self upNextEventLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
-            else if ([positionValue intValue] == 2) [[self upNextEventLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-8].active = YES;
+            if ([positionValue intValue] == 0) [upNextEventLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:8].active = YES;
+            else if ([positionValue intValue] == 1) [upNextEventLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
+            else if ([positionValue intValue] == 2) [upNextEventLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-8].active = YES;
             
-            [[self upNextEventLabel].centerYAnchor constraintEqualToAnchor:[self upNextLabel].bottomAnchor constant:14].active = YES;
+            [upNextEventLabel.centerYAnchor constraintEqualToAnchor:upNextLabel.bottomAnchor constant:14].active = YES;
         }
 
         // invisible ink
         if (showUpNextSwitch && hideUntilAuthenticatedSwitch && invisibleInkEffectSwitch) {
-            self.invisibleInk = [NSClassFromString(@"CKInvisibleInkImageEffectView") new];
-            [[self invisibleInk] setHidden:YES];
+            invisibleInk = [NSClassFromString(@"CKInvisibleInkImageEffectView") new];
+            [invisibleInk setHidden:YES];
 
-            [[self invisibleInk] setTranslatesAutoresizingMaskIntoConstraints:NO];
-            [[self invisibleInk].widthAnchor constraintEqualToConstant:160].active = YES;
-            [[self invisibleInk].heightAnchor constraintEqualToConstant:21].active = YES;
-            if (![[self invisibleInk] isDescendantOfView:self]) [self addSubview:[self invisibleInk]];
-            if ([positionValue intValue] == 0) [[self invisibleInk].centerXAnchor constraintEqualToAnchor:self.leftAnchor constant:87.5].active = YES;
-            else if ([positionValue intValue] == 1) [[self invisibleInk].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
-            else if ([positionValue intValue] == 2) [[self invisibleInk].centerXAnchor constraintEqualToAnchor:self.rightAnchor constant:-75].active = YES;
-            [[self invisibleInk].centerYAnchor constraintEqualToAnchor:[self upNextLabel].bottomAnchor constant:16].active = YES;
+            [invisibleInk setTranslatesAutoresizingMaskIntoConstraints:NO];
+            [invisibleInk.widthAnchor constraintEqualToConstant:160].active = YES;
+            [invisibleInk.heightAnchor constraintEqualToConstant:21].active = YES;
+            if (![invisibleInk isDescendantOfView:self]) [self addSubview:invisibleInk];
+            if ([positionValue intValue] == 0) [invisibleInk.centerXAnchor constraintEqualToAnchor:self.leftAnchor constant:87.5].active = YES;
+            else if ([positionValue intValue] == 1) [invisibleInk.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:0].active = YES;
+            else if ([positionValue intValue] == 2) [invisibleInk.centerXAnchor constraintEqualToAnchor:self.rightAnchor constant:-75].active = YES;
+            [invisibleInk.centerYAnchor constraintEqualToAnchor:upNextLabel.bottomAnchor constant:16].active = YES;
         }
     } else if ([styleValue intValue] == 2) {
         // time label
-        self.timeLabel = [UILabel new];
+        timeLabel = [UILabel new];
             
         if (!useCustomFontSwitch){
             if (!useCustomTimeFontSizeSwitch) {
-                [[self timeLabel] setFont:[UIFont fontWithName:@"SFProText-Regular" size:61]];
+                [timeLabel setFont:[UIFont fontWithName:@"SFProText-Regular" size:61]];
             } else {
-                [[self timeLabel] setFont:[UIFont fontWithName:@"SFProText-Regular" size:[customTimeFontSizeValue intValue]]];
+                [timeLabel setFont:[UIFont fontWithName:@"SFProText-Regular" size:[customTimeFontSizeValue intValue]]];
             }
         } else {
             if (!useCustomTimeFontSizeSwitch) {
-                [[self timeLabel] setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:61]];
+                [timeLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:61]];
             } else {
-                [[self timeLabel] setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customTimeFontSizeValue intValue]]];
+                [timeLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customTimeFontSizeValue intValue]]];
             }
         }
             
         NSDateFormatter* timeFormat = [NSDateFormatter new];
         [timeFormat setDateFormat:timeFormatValue];
-        [[self timeLabel] setText:[timeFormat stringFromDate:[NSDate date]]];
+        [timeLabel setText:[timeFormat stringFromDate:[NSDate date]]];
             
-        [[self timeLabel] setTextAlignment:NSTextAlignmentLeft];
+        [timeLabel setTextAlignment:NSTextAlignmentLeft];
             
 
-        [[self timeLabel] setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [[self timeLabel].widthAnchor constraintEqualToConstant:self.bounds.size.width].active = YES;
-        [[self timeLabel].heightAnchor constraintEqualToConstant:73].active = YES;
+        [timeLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [timeLabel.widthAnchor constraintEqualToConstant:self.bounds.size.width].active = YES;
+        [timeLabel.heightAnchor constraintEqualToConstant:73].active = YES;
             
-        if (![[self timeLabel] isDescendantOfView:self]) [self addSubview:[self timeLabel]];
+        if (![timeLabel isDescendantOfView:self]) [self addSubview:timeLabel];
             
-        [[self timeLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:4].active = YES;
-        [[self timeLabel].centerYAnchor constraintEqualToAnchor:self.topAnchor constant:50].active = YES;
+        [timeLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:4].active = YES;
+        [timeLabel.centerYAnchor constraintEqualToAnchor:self.topAnchor constant:50].active = YES;
 
 
         // date label
-        self.dateLabel = [UILabel new];
+        dateLabel = [UILabel new];
             
         if (!useCustomFontSwitch){
             if (!useCustomDateFontSizeSwitch) {
-                [[self dateLabel] setFont:[UIFont fontWithName:@"SFProText-Semibold" size:17]];
+                [dateLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:17]];
             } else {
-                [[self dateLabel] setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customDateFontSizeValue intValue]]];
+                [dateLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customDateFontSizeValue intValue]]];
             }
         } else {
             if (!useCustomDateFontSizeSwitch) {
-                [[self dateLabel] setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:17]];
+                [dateLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:17]];
             } else {
-                [[self dateLabel] setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customDateFontSizeValue intValue]]];
+                [dateLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customDateFontSizeValue intValue]]];
             }
         }
             
         if (!isTimerRunning) {
             NSDateFormatter* dateFormat = [NSDateFormatter new];
             [dateFormat setDateFormat:dateFormatValue];
-            [[self dateLabel] setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
+            [dateLabel setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
         }
             
-        [[self dateLabel] setTextAlignment:NSTextAlignmentLeft];
+        [dateLabel setTextAlignment:NSTextAlignmentLeft];
             
 
-        [[self dateLabel] setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [[self dateLabel].widthAnchor constraintEqualToConstant:self.bounds.size.width].active = YES;
-        [[self dateLabel].heightAnchor constraintEqualToConstant:21].active = YES;
+        [dateLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [dateLabel.widthAnchor constraintEqualToConstant:self.bounds.size.width].active = YES;
+        [dateLabel.heightAnchor constraintEqualToConstant:21].active = YES;
             
-        if (![[self dateLabel] isDescendantOfView:self]) [self addSubview:[self dateLabel]];
+        if (![dateLabel isDescendantOfView:self]) [self addSubview:dateLabel];
             
-        [[self dateLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:8].active = YES;
-        [[self dateLabel].centerYAnchor constraintEqualToAnchor:[self timeLabel].bottomAnchor constant:8].active = YES;
+        [dateLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:8].active = YES;
+        [dateLabel.centerYAnchor constraintEqualToAnchor:timeLabel.bottomAnchor constant:8].active = YES;
 
 
         // weather report label
         if (showWeatherSwitch) {
-            self.weatherReportLabel = [UILabel new];
+            weatherReportLabel = [UILabel new];
             
             if (!useCustomFontSwitch){
                 if (!useCustomWeatherReportFontSizeSwitch) {
-                    [[self weatherReportLabel] setFont:[UIFont fontWithName:@"SFProText-Semibold" size:14]];
+                    [weatherReportLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:14]];
                 } else {
-                    [[self weatherReportLabel] setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customWeatherReportFontSizeValue intValue]]];
+                    [weatherReportLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customWeatherReportFontSizeValue intValue]]];
                 }
             } else {
                 if (!useCustomWeatherReportFontSizeSwitch) {
-                    [[self weatherReportLabel] setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:14]];
+                    [weatherReportLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:14]];
                 } else {
-                    [[self weatherReportLabel] setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customWeatherReportFontSizeValue intValue]]];
+                    [weatherReportLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customWeatherReportFontSizeValue intValue]]];
                 }
             }
             
             [[PDDokdo sharedInstance] refreshWeatherData];
-            if ([[HLSLocalization stringForKey:@"ITS"] isEqual:nil]) [[self weatherReportLabel] setText:[NSString stringWithFormat:@"It's %@", [[PDDokdo sharedInstance] currentTemperature]]];
-            else if (![[HLSLocalization stringForKey:@"ITS"] isEqual:nil]) [[self weatherReportLabel] setText:[NSString stringWithFormat:@"%@ %@", [HLSLocalization stringForKey:@"ITS"], [[PDDokdo sharedInstance] currentTemperature]]];
+            if ([[HLSLocalization stringForKey:@"ITS"] isEqual:nil]) [weatherReportLabel setText:[NSString stringWithFormat:@"It's %@", [[PDDokdo sharedInstance] currentTemperature]]];
+            else if (![[HLSLocalization stringForKey:@"ITS"] isEqual:nil]) [weatherReportLabel setText:[NSString stringWithFormat:@"%@ %@", [HLSLocalization stringForKey:@"ITS"], [[PDDokdo sharedInstance] currentTemperature]]];
             
-            [[self weatherReportLabel] setTextAlignment:NSTextAlignmentRight];
+            [weatherReportLabel setTextAlignment:NSTextAlignmentRight];
 
 
-            [[self weatherReportLabel] setTranslatesAutoresizingMaskIntoConstraints:NO];
-            [[self weatherReportLabel].widthAnchor constraintEqualToConstant:self.bounds.size.width].active = YES;
-            [[self weatherReportLabel].heightAnchor constraintEqualToConstant:21].active = YES;
+            [weatherReportLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+            [weatherReportLabel.widthAnchor constraintEqualToConstant:self.bounds.size.width].active = YES;
+            [weatherReportLabel.heightAnchor constraintEqualToConstant:21].active = YES;
             
-            if (![[self weatherReportLabel] isDescendantOfView:self]) [self addSubview:[self weatherReportLabel]];
+            if (![weatherReportLabel isDescendantOfView:self]) [self addSubview:weatherReportLabel];
             
-            [[self weatherReportLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-8].active = YES;
-            [[self weatherReportLabel].centerYAnchor constraintEqualToAnchor:self.topAnchor constant:55].active = YES;
+            [weatherReportLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-8].active = YES;
+            [weatherReportLabel.centerYAnchor constraintEqualToAnchor:self.topAnchor constant:55].active = YES;
         }
 
         // weather condition label
         if (showWeatherSwitch) {
-            self.weatherConditionLabel = [UILabel new];
+            weatherConditionLabel = [UILabel new];
             
             if (!useCustomFontSwitch){
                 if (!useCustomWeatherConditionFontSizeSwitch) {
-                    [[self weatherConditionLabel] setFont:[UIFont fontWithName:@"SFProText-Semibold" size:14]];
+                    [weatherConditionLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:14]];
                 } else {
-                    [[self weatherConditionLabel] setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customWeatherConditionFontSizeValue intValue]]];
+                    [weatherConditionLabel setFont:[UIFont fontWithName:@"SFProText-Semibold" size:[customWeatherConditionFontSizeValue intValue]]];
                 }
             } else {
                 if (!useCustomWeatherConditionFontSizeSwitch) {
-                    [[self weatherConditionLabel] setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:14]];
+                    [weatherConditionLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:14]];
                 } else {
-                    [[self weatherConditionLabel] setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customWeatherConditionFontSizeValue intValue]]];
+                    [weatherConditionLabel setFont:[UIFont fontWithName:[NSString stringWithFormat:@"%@", [preferences objectForKey:@"customFont"]] size:[customWeatherConditionFontSizeValue intValue]]];
                 }
             }
             
-            [[self weatherConditionLabel] setText:[NSString stringWithFormat:@"%@", [[PDDokdo sharedInstance] currentConditions]]];
-            [[self weatherConditionLabel] setTextAlignment:NSTextAlignmentRight];
+            [weatherConditionLabel setText:[NSString stringWithFormat:@"%@", [[PDDokdo sharedInstance] currentConditions]]];
+            [weatherConditionLabel setTextAlignment:NSTextAlignmentRight];
 
             
-            [[self weatherConditionLabel] setTranslatesAutoresizingMaskIntoConstraints:NO];
-            [[self weatherConditionLabel].widthAnchor constraintEqualToConstant:self.bounds.size.width].active = YES;
-            [[self weatherConditionLabel].heightAnchor constraintEqualToConstant:21].active = YES;
+            [weatherConditionLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+            [weatherConditionLabel.widthAnchor constraintEqualToConstant:self.bounds.size.width].active = YES;
+            [weatherConditionLabel.heightAnchor constraintEqualToConstant:21].active = YES;
             
-            if (![[self weatherConditionLabel] isDescendantOfView:self]) [self addSubview:[self weatherConditionLabel]];
+            if (![weatherConditionLabel isDescendantOfView:self]) [self addSubview:weatherConditionLabel];
             
-            [[self weatherConditionLabel].centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-8].active = YES;
-            [[self weatherConditionLabel].centerYAnchor constraintEqualToAnchor:[self weatherReportLabel].bottomAnchor constant:8].active = YES;
+            [weatherConditionLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:-8].active = YES;
+            [weatherConditionLabel.centerYAnchor constraintEqualToAnchor:weatherReportLabel.bottomAnchor constant:8].active = YES;
         }
     }
 
@@ -779,60 +768,60 @@ SBFLockScreenDateView* timeDateView = nil;
 
     if (showUpNextSwitch) {
         if ([upNextColorValue intValue] == 0)
-            [[self upNextLabel] setTextColor:backgroundWallpaperColor];
+            [upNextLabel setTextColor:backgroundWallpaperColor];
         else if ([upNextColorValue intValue] == 1)
-            [[self upNextLabel] setTextColor:primaryWallpaperColor];
+            [upNextLabel setTextColor:primaryWallpaperColor];
         else if ([upNextColorValue intValue] == 2)
-            [[self upNextLabel] setTextColor:secondaryWallpaperColor];
+            [upNextLabel setTextColor:secondaryWallpaperColor];
         else if ([upNextColorValue intValue] == 3)
-            [[self upNextLabel] setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customUpNextColor"] withFallback:@"#FFFFFF"]];
+            [upNextLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customUpNextColor"] withFallback:@"#FFFFFF"]];
 
         if ([upNextEventColorValue intValue] == 0)
-            [[self upNextEventLabel] setTextColor:backgroundWallpaperColor];
+            [upNextEventLabel setTextColor:backgroundWallpaperColor];
         else if ([upNextEventColorValue intValue] == 1)
-            [[self upNextEventLabel] setTextColor:primaryWallpaperColor];
+            [upNextEventLabel setTextColor:primaryWallpaperColor];
         else if ([upNextEventColorValue intValue] == 2)
-            [[self upNextEventLabel] setTextColor:secondaryWallpaperColor];
+            [upNextEventLabel setTextColor:secondaryWallpaperColor];
         else if ([upNextEventColorValue intValue] == 3)
-            [[self upNextEventLabel] setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customUpNextEventColor"] withFallback:@"#FFFFFF"]];
+            [upNextEventLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customUpNextEventColor"] withFallback:@"#FFFFFF"]];
     }
 
     if ([timeColorValue intValue] == 0)
-        [[self timeLabel] setTextColor:backgroundWallpaperColor];
+        [timeLabel setTextColor:backgroundWallpaperColor];
     else if ([timeColorValue intValue] == 1)
-        [[self timeLabel] setTextColor:primaryWallpaperColor];
+        [timeLabel setTextColor:primaryWallpaperColor];
     else if ([timeColorValue intValue] == 2)
-        [[self timeLabel] setTextColor:secondaryWallpaperColor];
+        [timeLabel setTextColor:secondaryWallpaperColor];
     else if ([timeColorValue intValue] == 3)
-        [[self timeLabel] setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customTimeColor"] withFallback:@"#FFFFFF"]];
+        [timeLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customTimeColor"] withFallback:@"#FFFFFF"]];
 
     if ([dateColorValue intValue] == 0)
-        [[self dateLabel] setTextColor:backgroundWallpaperColor];
+        [dateLabel setTextColor:backgroundWallpaperColor];
     else if ([dateColorValue intValue] == 1)
-        [[self dateLabel] setTextColor:primaryWallpaperColor];
+        [dateLabel setTextColor:primaryWallpaperColor];
     else if ([dateColorValue intValue] == 2)
-        [[self dateLabel] setTextColor:secondaryWallpaperColor];
+        [dateLabel setTextColor:secondaryWallpaperColor];
     else if ([dateColorValue intValue] == 3)
-        [[self dateLabel] setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customDateColor"] withFallback:@"#FFFFFF"]];
+        [dateLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customDateColor"] withFallback:@"#FFFFFF"]];
 
     if (showWeatherSwitch) {
         if ([weatherReportColorValue intValue] == 0)
-            [[self weatherReportLabel] setTextColor:backgroundWallpaperColor];
+            [weatherReportLabel setTextColor:backgroundWallpaperColor];
         else if ([weatherReportColorValue intValue] == 1)
-            [[self weatherReportLabel] setTextColor:primaryWallpaperColor];
+            [weatherReportLabel setTextColor:primaryWallpaperColor];
         else if ([weatherReportColorValue intValue] == 2)
-            [[self weatherReportLabel] setTextColor:secondaryWallpaperColor];
+            [weatherReportLabel setTextColor:secondaryWallpaperColor];
         else if ([weatherReportColorValue intValue] == 3)
-            [[self weatherReportLabel] setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customWeatherReportColor"] withFallback:@"#FFFFFF"]];
+            [weatherReportLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customWeatherReportColor"] withFallback:@"#FFFFFF"]];
 
         if ([weatherConditionColorValue intValue] == 0)
-            [[self weatherConditionLabel] setTextColor:backgroundWallpaperColor];
+            [weatherConditionLabel setTextColor:backgroundWallpaperColor];
         else if ([weatherConditionColorValue intValue] == 1)
-            [[self weatherConditionLabel] setTextColor:primaryWallpaperColor];
+            [weatherConditionLabel setTextColor:primaryWallpaperColor];
         else if ([weatherConditionColorValue intValue] == 2)
-            [[self weatherConditionLabel] setTextColor:secondaryWallpaperColor];
+            [weatherConditionLabel setTextColor:secondaryWallpaperColor];
         else if ([weatherConditionColorValue intValue] == 3)
-            [[self weatherConditionLabel] setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customWeatherConditionColor"] withFallback:@"#FFFFFF"]];
+            [weatherConditionLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customWeatherConditionColor"] withFallback:@"#FFFFFF"]];
     }
 
 }
@@ -840,7 +829,6 @@ SBFLockScreenDateView* timeDateView = nil;
 %new
 - (void)updateHeartlinesUpNext:(NSNotification *)notification { // update up next
 
-    if (![notification.name isEqual:@"heartlinesUpdateUpNext"]) return;
     EKEventStore* store = [EKEventStore new];
     NSCalendar* calendar = [NSCalendar currentCalendar];
 
@@ -861,29 +849,55 @@ SBFLockScreenDateView* timeDateView = nil;
     NSArray* events = [store eventsMatchingPredicate:calendarPredicate];
 
     NSPredicate* reminderPredicate = [store predicateForIncompleteRemindersWithDueDateStarting:todayReminders ending:daysFromNow calendars:nil];
+    __block NSArray* availableReminders;
 
     // get first event
-    if ([events count]) {
-        [[self upNextEventLabel] setText:[NSString stringWithFormat:@"%@", [events[0] title]]];
-        if (!(hideUntilAuthenticatedSwitch && isLocked)) [[self upNextEventLabel] setHidden:NO];
+    if (showCalendarEventsSwitch) {
+        if ([events count]) {
+            [upNextEventLabel setText:[NSString stringWithFormat:@"%@", [events[0] title]]];
+            if (!(hideUntilAuthenticatedSwitch && isLocked)) [upNextEventLabel setHidden:NO];
+        } else {
+            if ([[HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"] isEqual:nil]) [upNextEventLabel setText:@"No upcoming events"];
+            else if (![[HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"] isEqual:nil]) [upNextEventLabel setText:[NSString stringWithFormat:@"%@", [HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"]]];
+        }
     }
 
-    // return if user has events and does not prioritize reminders
-    if (!prioritizeRemindersSwitch && [events count]) return;
-
     // get first reminder and manage no events status
-    [store fetchRemindersMatchingPredicate:reminderPredicate completion:^(NSArray* reminders) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if ([reminders count]) {
-                [[self upNextEventLabel] setText:[NSString stringWithFormat:@"%@", [reminders[0] title]]];
-                if (!(hideUntilAuthenticatedSwitch && isLocked)) [[self upNextEventLabel] setHidden:NO];
-                return;
-            } else if (![reminders count] && ![events count]) {
-                if ([[HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"] isEqual:nil]) [[self upNextEventLabel] setText:@"No upcoming events"];
-                else if (![[HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"] isEqual:nil]) [[self upNextEventLabel] setText:[NSString stringWithFormat:@"%@", [HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"]]];
+    if (showRemindersSwitch) {
+        if ((prioritizeRemindersSwitch && [events count]) || ![events count]) {
+            [store fetchRemindersMatchingPredicate:reminderPredicate completion:^(NSArray* reminders) {
+                availableReminders = reminders;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if ([reminders count]) {
+                        [upNextEventLabel setText:[NSString stringWithFormat:@"%@", [reminders[0] title]]];
+                        if (!(hideUntilAuthenticatedSwitch && isLocked)) [upNextEventLabel setHidden:NO];
+                    } else if (![reminders count] && ![events count]) {
+                        if ([[HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"] isEqual:nil]) [upNextEventLabel setText:@"No upcoming events"];
+                        else if (![[HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"] isEqual:nil]) [upNextEventLabel setText:[NSString stringWithFormat:@"%@", [HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"]]];
+                    }
+                });
+            }];
+        }
+    }
+
+    // get next alarm
+    if (showNextAlarmSwitch) {
+        if ((prioritizeAlarmsSwitch && ([events count] || [availableReminders count])) || (![events count] && ![availableReminders count])) {
+            if ([[[[%c(SBScheduledAlarmObserver) sharedInstance] valueForKey:@"_alarmManager"] cache] nextAlarm]) {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                    NSDate* fireDate = [[[[[%c(SBScheduledAlarmObserver) sharedInstance] valueForKey:@"_alarmManager"] cache] nextAlarm] nextFireDate];
+                    NSDateComponents* components = [[NSCalendar currentCalendar] components:NSCalendarUnitHour|NSCalendarUnitMinute fromDate:fireDate];
+                    if ([[HLSLocalization stringForKey:@"ALARM"] isEqual:nil]) [upNextEventLabel setText:[NSString stringWithFormat:@"Alarm: %02ld:%02ld", [components hour], [components minute]]];
+                    else if (![[HLSLocalization stringForKey:@"ALARM"] isEqual:nil]) [upNextEventLabel setText:[NSString stringWithFormat:@"%@: %02ld:%02ld", [HLSLocalization stringForKey:@"ALARM"], [components hour], [components minute]]];
+                    if (!(hideUntilAuthenticatedSwitch && isLocked)) [upNextEventLabel setHidden:NO];
+                });
+            } else {
+                if ([[HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"] isEqual:nil]) [upNextEventLabel setText:@"No upcoming events"];
+                else if (![[HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"] isEqual:nil]) [upNextEventLabel setText:[NSString stringWithFormat:@"%@", [HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"]]];
             }
-        });
-    }];
+            
+        }
+    }
 
 }
 
@@ -919,28 +933,28 @@ SBFLockScreenDateView* timeDateView = nil;
     if (!justPluggedIn) {
         NSDateFormatter* timeFormat = [NSDateFormatter new];
         [timeFormat setDateFormat:timeFormatValue];
-        [[timeDateView timeLabel] setText:[timeFormat stringFromDate:[NSDate date]]];
+        [timeLabel setText:[timeFormat stringFromDate:[NSDate date]]];
     }
 
 	if (!isTimerRunning) {
         NSDateFormatter* dateFormat = [NSDateFormatter new];
         [dateFormat setDateFormat:dateFormatValue];
-        [[timeDateView dateLabel] setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
+        [dateLabel setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
     }
 
     if (showWeatherSwitch) {
         if ([styleValue intValue] == 0) {
-            if ([[HLSLocalization stringForKey:@"CURRENTLY_ITS"] isEqual:nil]) [[timeDateView weatherReportLabel] setText:[NSString stringWithFormat:@"Currently it's %@", [[PDDokdo sharedInstance] currentTemperature]]];
-            else if (![[HLSLocalization stringForKey:@"CURRENTLY_ITS"] isEqual:nil]) [[timeDateView weatherReportLabel] setText:[NSString stringWithFormat:@"%@ %@", [HLSLocalization stringForKey:@"CURRENTLY_ITS"], [[PDDokdo sharedInstance] currentTemperature]]];
+            if ([[HLSLocalization stringForKey:@"CURRENTLY_ITS"] isEqual:nil]) [weatherReportLabel setText:[NSString stringWithFormat:@"Currently it's %@", [[PDDokdo sharedInstance] currentTemperature]]];
+            else if (![[HLSLocalization stringForKey:@"CURRENTLY_ITS"] isEqual:nil]) [weatherReportLabel setText:[NSString stringWithFormat:@"%@ %@", [HLSLocalization stringForKey:@"CURRENTLY_ITS"], [[PDDokdo sharedInstance] currentTemperature]]];
             
-            [[timeDateView weatherConditionLabel] setText:[NSString stringWithFormat:@"%@", [[PDDokdo sharedInstance] currentConditions]]];
+            [weatherConditionLabel setText:[NSString stringWithFormat:@"%@", [[PDDokdo sharedInstance] currentConditions]]];
         } else if ([styleValue intValue] == 1) {
-            [[timeDateView weatherConditionLabel] setText:[NSString stringWithFormat:@"%@, %@",[[PDDokdo sharedInstance] currentConditions], [[PDDokdo sharedInstance] currentTemperature]]];
+            [weatherConditionLabel setText:[NSString stringWithFormat:@"%@, %@",[[PDDokdo sharedInstance] currentConditions], [[PDDokdo sharedInstance] currentTemperature]]];
         } else if ([styleValue intValue] == 2) {
-            if ([[HLSLocalization stringForKey:@"ITS"] isEqual:nil]) [[timeDateView weatherReportLabel] setText:[NSString stringWithFormat:@"It's %@", [[PDDokdo sharedInstance] currentTemperature]]];
-            else if (![[HLSLocalization stringForKey:@"ITS"] isEqual:nil]) [[timeDateView weatherReportLabel] setText:[NSString stringWithFormat:@"%@ %@", [HLSLocalization stringForKey:@"ITS"], [[PDDokdo sharedInstance] currentTemperature]]];
+            if ([[HLSLocalization stringForKey:@"ITS"] isEqual:nil]) [weatherReportLabel setText:[NSString stringWithFormat:@"It's %@", [[PDDokdo sharedInstance] currentTemperature]]];
+            else if (![[HLSLocalization stringForKey:@"ITS"] isEqual:nil]) [weatherReportLabel setText:[NSString stringWithFormat:@"%@ %@", [HLSLocalization stringForKey:@"ITS"], [[PDDokdo sharedInstance] currentTemperature]]];
             
-            [[timeDateView weatherConditionLabel] setText:[NSString stringWithFormat:@"%@", [[PDDokdo sharedInstance] currentConditions]]];
+            [weatherConditionLabel setText:[NSString stringWithFormat:@"%@", [[PDDokdo sharedInstance] currentConditions]]];
         }
     }
     
@@ -982,28 +996,28 @@ SBFLockScreenDateView* timeDateView = nil;
 	if (!justPluggedIn) {
         NSDateFormatter* timeFormat = [NSDateFormatter new];
         [timeFormat setDateFormat:timeFormatValue];
-        [[timeDateView timeLabel] setText:[timeFormat stringFromDate:[NSDate date]]];
+        [timeLabel setText:[timeFormat stringFromDate:[NSDate date]]];
     }
 
 	if (!isTimerRunning) {
         NSDateFormatter* dateFormat = [NSDateFormatter new];
         [dateFormat setDateFormat:dateFormatValue];
-        [[timeDateView dateLabel] setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
+        [dateLabel setText:[[dateFormat stringFromDate:[NSDate date]] capitalizedString]];
     }
 
     if (showWeatherSwitch) {
         if ([styleValue intValue] == 0) {
-            if ([[HLSLocalization stringForKey:@"CURRENTLY_ITS"] isEqual:nil]) [[timeDateView weatherReportLabel] setText:[NSString stringWithFormat:@"Currently it's %@", [[PDDokdo sharedInstance] currentTemperature]]];
-            else if (![[HLSLocalization stringForKey:@"CURRENTLY_ITS"] isEqual:nil]) [[timeDateView weatherReportLabel] setText:[NSString stringWithFormat:@"%@ %@", [HLSLocalization stringForKey:@"CURRENTLY_ITS"], [[PDDokdo sharedInstance] currentTemperature]]];
+            if ([[HLSLocalization stringForKey:@"CURRENTLY_ITS"] isEqual:nil]) [weatherReportLabel setText:[NSString stringWithFormat:@"Currently it's %@", [[PDDokdo sharedInstance] currentTemperature]]];
+            else if (![[HLSLocalization stringForKey:@"CURRENTLY_ITS"] isEqual:nil]) [weatherReportLabel setText:[NSString stringWithFormat:@"%@ %@", [HLSLocalization stringForKey:@"CURRENTLY_ITS"], [[PDDokdo sharedInstance] currentTemperature]]];
             
-            [[timeDateView weatherConditionLabel] setText:[NSString stringWithFormat:@"%@", [[PDDokdo sharedInstance] currentConditions]]];
+            [weatherConditionLabel setText:[NSString stringWithFormat:@"%@", [[PDDokdo sharedInstance] currentConditions]]];
         } else if ([styleValue intValue] == 1) {
-            [[timeDateView weatherConditionLabel] setText:[NSString stringWithFormat:@"%@, %@",[[PDDokdo sharedInstance] currentConditions], [[PDDokdo sharedInstance] currentTemperature]]];
+            [weatherConditionLabel setText:[NSString stringWithFormat:@"%@, %@",[[PDDokdo sharedInstance] currentConditions], [[PDDokdo sharedInstance] currentTemperature]]];
         } else if ([styleValue intValue] == 2) {
-            if ([[HLSLocalization stringForKey:@"ITS"] isEqual:nil]) [[timeDateView weatherReportLabel] setText:[NSString stringWithFormat:@"It's %@", [[PDDokdo sharedInstance] currentTemperature]]];
-            else if (![[HLSLocalization stringForKey:@"ITS"] isEqual:nil]) [[timeDateView weatherReportLabel] setText:[NSString stringWithFormat:@"%@ %@", [HLSLocalization stringForKey:@"ITS"], [[PDDokdo sharedInstance] currentTemperature]]];
+            if ([[HLSLocalization stringForKey:@"ITS"] isEqual:nil]) [weatherReportLabel setText:[NSString stringWithFormat:@"It's %@", [[PDDokdo sharedInstance] currentTemperature]]];
+            else if (![[HLSLocalization stringForKey:@"ITS"] isEqual:nil]) [weatherReportLabel setText:[NSString stringWithFormat:@"%@ %@", [HLSLocalization stringForKey:@"ITS"], [[PDDokdo sharedInstance] currentTemperature]]];
             
-            [[timeDateView weatherConditionLabel] setText:[NSString stringWithFormat:@"%@", [[PDDokdo sharedInstance] currentConditions]]];
+            [weatherConditionLabel setText:[NSString stringWithFormat:@"%@", [[PDDokdo sharedInstance] currentConditions]]];
         }
     }
     
@@ -1019,7 +1033,7 @@ SBFLockScreenDateView* timeDateView = nil;
 
     if ([arg1 containsString:@":"]) {
         isTimerRunning = YES;
-        [[timeDateView dateLabel] setText:arg1];
+        [dateLabel setText:arg1];
     } else {
         isTimerRunning = NO;
     }
@@ -1036,13 +1050,13 @@ SBFLockScreenDateView* timeDateView = nil;
 
     [UIView animateWithDuration:0.15 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         [faceIDLock setAlpha:0.0];
-        [[timeDateView upNextLabel] setAlpha:0.0];
-        [[timeDateView upNextEventLabel] setAlpha:0.0];
-        [[timeDateView invisibleInk] setAlpha:0.0];
-        [[timeDateView timeLabel] setAlpha:0.0];
-        [[timeDateView dateLabel] setAlpha:0.0];
-        [[timeDateView weatherReportLabel] setAlpha:0.0];
-        [[timeDateView weatherConditionLabel] setAlpha:0.0];
+        [upNextLabel setAlpha:0.0];
+        [upNextEventLabel setAlpha:0.0];
+        [invisibleInk setAlpha:0.0];
+        [timeLabel setAlpha:0.0];
+        [dateLabel setAlpha:0.0];
+        [weatherReportLabel setAlpha:0.0];
+        [weatherConditionLabel setAlpha:0.0];
     } completion:nil];
 
 }
@@ -1053,13 +1067,13 @@ SBFLockScreenDateView* timeDateView = nil;
 
     [UIView animateWithDuration:0.15 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         [faceIDLock setAlpha:1.0];
-        [[timeDateView upNextLabel] setAlpha:1.0];
-        [[timeDateView upNextEventLabel] setAlpha:1.0];
-        [[timeDateView invisibleInk] setAlpha:1.0];
-        [[timeDateView timeLabel] setAlpha:1.0];
-        [[timeDateView dateLabel] setAlpha:1.0];
-        [[timeDateView weatherReportLabel] setAlpha:1.0];
-        [[timeDateView weatherConditionLabel] setAlpha:1.0];
+        [upNextLabel setAlpha:1.0];
+        [upNextEventLabel setAlpha:1.0];
+        [invisibleInk setAlpha:1.0];
+        [timeLabel setAlpha:1.0];
+        [dateLabel setAlpha:1.0];
+        [weatherReportLabel setAlpha:1.0];
+        [weatherConditionLabel setAlpha:1.0];
     } completion:nil];
 
 }
@@ -1162,20 +1176,44 @@ SBFLockScreenDateView* timeDateView = nil;
 
 	%orig;
 
-	if ([self isOnAC]) {
-        justPluggedIn = YES;
-        [UIView transitionWithView:[timeDateView timeLabel] duration:0.1 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-			[[timeDateView timeLabel] setText:[NSString stringWithFormat:@"%d%%", [self batteryCapacityAsPercentage]]];
-		} completion:^(BOOL finished) {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-                [UIView transitionWithView:[timeDateView timeLabel] duration:0.1 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-                    NSDateFormatter* timeFormat = [NSDateFormatter new];
-                    [timeFormat setDateFormat:timeFormatValue];
-                    [[timeDateView timeLabel] setText:[timeFormat stringFromDate:[NSDate date]]];
+    if (!magsafeCompatibilitySwitch) {
+        if ([self isOnAC]) {
+            justPluggedIn = YES;
+            [UIView transitionWithView:timeLabel duration:0.1 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+                [timeLabel setText:[NSString stringWithFormat:@"%d%%", [self batteryCapacityAsPercentage]]];
+            } completion:^(BOOL finished) {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                    [UIView transitionWithView:timeLabel duration:0.1 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+                        NSDateFormatter* timeFormat = [NSDateFormatter new];
+                        [timeFormat setDateFormat:timeFormatValue];
+                        [timeLabel setText:[timeFormat stringFromDate:[NSDate date]]];
+                    } completion:nil];
+                    justPluggedIn = NO;
+                });
+            }];
+        }
+    } else if (magsafeCompatibilitySwitch) {
+        if ([self isOnAC]) {
+            [UIView animateWithDuration:0.15 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                [upNextLabel setAlpha:0.0];
+                [upNextEventLabel setAlpha:0.0];
+                [invisibleInk setAlpha:0.0];
+                [timeLabel setAlpha:0.0];
+                [dateLabel setAlpha:0.0];
+                [weatherReportLabel setAlpha:0.0];
+                [weatherConditionLabel setAlpha:0.0];
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:0.15 delay:2.5 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                    [upNextLabel setAlpha:1.0];
+                    [upNextEventLabel setAlpha:1.0];
+                    [invisibleInk setAlpha:1.0];
+                    [timeLabel setAlpha:1.0];
+                    [dateLabel setAlpha:1.0];
+                    [weatherReportLabel setAlpha:1.0];
+                    [weatherConditionLabel setAlpha:1.0];
                 } completion:nil];
-                justPluggedIn = NO;
-            });
-        }];
+            }];
+        }
     }
 
 }
@@ -1186,6 +1224,7 @@ SBFLockScreenDateView* timeDateView = nil;
 
 - (void)_transitionChargingViewToVisible:(BOOL)arg1 showBattery:(BOOL)arg2 animated:(BOOL)arg3 { // hide charging view
 
+    if (magsafeCompatibilitySwitch) return %orig;
 	%orig(NO, NO, NO);
 
 }
@@ -1200,11 +1239,11 @@ SBFLockScreenDateView* timeDateView = nil;
 
     if (!hideUntilAuthenticatedSwitch) return;
     isLocked = YES;
-    [UIView transitionWithView:[timeDateView upNextEventLabel] duration:0.2 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-        [[timeDateView upNextEventLabel] setHidden:YES];
+    [UIView transitionWithView:upNextEventLabel duration:0.2 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+        [upNextEventLabel setHidden:YES];
     } completion:nil];
-    [UIView transitionWithView:[timeDateView invisibleInk] duration:0.2 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-        if (invisibleInkEffectSwitch) [[timeDateView invisibleInk] setHidden:NO];
+    [UIView transitionWithView:invisibleInk duration:0.2 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+        if (invisibleInkEffectSwitch) [invisibleInk setHidden:NO];
     } completion:nil];
 
 }
@@ -1220,11 +1259,11 @@ SBFLockScreenDateView* timeDateView = nil;
     if (!hideUntilAuthenticatedSwitch) return;
 	if (arg1) {
         isLocked = NO;
-        [UIView transitionWithView:[timeDateView upNextEventLabel] duration:0.2 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-            [[timeDateView upNextEventLabel] setHidden:NO];
+        [UIView transitionWithView:upNextEventLabel duration:0.2 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+            [upNextEventLabel setHidden:NO];
         } completion:nil];
-        [UIView transitionWithView:[timeDateView invisibleInk] duration:0.2 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-            if (invisibleInkEffectSwitch) [[timeDateView invisibleInk] setHidden:YES];
+        [UIView transitionWithView:invisibleInk duration:0.2 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+            if (invisibleInkEffectSwitch) [invisibleInk setHidden:YES];
         } completion:nil];
     }
 
@@ -1266,48 +1305,48 @@ SBFLockScreenDateView* timeDateView = nil;
 
                         if (showUpNextSwitch) {
                             if ([upNextArtworkColorValue intValue] == 0)
-                                [[timeDateView upNextLabel] setTextColor:backgroundArtworkColor];
+                                [upNextLabel setTextColor:backgroundArtworkColor];
                             else if ([upNextArtworkColorValue intValue] == 1)
-                                [[timeDateView upNextLabel] setTextColor:primaryArtworkColor];
+                                [upNextLabel setTextColor:primaryArtworkColor];
                             else if ([upNextArtworkColorValue intValue] == 2)
-                                [[timeDateView upNextLabel] setTextColor:secondaryArtworkColor];
+                                [upNextLabel setTextColor:secondaryArtworkColor];
 
                             if ([upNextEventArtworkColorValue intValue] == 0)
-                                [[timeDateView upNextEventLabel] setTextColor:backgroundArtworkColor];
+                                [upNextEventLabel setTextColor:backgroundArtworkColor];
                             else if ([upNextEventArtworkColorValue intValue] == 1)
-                                [[timeDateView upNextEventLabel] setTextColor:primaryArtworkColor];
+                                [upNextEventLabel setTextColor:primaryArtworkColor];
                             else if ([upNextEventArtworkColorValue intValue] == 2)
-                                [[timeDateView upNextEventLabel] setTextColor:secondaryArtworkColor];
+                                [upNextEventLabel setTextColor:secondaryArtworkColor];
                         }
 
                         if ([timeArtworkColorValue intValue] == 0)
-                            [[timeDateView timeLabel] setTextColor:backgroundArtworkColor];
+                            [timeLabel setTextColor:backgroundArtworkColor];
                         else if ([timeArtworkColorValue intValue] == 1)
-                            [[timeDateView timeLabel] setTextColor:primaryArtworkColor];
+                            [timeLabel setTextColor:primaryArtworkColor];
                         else if ([timeArtworkColorValue intValue] == 2)
-                            [[timeDateView timeLabel] setTextColor:secondaryArtworkColor];
+                            [timeLabel setTextColor:secondaryArtworkColor];
 
                         if ([dateArtworkColorValue intValue] == 0)
-                            [[timeDateView dateLabel] setTextColor:backgroundArtworkColor];
+                            [dateLabel setTextColor:backgroundArtworkColor];
                         else if ([dateArtworkColorValue intValue] == 1)
-                            [[timeDateView dateLabel] setTextColor:primaryArtworkColor];
+                            [dateLabel setTextColor:primaryArtworkColor];
                         else if ([dateArtworkColorValue intValue] == 2)
-                            [[timeDateView dateLabel] setTextColor:secondaryArtworkColor];
+                            [dateLabel setTextColor:secondaryArtworkColor];
 
                         if (showWeatherSwitch) {
                             if ([weatherReportArtworkColorValue intValue] == 0)
-                                [[timeDateView weatherReportLabel] setTextColor:backgroundArtworkColor];
+                                [weatherReportLabel setTextColor:backgroundArtworkColor];
                             else if ([weatherReportArtworkColorValue intValue] == 1)
-                                [[timeDateView weatherReportLabel] setTextColor:primaryArtworkColor];
+                                [weatherReportLabel setTextColor:primaryArtworkColor];
                             else if ([weatherReportArtworkColorValue intValue] == 2)
-                                [[timeDateView weatherReportLabel] setTextColor:secondaryArtworkColor];
+                                [weatherReportLabel setTextColor:secondaryArtworkColor];
 
                             if ([weatherConditionArtworkColorValue intValue] == 0)
-                                [[timeDateView weatherConditionLabel] setTextColor:backgroundArtworkColor];
+                                [weatherConditionLabel setTextColor:backgroundArtworkColor];
                             else if ([weatherConditionArtworkColorValue intValue] == 1)
-                                [[timeDateView weatherConditionLabel] setTextColor:primaryArtworkColor];
+                                [weatherConditionLabel setTextColor:primaryArtworkColor];
                             else if ([weatherConditionArtworkColorValue intValue] == 2)
-                                [[timeDateView weatherConditionLabel] setTextColor:secondaryArtworkColor];
+                                [weatherConditionLabel setTextColor:secondaryArtworkColor];
                         }
 
                     }
@@ -1327,60 +1366,60 @@ SBFLockScreenDateView* timeDateView = nil;
 
             if (showUpNextSwitch) {
                 if ([upNextColorValue intValue] == 0)
-                    [[timeDateView upNextLabel] setTextColor:backgroundWallpaperColor];
+                    [upNextLabel setTextColor:backgroundWallpaperColor];
                 else if ([upNextColorValue intValue] == 1)
-                    [[timeDateView upNextLabel] setTextColor:primaryWallpaperColor];
+                    [upNextLabel setTextColor:primaryWallpaperColor];
                 else if ([upNextColorValue intValue] == 2)
-                    [[timeDateView upNextLabel] setTextColor:secondaryWallpaperColor];
+                    [upNextLabel setTextColor:secondaryWallpaperColor];
                 else if ([upNextColorValue intValue] == 3)
-                    [[timeDateView upNextLabel] setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customUpNextColor"] withFallback:@"#FFFFFF"]];
+                    [upNextLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customUpNextColor"] withFallback:@"#FFFFFF"]];
 
                 if ([upNextEventColorValue intValue] == 0)
-                    [[timeDateView upNextEventLabel] setTextColor:backgroundWallpaperColor];
+                    [upNextEventLabel setTextColor:backgroundWallpaperColor];
                 else if ([upNextEventColorValue intValue] == 1)
-                    [[timeDateView upNextEventLabel] setTextColor:primaryWallpaperColor];
+                    [upNextEventLabel setTextColor:primaryWallpaperColor];
                 else if ([upNextEventColorValue intValue] == 2)
-                    [[timeDateView upNextEventLabel] setTextColor:secondaryWallpaperColor];
+                    [upNextEventLabel setTextColor:secondaryWallpaperColor];
                 else if ([upNextEventColorValue intValue] == 3)
-                    [[timeDateView upNextEventLabel] setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customUpNextEventColor"] withFallback:@"#FFFFFF"]];
+                    [upNextEventLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customUpNextEventColor"] withFallback:@"#FFFFFF"]];
             }
 
             if ([timeColorValue intValue] == 0)
-                [[timeDateView timeLabel] setTextColor:backgroundWallpaperColor];
+                [timeLabel setTextColor:backgroundWallpaperColor];
             else if ([timeColorValue intValue] == 1)
-                [[timeDateView timeLabel] setTextColor:primaryWallpaperColor];
+                [timeLabel setTextColor:primaryWallpaperColor];
             else if ([timeColorValue intValue] == 2)
-                [[timeDateView timeLabel] setTextColor:secondaryWallpaperColor];
+                [timeLabel setTextColor:secondaryWallpaperColor];
             else if ([timeColorValue intValue] == 3)
-                [[timeDateView timeLabel] setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customTimeColor"] withFallback:@"#FFFFFF"]];
+                [timeLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customTimeColor"] withFallback:@"#FFFFFF"]];
 
             if ([dateColorValue intValue] == 0)
-                [[timeDateView dateLabel] setTextColor:backgroundWallpaperColor];
+                [dateLabel setTextColor:backgroundWallpaperColor];
             else if ([dateColorValue intValue] == 1)
-                [[timeDateView dateLabel] setTextColor:primaryWallpaperColor];
+                [dateLabel setTextColor:primaryWallpaperColor];
             else if ([dateColorValue intValue] == 2)
-                [[timeDateView dateLabel] setTextColor:secondaryWallpaperColor];
+                [dateLabel setTextColor:secondaryWallpaperColor];
             else if ([dateColorValue intValue] == 3)
-                [[timeDateView dateLabel] setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customDateColor"] withFallback:@"#FFFFFF"]];
+                [dateLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customDateColor"] withFallback:@"#FFFFFF"]];
 
             if (showWeatherSwitch) {
                 if ([weatherReportColorValue intValue] == 0)
-                    [[timeDateView weatherReportLabel] setTextColor:backgroundWallpaperColor];
+                    [weatherReportLabel setTextColor:backgroundWallpaperColor];
                 else if ([weatherReportColorValue intValue] == 1)
-                    [[timeDateView weatherReportLabel] setTextColor:primaryWallpaperColor];
+                    [weatherReportLabel setTextColor:primaryWallpaperColor];
                 else if ([weatherReportColorValue intValue] == 2)
-                    [[timeDateView weatherReportLabel] setTextColor:secondaryWallpaperColor];
+                    [weatherReportLabel setTextColor:secondaryWallpaperColor];
                 else if ([weatherReportColorValue intValue] == 3)
-                    [[timeDateView weatherReportLabel] setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customWeatherReportColor"] withFallback:@"#FFFFFF"]];
+                    [weatherReportLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customWeatherReportColor"] withFallback:@"#FFFFFF"]];
 
                 if ([weatherConditionColorValue intValue] == 0)
-                    [[timeDateView weatherConditionLabel] setTextColor:backgroundWallpaperColor];
+                    [weatherConditionLabel setTextColor:backgroundWallpaperColor];
                 else if ([weatherConditionColorValue intValue] == 1)
-                    [[timeDateView weatherConditionLabel] setTextColor:primaryWallpaperColor];
+                    [weatherConditionLabel setTextColor:primaryWallpaperColor];
                 else if ([weatherConditionColorValue intValue] == 2)
-                    [[timeDateView weatherConditionLabel] setTextColor:secondaryWallpaperColor];
+                    [weatherConditionLabel setTextColor:secondaryWallpaperColor];
                 else if ([weatherConditionColorValue intValue] == 3)
-                    [[timeDateView weatherConditionLabel] setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customWeatherConditionColor"] withFallback:@"#FFFFFF"]];
+                    [weatherConditionLabel setTextColor:[SparkColourPickerUtils colourWithString:[preferencesColorDictionary objectForKey:@"customWeatherConditionColor"] withFallback:@"#FFFFFF"]];
             }
         }
   	});
@@ -1461,10 +1500,15 @@ SBFLockScreenDateView* timeDateView = nil;
     [preferences registerBool:&showUpNextSwitch default:YES forKey:@"showUpNext"];
     [preferences registerBool:&showCalendarEventsSwitch default:YES forKey:@"showCalendarEvents"];
     [preferences registerBool:&showRemindersSwitch default:YES forKey:@"showReminders"];
+    [preferences registerBool:&showNextAlarmSwitch default:YES forKey:@"showNextAlarm"];
     [preferences registerBool:&prioritizeRemindersSwitch default:NO forKey:@"prioritizeReminders"];
+    [preferences registerBool:&prioritizeAlarmsSwitch default:YES forKey:@"prioritizeAlarms"];
     [preferences registerObject:&dayRangeValue default:@"3" forKey:@"dayRange"];
     [preferences registerBool:&hideUntilAuthenticatedSwitch default:NO forKey:@"hideUntilAuthenticated"];
     [preferences registerBool:&invisibleInkEffectSwitch default:YES forKey:@"invisibleInkEffect"];
+
+    // miscellaneous
+    [preferences registerBool:&magsafeCompatibilitySwitch default:NO forKey:@"magsafeCompatibility"];
 
     if (hideUntilAuthenticatedSwitch && invisibleInkEffectSwitch) dlopen("/System/Library/PrivateFrameworks/ChatKit.framework/ChatKit", RTLD_NOW);
 	%init(Heartlines);

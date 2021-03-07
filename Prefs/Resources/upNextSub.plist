@@ -57,6 +57,20 @@
 			<key>cell</key>
 			<string>PSSwitchCell</string>
 			<key>default</key>
+			<true/>
+			<key>defaults</key>
+			<string>love.litten.heartlinespreferences</string>
+			<key>key</key>
+			<string>showNextAlarm</string>
+			<key>label</key>
+			<string>Show Next Alarm</string>
+			<key>PostNotification</key>
+			<string>love.litten.heartlinespreferences/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
 			<false/>
 			<key>defaults</key>
 			<string>love.litten.heartlinespreferences</string>
@@ -64,6 +78,20 @@
 			<string>prioritizeReminders</string>
 			<key>label</key>
 			<string>Prioritize Reminders</string>
+			<key>PostNotification</key>
+			<string>love.litten.heartlinespreferences/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<true/>
+			<key>defaults</key>
+			<string>love.litten.heartlinespreferences</string>
+			<key>key</key>
+			<string>prioritizeAlarms</string>
+			<key>label</key>
+			<string>Prioritize Alarms</string>
 			<key>PostNotification</key>
 			<string>love.litten.heartlinespreferences/ReloadPrefs</string>
 		</dict>

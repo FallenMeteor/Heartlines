@@ -144,6 +144,16 @@
  			<key>HLSSub</key>
  			<string>upNextSub</string>
  		</dict>
+		<dict>
+ 			<key>cell</key>
+ 			<string>PSLinkCell</string>
+ 			<key>label</key>
+ 			<string>Miscellaneous</string>
+ 			<key>detail</key>
+ 			<string>HLSMiscellaneousPrefsListController</string>
+ 			<key>HLSSub</key>
+ 			<string>miscellaneousSub</string>
+ 		</dict>
 
 		<dict>
 			<key>cell</key>

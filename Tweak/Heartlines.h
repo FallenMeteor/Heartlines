@@ -18,6 +18,13 @@ BOOL firstTimeLoaded = NO;
 BOOL isLocked = NO;
 BOOL justPluggedIn = NO;
 BOOL isTimerRunning = NO;
+UILabel* weatherReportLabel = nil;
+UILabel* weatherConditionLabel = nil;
+UILabel* timeLabel = nil;
+UILabel* dateLabel = nil;
+UILabel* upNextLabel = nil;
+UILabel* upNextEventLabel = nil;
+UIView* invisibleInk = nil;
 NSTimer* timer = nil;
 UIColor* backgroundWallpaperColor = nil;
 UIColor* primaryWallpaperColor = nil;
@@ -81,10 +88,15 @@ BOOL showWeatherSwitch = YES;
 BOOL showUpNextSwitch = YES;
 BOOL showCalendarEventsSwitch = YES;
 BOOL showRemindersSwitch = YES;
+BOOL showNextAlarmSwitch = YES;
 BOOL prioritizeRemindersSwitch = NO;
+BOOL prioritizeAlarmsSwitch = YES;
 NSString* dayRangeValue = @"3";
 BOOL hideUntilAuthenticatedSwitch = NO;
 BOOL invisibleInkEffectSwitch = YES;
+
+// miscellaneous
+BOOL magsafeCompatibilitySwitch = NO;
 
 @interface SBUIProudLockIconView : UIView
 - (void)setContentColor:(UIColor *)arg1;
@@ -96,13 +108,6 @@ BOOL invisibleInkEffectSwitch = YES;
 
 @interface SBFLockScreenDateView : UIView
 - (void)updateHeartlinesUpNext:(NSNotification *)notification;
-@property(nonatomic, retain)UILabel* weatherReportLabel;
-@property(nonatomic, retain)UILabel* weatherConditionLabel;
-@property(nonatomic, retain)UILabel* timeLabel;
-@property(nonatomic, retain)UILabel* dateLabel;
-@property(nonatomic, retain)UILabel* upNextLabel;
-@property(nonatomic, retain)UILabel* upNextEventLabel;
-@property(nonatomic, retain)UIView* invisibleInk;
 @end
 
 @interface CSCoverSheetViewController : UIViewController
@@ -121,6 +126,24 @@ BOOL invisibleInkEffectSwitch = YES;
 @interface SBUIController : NSObject
 - (BOOL)isOnAC;
 - (int)batteryCapacityAsPercentage;
+@end
+
+@interface MTAlarm
+@property(nonatomic, readonly)NSDate* nextFireDate;
+@end
+
+@interface MTAlarmCache
+@property(nonatomic, retain)MTAlarm* nextAlarm; 
+@end
+
+@interface MTAlarmManager
+@property(nonatomic, retain)MTAlarmCache* cache;
+@end
+
+@interface SBScheduledAlarmObserver : NSObject {
+    MTAlarmManager* _alarmManager;
+}
++ (id)sharedInstance;
 @end
 
 @interface SBMediaController : NSObject
