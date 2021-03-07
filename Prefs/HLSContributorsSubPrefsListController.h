@@ -8,5 +8,8 @@
 @end
 
 @interface HLSContributorsSubPrefsListController : HBListController
+@property(nonatomic, retain)HLSAppearanceSettings* appearanceSettings;
 @property(nonatomic, retain)UILabel* titleLabel;
+@property(nonatomic, retain)UIBlurEffect* blur;
+@property(nonatomic, retain)UIVisualEffectView* blurView;
 @end

@@ -1,20 +1,34 @@
 #import "HLSTextSubPrefsListController.h"
 
-UIBlurEffect* blur;
-UIVisualEffectView* blurView;
-
 @implementation HLSTextSubPrefsListController
 
-- (instancetype)init {
+- (void)viewDidLoad {
 
-    self = [super init];
+    [super viewDidLoad];
 
-    if (self) {
-        HLSAppearanceSettings *appearanceSettings = [[HLSAppearanceSettings alloc] init];
-        self.hb_appearanceSettings = appearanceSettings;
-    }
+    self.appearanceSettings = [HLSAppearanceSettings new];
+    self.hb_appearanceSettings = [self appearanceSettings];
 
-    return self;
+
+    self.preferences = [[HBPreferences alloc] initWithIdentifier: @"love.litten.heartlinespreferences"];
+
+
+    self.blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleRegular];
+    self.blurView = [[UIVisualEffectView alloc] initWithEffect:[self blur]];
+
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+
+    [super viewWillAppear:animated];
+
+    [[self blurView] setFrame:[[self view] bounds]];
+    [[self blurView] setAlpha:1.0];
+    [[self view] addSubview:[self blurView]];
+
+    [UIView animateWithDuration:0.4 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [[self blurView] setAlpha:0.0];
+    } completion:nil];
 
 }
 
@@ -24,33 +38,15 @@ UIVisualEffectView* blurView;
 
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-
-    [super viewWillAppear:animated];
-
-    [self.navigationController.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
-
-    blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleRegular];
-    blurView = [[UIVisualEffectView alloc] initWithEffect:blur];
-    [blurView setFrame:[[self view] bounds]];
-    [blurView setAlpha:1.0];
-    [[self view] addSubview:blurView];
-
-    [UIView animateWithDuration:.4 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        [blurView setAlpha:0.0];
-    } completion:nil];
-
-}
-
 - (void)loadFromSpecifier:(PSSpecifier *)specifier {
 
-    NSString *sub = [specifier propertyForKey:@"HLSSub"];
-    NSString *title = [specifier name];
+    NSString* sub = [specifier propertyForKey:@"HLSSub"];
+    NSString* title = [specifier name];
 
-    _specifiers = [[self loadSpecifiersFromPlistName:sub target:self] retain];
+    _specifiers = [self loadSpecifiersFromPlistName:sub target:self];
 
     [self setTitle:title];
-    [self.navigationItem setTitle:title];
+    [[self navigationItem] setTitle:title];
 
 }
 
@@ -61,15 +57,9 @@ UIVisualEffectView* blurView;
 
 }
 
-- (bool)shouldReloadSpecifiersOnResume {
-
-    return false;
-
-}
-
 - (void)showFontPicker {
     
-    UIFontPickerViewController* fontPicker = [[UIFontPickerViewController alloc] init];
+    UIFontPickerViewController* fontPicker = [UIFontPickerViewController new];
     fontPicker.delegate = self;
     [self presentViewController:fontPicker animated:YES completion:nil];
     
@@ -77,11 +67,10 @@ UIVisualEffectView* blurView;
 
 - (void)fontPickerViewControllerDidPickFont:(UIFontPickerViewController *)viewController {
     
-    UIFontDescriptor* descriptor = viewController.selectedFontDescriptor;
+    UIFontDescriptor* descriptor = [viewController selectedFontDescriptor];
     UIFont* font = [UIFont fontWithDescriptor:descriptor size:17];
 
-    HBPreferences* preferences = [[HBPreferences alloc] initWithIdentifier: @"love.litten.heartlinespreferences"];
-    [preferences setObject:font.familyName forKey:@"customFont"];
+    [[self preferences] setObject:[font familyName] forKey:@"customFont"];
     
 }
 

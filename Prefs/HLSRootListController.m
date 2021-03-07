@@ -1,81 +1,72 @@
 #include "HLSRootListController.h"
-#import "../Tweak/Heartlines.h"
-
-BOOL enabled = NO;
-
-UIBlurEffect* blur;
-UIVisualEffectView* blurView;
-UIImage* currentArtwork;
 
 @implementation HLSRootListController
-
-- (instancetype)init {
-
-    self = [super init];
-
-    if (self) {
-        HLSAppearanceSettings* appearanceSettings = [[HLSAppearanceSettings alloc] init];
-        self.hb_appearanceSettings = appearanceSettings;
-        self.enableSwitch = [[UISwitch alloc] init];
-        self.enableSwitch.onTintColor = [UIColor colorWithRed: 0.62 green: 0.78 blue: 0.86 alpha: 1.00];
-        [self.enableSwitch addTarget:self action:@selector(toggleState) forControlEvents:UIControlEventTouchUpInside];
-        UIBarButtonItem* switchy = [[UIBarButtonItem alloc] initWithCustomView: self.enableSwitch];
-        self.navigationItem.rightBarButtonItem = switchy;
-
-        self.navigationItem.titleView = [UIView new];
-        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,10,10)];
-        self.titleLabel.font = [UIFont boldSystemFontOfSize:17];
-        self.titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        self.titleLabel.text = @"1.3";
-        self.titleLabel.textColor = [UIColor whiteColor];
-        self.titleLabel.textAlignment = NSTextAlignmentCenter;
-        [self.navigationItem.titleView addSubview:self.titleLabel];
-
-        self.iconView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,10,10)];
-        self.iconView.contentMode = UIViewContentModeScaleAspectFit;
-        self.iconView.image = [UIImage imageWithContentsOfFile:@"/Library/PreferenceBundles/HeartlinesPrefs.bundle/icon@2x.png"];
-        self.iconView.translatesAutoresizingMaskIntoConstraints = NO;
-        self.iconView.alpha = 0.0;
-        [self.navigationItem.titleView addSubview:self.iconView];
-        
-        [NSLayoutConstraint activateConstraints:@[
-            [self.titleLabel.topAnchor constraintEqualToAnchor:self.navigationItem.titleView.topAnchor],
-            [self.titleLabel.leadingAnchor constraintEqualToAnchor:self.navigationItem.titleView.leadingAnchor],
-            [self.titleLabel.trailingAnchor constraintEqualToAnchor:self.navigationItem.titleView.trailingAnchor],
-            [self.titleLabel.bottomAnchor constraintEqualToAnchor:self.navigationItem.titleView.bottomAnchor],
-            [self.iconView.topAnchor constraintEqualToAnchor:self.navigationItem.titleView.topAnchor],
-            [self.iconView.leadingAnchor constraintEqualToAnchor:self.navigationItem.titleView.leadingAnchor],
-            [self.iconView.trailingAnchor constraintEqualToAnchor:self.navigationItem.titleView.trailingAnchor],
-            [self.iconView.bottomAnchor constraintEqualToAnchor:self.navigationItem.titleView.bottomAnchor],
-        ]];
-    }
-
-    return self;
-
-}
-
--(NSArray *)specifiers {
-
-	if (_specifiers == nil) {
-		_specifiers = [[self loadSpecifiersFromPlistName:@"Root" target:self] retain];
-	}
-
-	return _specifiers;
-    
-}
 
 - (void)viewDidLoad {
 
     [super viewDidLoad];
 
-    self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0,0,200,200)];
-    self.headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,200,200)];
-    self.headerImageView.contentMode = UIViewContentModeScaleAspectFill;
-    self.headerImageView.image = [UIImage imageWithContentsOfFile:@"/Library/PreferenceBundles/HeartlinesPrefs.bundle/Banner.png"];
-    self.headerImageView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.headerImageView.clipsToBounds = YES;
+    self.appearanceSettings = [HLSAppearanceSettings new];
+    self.hb_appearanceSettings = [self appearanceSettings];
 
-    [self.headerView addSubview:self.headerImageView];
+
+    self.preferences = [[HBPreferences alloc] initWithIdentifier: @"love.litten.heartlinespreferences"];
+
+
+    self.enableSwitch = [UISwitch new];
+    [[self enableSwitch] setOnTintColor:[UIColor colorWithRed: 0.62 green: 0.78 blue: 0.86 alpha: 1.00]];
+    [[self enableSwitch] addTarget:self action:@selector(setEnabled) forControlEvents:UIControlEventTouchUpInside];
+
+
+    self.item = [[UIBarButtonItem alloc] initWithCustomView: [self enableSwitch]];
+    self.navigationItem.rightBarButtonItem = [self item];
+    [[self navigationItem] setRightBarButtonItem:[self item]];
+
+
+    self.navigationItem.titleView = [UIView new];
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+    [[self titleLabel] setFont:[UIFont boldSystemFontOfSize:17]];
+    [[self titleLabel] setText:@"1.4"];
+    [[self titleLabel] setTextColor:[UIColor whiteColor]];
+    [[self titleLabel] setTextAlignment:NSTextAlignmentCenter];
+    [[[self navigationItem] titleView] addSubview:[self titleLabel]];
+
+    self.titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [NSLayoutConstraint activateConstraints:@[
+        [self.titleLabel.topAnchor constraintEqualToAnchor:self.navigationItem.titleView.topAnchor],
+        [self.titleLabel.leadingAnchor constraintEqualToAnchor:self.navigationItem.titleView.leadingAnchor],
+        [self.titleLabel.trailingAnchor constraintEqualToAnchor:self.navigationItem.titleView.trailingAnchor],
+        [self.titleLabel.bottomAnchor constraintEqualToAnchor:self.navigationItem.titleView.bottomAnchor],
+    ]];
+
+
+    self.iconView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+    [[self iconView] setContentMode:UIViewContentModeScaleAspectFit];
+    [[self iconView] setImage:[UIImage imageWithContentsOfFile:@"/Library/PreferenceBundles/HeartlinesPrefs.bundle/icon.png"]];
+    [[self iconView] setAlpha:0.0];
+    [[[self navigationItem] titleView] addSubview:[self iconView]];
+
+    self.iconView.translatesAutoresizingMaskIntoConstraints = NO;
+    [NSLayoutConstraint activateConstraints:@[
+        [self.iconView.topAnchor constraintEqualToAnchor:self.navigationItem.titleView.topAnchor],
+        [self.iconView.leadingAnchor constraintEqualToAnchor:self.navigationItem.titleView.leadingAnchor],
+        [self.iconView.trailingAnchor constraintEqualToAnchor:self.navigationItem.titleView.trailingAnchor],
+        [self.iconView.bottomAnchor constraintEqualToAnchor:self.navigationItem.titleView.bottomAnchor],
+    ]];
+
+
+    self.blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleRegular];
+    self.blurView = [[UIVisualEffectView alloc] initWithEffect:[self blur]];
+
+
+    self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
+    self.headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
+    [[self headerImageView] setContentMode:UIViewContentModeScaleAspectFill];
+    [[self headerImageView] setImage:[UIImage imageWithContentsOfFile:@"/Library/PreferenceBundles/HeartlinesPrefs.bundle/Banner.png"]];
+    [[self headerImageView] setClipsToBounds:YES];
+    [[self headerView] addSubview:[self headerImageView]];
+
+    self.headerImageView.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
         [self.headerImageView.topAnchor constraintEqualToAnchor:self.headerView.topAnchor],
         [self.headerImageView.leadingAnchor constraintEqualToAnchor:self.headerView.leadingAnchor],
@@ -83,15 +74,30 @@ UIImage* currentArtwork;
         [self.headerImageView.bottomAnchor constraintEqualToAnchor:self.headerView.bottomAnchor],
     ]];
 
-    _table.tableHeaderView = self.headerView;
+    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Library/MobileSubstrate/DynamicLibraries/Heartlines.disabled"]) {
+        [[self enableSwitch] setEnabled:NO];
+
+        UIAlertController* alertController = [UIAlertController alertControllerWithTitle:@"Heartlines" message:@"Heartlines has detected that you have disabled it with iCleaner Pro, here are some quick actions you can perform" preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* resetAction = [UIAlertAction actionWithTitle:@"Reset preferences" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
+            [self resetPreferences];
+        }];
+
+        UIAlertAction* backAction = [UIAlertAction actionWithTitle:@"Back" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
+            [[self navigationController] popViewControllerAnimated:YES];
+        }];
+
+        UIAlertAction* ignoreAction = [UIAlertAction actionWithTitle:@"Ignore" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
+            [[self enableSwitch] setEnabled:YES];
+        }];
+
+        [alertController addAction:resetAction];
+        [alertController addAction:backAction];
+        [alertController addAction:ignoreAction];
+
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
     
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
-    tableView.tableHeaderView = self.headerView;
-    return [super tableView:tableView cellForRowAtIndexPath:indexPath];
-
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -101,19 +107,17 @@ UIImage* currentArtwork;
     CGRect frame = self.table.bounds;
     frame.origin.y = -frame.size.height;
 
-    self.navigationController.navigationController.navigationBar.barTintColor = [UIColor colorWithRed: 1.00 green: 0.73 blue: 0.81 alpha: 1.00];
-    [self.navigationController.navigationController.navigationBar setShadowImage: [UIImage new]];
-    self.navigationController.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    self.navigationController.navigationController.navigationBar.translucent = YES;
+    [[[[self navigationController] navigationController] navigationBar] setBarTintColor:[UIColor colorWithRed: 1.00 green: 0.73 blue: 0.81 alpha: 1.00]];
+    [[[[self navigationController] navigationController] navigationBar] setTintColor:[UIColor whiteColor]];
+    [[[[self navigationController] navigationController] navigationBar] setShadowImage:[UIImage new]];
+    [[[[self navigationController] navigationController] navigationBar] setTranslucent:YES];
 
-    blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleRegular];
-    blurView = [[UIVisualEffectView alloc] initWithEffect:blur];
-    [blurView setFrame:[[self view] bounds]];
-    [blurView setAlpha:1.0];
-    [[self view] addSubview:blurView];
+    [[self blurView] setFrame:[[self view] bounds]];
+    [[self blurView] setAlpha:1.0];
+    [[self view] addSubview:[self blurView]];
 
-    [UIView animateWithDuration:.4 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        [blurView setAlpha:0.0];
+    [UIView animateWithDuration:0.4 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [[self blurView] setAlpha:0.0];
     } completion:nil];
 
 }
@@ -122,41 +126,23 @@ UIImage* currentArtwork;
 
     [super viewDidAppear:animated];
 
-    [self.navigationController.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
-
-    [self setEnableSwitchState];
-
-    if (![[NSFileManager defaultManager] fileExistsAtPath:@"/Library/MobileSubstrate/DynamicLibraries/Heartlines.disabled"]) return;
-    [[self enableSwitch] setEnabled:NO];
-
-    UIAlertController* alertController = [UIAlertController alertControllerWithTitle:@"Heartlines"
-	message:@"Heartlines Preferences disabled due to Heartlines being disabled with iCleaner Pro"
-	preferredStyle:UIAlertControllerStyleAlert];
-	
-    UIAlertAction* resetAction = [UIAlertAction actionWithTitle:@"Reset Preferences" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
-			
-        [self resetPreferences];
-
-	}];
-
-    UIAlertAction* confirmAction = [UIAlertAction actionWithTitle:@"Okey" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
-			
-        [[self navigationController] popViewControllerAnimated:YES];
-
-	}];
-
-	[alertController addAction:confirmAction];
-    [alertController addAction:resetAction];
-
-	[self presentViewController:alertController animated:YES completion:nil];
+    [self setEnabledState];
 
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
+- (NSArray *)specifiers {
 
-    [super viewWillDisappear:animated];
+	if (_specifiers == nil) _specifiers = [self loadSpecifiersFromPlistName:@"Root" target:self];
 
-    [self.navigationController.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor blackColor]}];
+	return _specifiers;
+    
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    tableView.tableHeaderView = [self headerView];
+
+    return [super tableView:tableView cellForRowAtIndexPath:indexPath];
 
 }
 
@@ -164,72 +150,42 @@ UIImage* currentArtwork;
 
     CGFloat offsetY = scrollView.contentOffset.y;
 
-    if (offsetY > 200) {
+    if (offsetY > 200)
         [UIView animateWithDuration:0.2 animations:^{
-            self.iconView.alpha = 1.0;
-            self.titleLabel.alpha = 0.0;
+            [[self iconView] setAlpha:1.0];
+            [[self titleLabel] setAlpha:0.0];
         }];
-    } else {
+    else
         [UIView animateWithDuration:0.2 animations:^{
-            self.iconView.alpha = 0.0;
-            self.titleLabel.alpha = 1.0;
+            [[self iconView] setAlpha:0.0];
+            [[self titleLabel] setAlpha:1.0];
         }];
-    }
 
 }
 
-- (void)toggleState {
+- (void)setEnabled {
+        
+    if ([[[self preferences] objectForKey:@"Enabled"] isEqual:@(YES)])
+        [[self preferences] setBool:NO forKey:@"Enabled"];
+    else
+        [[self preferences] setBool:YES forKey:@"Enabled"];
 
-    [[self enableSwitch] setEnabled:NO];
-
-    NSString* path = [NSString stringWithFormat:@"/var/mobile/Library/Preferences/love.litten.heartlinespreferences.plist"];
-    NSMutableDictionary* dictionary = [NSMutableDictionary dictionaryWithContentsOfFile:path];
-    NSSet* allKeys = [NSSet setWithArray:[dictionary allKeys]];
-    HBPreferences* preferences = [[HBPreferences alloc] initWithIdentifier: @"love.litten.heartlinespreferences"];
-    
-    if (!([[NSFileManager defaultManager] fileExistsAtPath:@"/var/mobile/Library/Preferences/love.litten.heartlinespreferences.plist"])) {
-        enabled = YES;
-        [preferences setBool:enabled forKey:@"Enabled"];
-        [self respring];
-    } else if (!([allKeys containsObject:@"Enabled"])) {
-        enabled = YES;
-        [preferences setBool:enabled forKey:@"Enabled"];
-        [self respring];
-    } else if ([[preferences objectForKey:@"Enabled"] isEqual:@(NO)]) {
-        enabled = YES;
-        [preferences setBool:enabled forKey:@"Enabled"];
-        [self respring];
-    } else if ([[preferences objectForKey:@"Enabled"] isEqual:@(YES)]) {
-        enabled = NO;
-        [preferences setBool:enabled forKey:@"Enabled"];
-        [self respring];
-    }
+    [self respring];
 
 }
 
-- (void)setEnableSwitchState {
+- (void)setEnabledState {
 
-    NSString* path = [NSString stringWithFormat:@"/var/mobile/Library/Preferences/love.litten.heartlinespreferences.plist"];
-    NSMutableDictionary* dictionary = [NSMutableDictionary dictionaryWithContentsOfFile:path];
-    NSSet* allKeys = [NSSet setWithArray:[dictionary allKeys]];
-    HBPreferences* preferences = [[HBPreferences alloc] initWithIdentifier: @"love.litten.heartlinespreferences"];
-    
-    if (!([[NSFileManager defaultManager] fileExistsAtPath:@"/var/mobile/Library/Preferences/love.litten.heartlinespreferences.plist"]))
-        [[self enableSwitch] setOn:NO animated:YES];
-    else if (!([allKeys containsObject:@"Enabled"]))
-        [[self enableSwitch] setOn:NO animated:YES];
-    else if ([[preferences objectForKey:@"Enabled"] isEqual:@(YES)])
+    if ([[[self preferences] objectForKey:@"Enabled"] isEqual:@(YES)])
         [[self enableSwitch] setOn:YES animated:YES];
-    else if ([[preferences objectForKey:@"Enabled"] isEqual:@(NO)])
+    else
         [[self enableSwitch] setOn:NO animated:YES];
 
 }
 
 - (void)resetPrompt {
 
-    UIAlertController* resetAlert = [UIAlertController alertControllerWithTitle:@"Heartlines"
-	message:@"Do You Really Want To Reset Your Preferences?"
-	preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController* resetAlert = [UIAlertController alertControllerWithTitle:@"Heartlines" message:@"Do you really want to reset your preferences?" preferredStyle:UIAlertControllerStyleActionSheet];
 	
     UIAlertAction* confirmAction = [UIAlertAction actionWithTitle:@"Yaw" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
         [self resetPreferences];
@@ -246,8 +202,7 @@ UIImage* currentArtwork;
 
 - (void)resetPreferences {
 
-    HBPreferences* preferences = [[HBPreferences alloc] initWithIdentifier: @"love.litten.heartlinespreferences"];
-    [preferences removeAllObjects];
+    [[self preferences] removeAllObjects];
     
     [[self enableSwitch] setOn:NO animated: YES];
     [self respring];
@@ -256,28 +211,18 @@ UIImage* currentArtwork;
 
 - (void)respring {
 
-    blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleRegular];
-    blurView = [[UIVisualEffectView alloc] initWithEffect:blur];
-    [blurView setFrame:self.view.bounds];
-    [blurView setAlpha:0.0];
-    [[self view] addSubview:blurView];
+    [[self blurView] setFrame:[[self view] bounds]];
+    [[self blurView] setAlpha:0.0];
+    [[self view] addSubview:[self blurView]];
 
     [UIView animateWithDuration:1.0 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        [blurView setAlpha:1.0];
+        [[self blurView] setAlpha:1.0];
     } completion:^(BOOL finished) {
-        [self respringUtil];
+        if (![[NSFileManager defaultManager] fileExistsAtPath:@"/Library/MobileSubstrate/DynamicLibraries/shuffle.dylib"])
+            [HBRespringController respringAndReturnTo:[NSURL URLWithString:@"prefs:root=Heartlines"]];
+        else
+            [HBRespringController respringAndReturnTo:[NSURL URLWithString:@"prefs:root=Tweaks&path=Heartlines"]];
     }];
-
-}
-
-- (void)respringUtil {
-
-    NSTask* task = [[NSTask alloc] init];
-    [task setLaunchPath:@"/usr/bin/sbreload"];
-
-    [HBRespringController respringAndReturnTo:[NSURL URLWithString:@"prefs:root=Heartlines"]];
-
-    [task launch];
 
 }
 

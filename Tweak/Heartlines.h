@@ -8,35 +8,28 @@
 #import <dlfcn.h>
 #import <Cephei/HBPreferences.h>
 
-HBPreferences* preferences;
-NSDictionary* preferencesColorDictionary;
+HBPreferences* preferences = nil;
+NSDictionary* preferencesColorDictionary = nil;
 
-extern BOOL enabled;
+BOOL enabled = NO;
 extern CFArrayRef CPBitmapCreateImagesFromData(CFDataRef cpbitmap, void *, int, void *);
 
 BOOL firstTimeLoaded = NO;
 BOOL isLocked = NO;
 BOOL justPluggedIn = NO;
 BOOL isTimerRunning = NO;
-UILabel* weatherReportLabel;
-UILabel* weatherConditionLabel;
-UILabel* timeLabel;
-UILabel* dateLabel;
-UILabel* upNextLabel;
-UILabel* upNextEventLabel;
-UIView* invisibleInk;
 NSTimer* timer = nil;
-UIColor* backgroundWallpaperColor;
-UIColor* primaryWallpaperColor;
-UIColor* secondaryWallpaperColor;
-UIColor* darkBackgroundWallpaperColor;
-UIColor* darkPrimaryWallpaperColor;
-UIColor* darkSecondaryWallpaperColor;
-UIImage* currentArtwork;
-NSData* lastArtworkData;
-UIColor* backgroundArtworkColor;
-UIColor* primaryArtworkColor;
-UIColor* secondaryArtworkColor;
+UIColor* backgroundWallpaperColor = nil;
+UIColor* primaryWallpaperColor = nil;
+UIColor* secondaryWallpaperColor = nil;
+UIColor* darkBackgroundWallpaperColor = nil;
+UIColor* darkPrimaryWallpaperColor = nil;
+UIColor* darkSecondaryWallpaperColor = nil;
+UIImage* currentArtwork = nil;
+NSData* lastArtworkData = nil;
+UIColor* backgroundArtworkColor = nil;
+UIColor* primaryArtworkColor = nil;
+UIColor* secondaryArtworkColor = nil;
 
 // style & position
 NSString* styleValue = @"0";
@@ -103,6 +96,13 @@ BOOL invisibleInkEffectSwitch = YES;
 
 @interface SBFLockScreenDateView : UIView
 - (void)updateHeartlinesUpNext:(NSNotification *)notification;
+@property(nonatomic, retain)UILabel* weatherReportLabel;
+@property(nonatomic, retain)UILabel* weatherConditionLabel;
+@property(nonatomic, retain)UILabel* timeLabel;
+@property(nonatomic, retain)UILabel* dateLabel;
+@property(nonatomic, retain)UILabel* upNextLabel;
+@property(nonatomic, retain)UILabel* upNextEventLabel;
+@property(nonatomic, retain)UIView* invisibleInk;
 @end
 
 @interface CSCoverSheetViewController : UIViewController
