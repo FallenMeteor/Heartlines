@@ -18,13 +18,6 @@ BOOL firstTimeLoaded = NO;
 BOOL isLocked = NO;
 BOOL justPluggedIn = NO;
 BOOL isTimerRunning = NO;
-UILabel* weatherReportLabel = nil;
-UILabel* weatherConditionLabel = nil;
-UILabel* timeLabel = nil;
-UILabel* dateLabel = nil;
-UILabel* upNextLabel = nil;
-UILabel* upNextEventLabel = nil;
-UIView* invisibleInk = nil;
 NSTimer* timer = nil;
 UIColor* backgroundWallpaperColor = nil;
 UIColor* primaryWallpaperColor = nil;
@@ -107,6 +100,13 @@ BOOL magsafeCompatibilitySwitch = NO;
 @end
 
 @interface SBFLockScreenDateView : UIView
+@property(nonatomic, retain)UILabel* weatherReportLabel;
+@property(nonatomic, retain)UILabel* weatherConditionLabel;
+@property(nonatomic, retain)UILabel* timeLabel;
+@property(nonatomic, retain)UILabel* dateLabel;
+@property(nonatomic, retain)UILabel* upNextLabel;
+@property(nonatomic, retain)UILabel* upNextEventLabel;
+@property(nonatomic, retain)UIView* invisibleInk;
 - (void)updateHeartlinesUpNext:(NSNotification *)notification;
 @end
 
