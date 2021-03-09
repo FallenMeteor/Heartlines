@@ -26,7 +26,7 @@
     self.navigationItem.titleView = [UIView new];
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
     [[self titleLabel] setFont:[UIFont boldSystemFontOfSize:17]];
-    [[self titleLabel] setText:@"1.4.1"];
+    [[self titleLabel] setText:@"1.4.2"];
     [[self titleLabel] setTextColor:[UIColor whiteColor]];
     [[self titleLabel] setTextAlignment:NSTextAlignmentCenter];
     [[[self navigationItem] titleView] addSubview:[self titleLabel]];
@@ -203,6 +203,7 @@
 - (void)resetPreferences {
 
     [[self preferences] removeAllObjects];
+    [[NSFileManager defaultManager] removeItemAtPath:@"/var/mobile/Library/Preferences/love.litten.heartlines.colorspreferences.plist" error:nil];
     
     [[self enableSwitch] setOn:NO animated: YES];
     [self respring];
