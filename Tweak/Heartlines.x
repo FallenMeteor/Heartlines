@@ -840,7 +840,6 @@ SBFLockScreenDateView* timeDateView = nil;
 %new
 - (void)updateHeartlinesUpNext:(NSNotification *)notification { // update up next
 
-    if (![notification.name isEqual:@"heartlinesUpdateUpNext"]) return;
     EKEventStore* store = [EKEventStore new];
     NSCalendar* calendar = [NSCalendar currentCalendar];
 
@@ -861,29 +860,55 @@ SBFLockScreenDateView* timeDateView = nil;
     NSArray* events = [store eventsMatchingPredicate:calendarPredicate];
 
     NSPredicate* reminderPredicate = [store predicateForIncompleteRemindersWithDueDateStarting:todayReminders ending:daysFromNow calendars:nil];
+    __block NSArray* availableReminders;
 
     // get first event
-    if ([events count]) {
-        [[self upNextEventLabel] setText:[NSString stringWithFormat:@"%@", [events[0] title]]];
-        if (!(hideUntilAuthenticatedSwitch && isLocked)) [[self upNextEventLabel] setHidden:NO];
+    if (showCalendarEventsSwitch) {
+        if ([events count]) {
+            [[self upNextEventLabel] setText:[NSString stringWithFormat:@"%@", [events[0] title]]];
+            if (!(hideUntilAuthenticatedSwitch && isLocked)) [[self upNextEventLabel] setHidden:NO];
+        } else {
+            if ([[HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"] isEqual:nil]) [[self upNextEventLabel] setText:@"No upcoming events"];
+            else if (![[HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"] isEqual:nil]) [[self upNextEventLabel] setText:[NSString stringWithFormat:@"%@", [HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"]]];
+        }
     }
 
-    // return if user has events and does not prioritize reminders
-    if (!prioritizeRemindersSwitch && [events count]) return;
-
     // get first reminder and manage no events status
-    [store fetchRemindersMatchingPredicate:reminderPredicate completion:^(NSArray* reminders) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if ([reminders count]) {
-                [[self upNextEventLabel] setText:[NSString stringWithFormat:@"%@", [reminders[0] title]]];
-                if (!(hideUntilAuthenticatedSwitch && isLocked)) [[self upNextEventLabel] setHidden:NO];
-                return;
-            } else if (![reminders count] && ![events count]) {
+    if (showRemindersSwitch) {
+        if ((prioritizeRemindersSwitch && [events count]) || ![events count]) {
+            [store fetchRemindersMatchingPredicate:reminderPredicate completion:^(NSArray* reminders) {
+                availableReminders = reminders;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if ([reminders count]) {
+                        [[self upNextEventLabel] setText:[NSString stringWithFormat:@"%@", [reminders[0] title]]];
+                        if (!(hideUntilAuthenticatedSwitch && isLocked)) [[self upNextEventLabel] setHidden:NO];
+                    } else if (![reminders count] && ![events count]) {
+                        if ([[HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"] isEqual:nil]) [[self upNextEventLabel] setText:@"No upcoming events"];
+                        else if (![[HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"] isEqual:nil]) [[self upNextEventLabel] setText:[NSString stringWithFormat:@"%@", [HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"]]];
+                    }
+                });
+            }];
+        }
+    }
+
+    // get next alarm
+    if (showNextAlarmSwitch) {
+        if ((prioritizeAlarmsSwitch && ([events count] || [availableReminders count])) || (![events count] && ![availableReminders count])) {
+            if ([[[[%c(SBScheduledAlarmObserver) sharedInstance] valueForKey:@"_alarmManager"] cache] nextAlarm]) {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                    NSDate* fireDate = [[[[[%c(SBScheduledAlarmObserver) sharedInstance] valueForKey:@"_alarmManager"] cache] nextAlarm] nextFireDate];
+                    NSDateComponents* components = [[NSCalendar currentCalendar] components:NSCalendarUnitHour|NSCalendarUnitMinute fromDate:fireDate];
+                    if ([[HLSLocalization stringForKey:@"ALARM"] isEqual:nil]) [[self upNextEventLabel] setText:[NSString stringWithFormat:@"Alarm: %02ld:%02ld", [components hour], [components minute]]];
+                    else if (![[HLSLocalization stringForKey:@"ALARM"] isEqual:nil]) [[self upNextEventLabel] setText:[NSString stringWithFormat:@"%@: %02ld:%02ld", [HLSLocalization stringForKey:@"ALARM"], [components hour], [components minute]]];
+                    if (!(hideUntilAuthenticatedSwitch && isLocked)) [[self upNextEventLabel] setHidden:NO];
+                });
+            } else {
                 if ([[HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"] isEqual:nil]) [[self upNextEventLabel] setText:@"No upcoming events"];
                 else if (![[HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"] isEqual:nil]) [[self upNextEventLabel] setText:[NSString stringWithFormat:@"%@", [HLSLocalization stringForKey:@"NO_UPCOMING_EVENTS"]]];
             }
-        });
-    }];
+            
+        }
+    }
 
 }
 
