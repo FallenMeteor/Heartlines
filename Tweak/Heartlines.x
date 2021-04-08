@@ -79,11 +79,27 @@ SBFLockScreenDateView* timeDateView = nil;
 
 %end
 
-%hook SBFLockScreenDateViewController
+%hook SBFLockScreenDateSubtitleView
 
-- (void)setContentAlpha:(double)arg1 withSubtitleVisible:(BOOL)arg2 { // hide original time and date
+- (void)didMoveToWindow { // remove original date label
 
-    %orig(0, NO);
+    %orig;
+
+    SBUILegibilityLabel* originalDateLabel = [self valueForKey:@"_label"];
+    [originalDateLabel removeFromSuperview];
+
+}
+
+%end
+
+%hook SBFLockScreenDateSubtitleDateView
+
+- (void)didMoveToWindow { // remove lunar label
+
+    %orig;
+
+    SBFLockScreenAlternateDateLabel* lunarLabel = [self valueForKey:@"_alternateDateLabel"];
+    [lunarLabel removeFromSuperview];
 
 }
 
@@ -113,6 +129,10 @@ SBFLockScreenDateView* timeDateView = nil;
 - (void)didMoveToWindow { // add heartlines
 
 	%orig;
+
+    // remove original time label
+    SBUILegibilityLabel* originalTimeLabel = [self valueForKey:@"_timeLabel"];
+    [originalTimeLabel removeFromSuperview];
 
     if (firstTimeLoaded) return;
     firstTimeLoaded = YES;

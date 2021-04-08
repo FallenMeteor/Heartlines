@@ -99,6 +99,18 @@ BOOL magsafeCompatibilitySwitch = NO;
 - (id)_viewControllerForAncestor;
 @end
 
+@interface SBUILegibilityLabel : UILabel
+@end
+
+@interface SBFLockScreenAlternateDateLabel : UILabel
+@end
+
+@interface SBFLockScreenDateSubtitleView : UIView
+@end
+
+@interface SBFLockScreenDateSubtitleDateView : UIView
+@end
+
 @interface SBFLockScreenDateView : UIView
 @property(nonatomic, retain)UILabel* weatherReportLabel;
 @property(nonatomic, retain)UILabel* weatherConditionLabel;
